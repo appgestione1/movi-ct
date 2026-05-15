@@ -1,0 +1,18 @@
+{
+  "name": "Metro CT",
+  "short_name": "Metro CT",
+  "description": "Orari in tempo reale della metropolitana FCE di Catania",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0d1b2a",
+  "theme_color": "#0d1b2a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/metro-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
