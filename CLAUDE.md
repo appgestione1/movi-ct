@@ -63,5 +63,21 @@ Mappa verticale: Stesicoro in CIMA, Monte Po in FONDO (funzione `fy()` in MetroM
 ## Dati GTFS
 I file in `public/gtfs/` sono generati da `scripts/processGtfs.cjs` a partire da `gtfs_amts.zip` (escluso da git). Non rigenerare a meno di aggiornamenti AMTS.
 
+## Sezione Monopattini (`src/components/ScooterApp.jsx`)
+
+Provider configurati in `src/data/scooterProviders.js`:
+
+| Provider | Stato | GBFS Catania |
+|---|---|---|
+| **Dott** | ✅ Live | `https://gbfs.api.ridedott.com/public/v2/catania/free_bike_status.json` |
+| **Lime** | 🔗 Link app | Nessun GBFS pubblico per CT (solo Bari in Italia) |
+| Bird, Tier, Voi, Bolt | 🔜 Presto | `gbfsUrl: null, comingSoon: true` |
+
+- Mappa Leaflet dark (CartoDB tiles)
+- Fetch ogni 60 s, CORS supportato da Dott
+- Pulsante locate (centra sulla posizione utente), contatore "N a 500 m"
+- Popup su ogni marker: nome provider + stato batteria
+- Per aggiungere un nuovo provider: aggiungi oggetto in `scooterProviders.js` con `gbfsUrl` e `comingSoon: false`
+
 ## Fine sessione
 Aggiorna questo file con le modifiche significative e committa.
