@@ -917,6 +917,306 @@ html, body {
   text-align: center;
 }
 
+/* ══════════════════════════════════════════════════
+   SCOOTER APP
+   ══════════════════════════════════════════════════ */
+
+.scooter-app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+  background: var(--bg);
+  position: relative;
+}
+
+/* ── Header back button ──────────────────────────── */
+.scooter-back-btn {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.scooter-back-btn:active { background: rgba(255,255,255,0.12); }
+
+/* ── Provider pills ──────────────────────────────── */
+.scooter-pills {
+  display: flex;
+  gap: 6px;
+  padding: 8px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+}
+.scooter-pills::-webkit-scrollbar { display: none; }
+
+.scooter-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.scooter-pill.active {
+  background: color-mix(in srgb, var(--pc, #888) 15%, transparent);
+  color: #fff;
+}
+.scooter-pill.soon {
+  opacity: 0.45;
+  cursor: default;
+}
+.scooter-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.scooter-pill-tag {
+  font-size: 9px;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.12);
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+/* ── Map ─────────────────────────────────────────── */
+.scooter-map-wrap {
+  flex: 1;
+  position: relative;
+  min-height: 0;
+}
+.scooter-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* Leaflet dark theme overrides */
+.scooter-map .leaflet-control-zoom a {
+  background: rgba(13,27,42,0.92);
+  color: #e8e4dc;
+  border-color: rgba(79,195,247,0.2);
+}
+.scooter-map .leaflet-control-zoom a:hover {
+  background: rgba(30,58,90,0.95);
+}
+.scooter-map .leaflet-control-attribution {
+  background: rgba(7,13,22,0.7) !important;
+  color: #4a6a88 !important;
+  font-size: 9px !important;
+}
+.scooter-map .leaflet-control-attribution a { color: #4fc3f7 !important; }
+
+/* Overlay messages on map */
+.scooter-map-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 500;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.scooter-map-overlay.error {
+  background: rgba(230,57,70,0.2);
+  border: 1px solid rgba(230,57,70,0.4);
+  color: #ff8a8a;
+}
+.scooter-map-overlay.info {
+  background: rgba(13,27,42,0.85);
+  border: 1px solid rgba(79,195,247,0.2);
+  color: var(--muted);
+}
+.scooter-map-overlay.loading {
+  background: rgba(13,27,42,0.8);
+  border: 1px solid rgba(79,195,247,0.15);
+  color: var(--muted);
+}
+
+/* Locate + timestamp overlays */
+.scooter-locate {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 500;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(13,27,42,0.88);
+  border: 1px solid rgba(79,195,247,0.3);
+  color: #4fc3f7;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+.scooter-locate:active { background: rgba(30,58,90,0.95); }
+
+.scooter-timestamp {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 500;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: rgba(7,13,22,0.75);
+  border: 1px solid rgba(255,255,255,0.06);
+  color: var(--muted);
+  font-size: 11px;
+  pointer-events: none;
+}
+
+/* ── Detail sheet (shows when scooter tapped) ─────── */
+.scooter-detail {
+  flex-shrink: 0;
+  background: rgba(13,27,42,0.98);
+  border-top: 2px solid rgba(128,128,128,0.3);
+  padding: 14px 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  backdrop-filter: blur(20px);
+  animation: slideUp 0.2s ease;
+}
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0.6; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.scooter-detail-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.scooter-detail-header {
+  justify-content: space-between;
+}
+.scooter-detail-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.scooter-detail-provider {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+.scooter-detail-address {
+  font-size: 12px;
+  color: var(--muted);
+  padding-left: 2px;
+}
+.scooter-detail-stats {
+  display: flex;
+  gap: 10px;
+}
+.scooter-detail-stat {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.scooter-detail-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+.scooter-detail-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+.scooter-detail-close {
+  background: rgba(255,255,255,0.08);
+  border: none;
+  border-radius: 8px;
+  color: var(--muted);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.scooter-detail-close:active { background: rgba(255,255,255,0.14); }
+
+/* ── Bottom bar (default, no scooter selected) ───── */
+.scooter-bottom {
+  flex-shrink: 0;
+  padding: 12px 16px 16px;
+  background: rgba(8,17,28,0.95);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scooter-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.scooter-count strong { color: var(--text); }
+
+.scooter-refresh {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+  padding: 3px 8px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-left: auto;
+}
+.scooter-refresh:disabled { opacity: 0.35; cursor: default; }
+.scooter-refresh:not(:disabled):active { background: rgba(255,255,255,0.12); }
+
+/* ── Open-in-app button (shared by bottom + detail) */
+.scooter-open-btn {
+  display: block;
+  text-align: center;
+  background: color-mix(in srgb, var(--pc, #888) 20%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pc, #888) 40%, transparent);
+  color: var(--pc, #888);
+  padding: 11px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+.scooter-open-btn:active {
+  background: color-mix(in srgb, var(--pc, #888) 30%, transparent);
+}
+
 /* ── Bus view ───────────────────────────────────── */
 .bus-badge {
   font-size: 14px;

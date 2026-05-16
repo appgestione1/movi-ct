@@ -14,9 +14,19 @@ export const SCOOTER_PROVIDERS = [
   {
     id: 'lime',
     name: 'Lime',
-    color: '#00C851',
-    gbfsUrl: null,
+    color: '#C8F135',
+    // Proxy Vercel CORS → api/lime-gbfs.js (fallback a mock se Lime non ha Catania)
+    gbfsUrl: '/api/lime-gbfs?feed=free_bike_status',
     appUrl: 'https://li.me',
+    comingSoon: false,
+  },
+  {
+    id: 'elerent',
+    name: 'Elérent',
+    color: '#7C3AED',
+    // Proxy Vercel → api/elerent-gbfs.js (ex Helbiz)
+    gbfsUrl: '/api/elerent-gbfs',
+    appUrl: 'https://www.elerent.it',
     comingSoon: false,
   },
   {
