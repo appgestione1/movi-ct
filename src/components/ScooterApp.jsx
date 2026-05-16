@@ -21,6 +21,8 @@ function battColor(pct) {
   return '#FF6B6B';
 }
 
+const ZOOM_THRESHOLD = 15; // sotto → pallino, sopra → monopattino
+
 function makeScooterIcon(color) {
   return L.divIcon({
     className: '',
@@ -29,7 +31,7 @@ function makeScooterIcon(color) {
       background:${color};
       border:2.5px solid #fff;
       border-radius:50%;
-      box-shadow:0 2px 6px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.08);
+      box-shadow:0 2px 6px rgba(0,0,0,0.28),0 0 0 1px rgba(0,0,0,0.08);
     "></div>`,
     iconSize: [16, 16],
     iconAnchor: [8, 8],
@@ -44,11 +46,55 @@ function makeScooterIconSelected(color) {
       background:${color};
       border:3px solid #fff;
       border-radius:50%;
-      box-shadow:0 2px 10px rgba(0,0,0,0.3), 0 0 0 5px ${color}33;
+      box-shadow:0 2px 10px rgba(0,0,0,0.3),0 0 0 5px ${color}33;
     "></div>`,
     iconSize: [22, 22],
     iconAnchor: [11, 11],
   });
+}
+
+// Icone ad alto zoom (stile Lime): cerchio colorato con emoji 🛴
+function makeScooterIconZoomed(color) {
+  return L.divIcon({
+    className: '',
+    html: `<div style="
+      width:38px;height:38px;
+      background:${color};
+      border:2.5px solid #fff;
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:20px;line-height:1;
+      box-shadow:0 3px 10px rgba(0,0,0,0.22),0 0 0 1px rgba(0,0,0,0.06);
+    ">🛴</div>`,
+    iconSize: [38, 38],
+    iconAnchor: [19, 19],
+  });
+}
+
+function makeScooterIconZoomedSelected(color) {
+  return L.divIcon({
+    className: '',
+    html: `<div style="
+      width:48px;height:48px;
+      background:${color};
+      border:3px solid #fff;
+      border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-size:26px;line-height:1;
+      box-shadow:0 4px 16px rgba(0,0,0,0.28),0 0 0 7px ${color}33;
+    ">🛴</div>`,
+    iconSize: [48, 48],
+    iconAnchor: [24, 24],
+  });
+}
+
+// Restituisce la coppia di icone giusta in base allo zoom corrente
+function iconsForZoom(color, zoom) {
+  const zoomed = zoom >= ZOOM_THRESHOLD;
+  return {
+    normal:   zoomed ? makeScooterIconZoomed(color)         : makeScooterIcon(color),
+    selected: zoomed ? makeScooterIconZoomedSelected(color) : makeScooterIconSelected(color),
+  };
 }
 
 function makeUserIcon() {
@@ -86,7 +132,8 @@ export default function ScooterApp({ onBack }) {
   const layerRef    = useRef(null);
   const userPinRef  = useRef(null);
   const markerMap   = useRef(new Map()); // bike_id → marker
-  const selectedRef = useRef(null);      // stable ref, avoids stale closure
+  const selectedRef = useRef(null);      // stable ref, evita stale closure nel listener zoom
+  const colorRef    = useRef('#888');    // colore provider corrente, aggiornato ad ogni render
 
   const [activeId,   setActiveId]   = useState('dott');
   const [scooters,   setScooters]   = useState([]);
@@ -100,6 +147,7 @@ export default function ScooterApp({ onBack }) {
   selectedRef.current = selected;
 
   const provider = SCOOTER_PROVIDERS.find(p => p.id === activeId);
+  colorRef.current = provider?.color ?? '#888'; // sempre aggiornato, nessuna stale closure
 
   // ── Leaflet init ──────────────────────────────────────────────
   useEffect(() => {
@@ -123,6 +171,17 @@ export default function ScooterApp({ onBack }) {
 
     map.on('click', () => {
       setSelected(null);
+    });
+
+    // Cambia icone quando si supera la soglia di zoom (senza re-render React)
+    map.on('zoomend', () => {
+      const zoom = map.getZoom();
+      const color = colorRef.current;
+      const selectedId = selectedRef.current?.bike_id;
+      const { normal, selected: sel } = iconsForZoom(color, zoom);
+      markerMap.current.forEach((marker, id) => {
+        marker.setIcon(id === selectedId ? sel : normal);
+      });
     });
 
     return () => {
@@ -193,20 +252,22 @@ export default function ScooterApp({ onBack }) {
     markerMap.current.clear();
 
     const color = provider?.color ?? '#888';
+    const zoom  = mapRef.current?.getZoom() ?? 14;
+    const { normal } = iconsForZoom(color, zoom);
 
     scooters.forEach(s => {
       if (!s.lat || !s.lon) return;
-      const marker = L.marker([s.lat, s.lon], {
-        icon: makeScooterIcon(color),
-      });
+      const marker = L.marker([s.lat, s.lon], { icon: normal });
       marker.on('click', e => {
         e.originalEvent?.stopPropagation();
-        const prev = selectedRef.current;
+        const curZoom = mapRef.current?.getZoom() ?? 14;
+        const icons   = iconsForZoom(colorRef.current, curZoom);
         // Ripristina icona del precedente selezionato
+        const prev = selectedRef.current;
         if (prev && markerMap.current.has(prev.bike_id)) {
-          markerMap.current.get(prev.bike_id).setIcon(makeScooterIcon(color));
+          markerMap.current.get(prev.bike_id).setIcon(icons.normal);
         }
-        marker.setIcon(makeScooterIconSelected(color));
+        marker.setIcon(icons.selected);
         setSelected(s);
       });
       marker.addTo(layer);
@@ -214,11 +275,13 @@ export default function ScooterApp({ onBack }) {
     });
   }, [scooters, provider]);
 
-  // Quando si deseleziona, ripristina icona
+  // Quando si deseleziona, ripristina tutte le icone (rispettando lo zoom corrente)
   useEffect(() => {
     if (!selected) {
-      const color = provider?.color ?? '#888';
-      markerMap.current.forEach(m => m.setIcon(makeScooterIcon(color)));
+      const zoom  = mapRef.current?.getZoom() ?? 14;
+      const color = colorRef.current;
+      const { normal } = iconsForZoom(color, zoom);
+      markerMap.current.forEach(m => m.setIcon(normal));
     }
   }, [selected, provider]);
 
