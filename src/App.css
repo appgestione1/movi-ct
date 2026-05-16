@@ -726,6 +726,14 @@ html, body {
 
 .bus-btn:hover { box-shadow: 0 8px 40px rgba(79,195,247,0.2); }
 
+.scooter-btn {
+  background: linear-gradient(135deg, rgba(239,77,35,0.15), rgba(180,50,20,0.1));
+  border-color: rgba(239,77,35,0.25);
+  box-shadow: 0 8px 32px rgba(239,77,35,0.08);
+}
+
+.scooter-btn:hover { box-shadow: 0 8px 40px rgba(239,77,35,0.2); }
+
 .landing-btn-icon { font-size: 36px; line-height: 1; }
 
 .landing-btn-label {
@@ -1406,4 +1414,292 @@ html, body {
     0 2px 0 rgba(15,70,64,0.7),
     0 3px 8px rgba(42,157,143,0.1),
     inset 0 1px 0 rgba(255,255,255,0.07);
+}
+
+/* ═══════════════════════════════════════════════════
+   MONOPATTINI — ScooterApp
+   ═══════════════════════════════════════════════════ */
+
+.scooter-app {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Header back button (sostituisce home-btn fisso) */
+.scooter-back-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(79,195,247,0.2);
+  border-radius: 20px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 7px 16px;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+.scooter-back-btn:active {
+  background: rgba(79,195,247,0.1);
+  border-color: rgba(79,195,247,0.4);
+}
+
+.scooter-hdr-icon { font-size: 1.3rem; }
+
+/* ── Provider pills ──────────────────────────────── */
+.scooter-pills {
+  display: flex;
+  gap: 8px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  background: rgba(8,17,28,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.scooter-pills::-webkit-scrollbar { display: none; }
+
+.scooter-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 13px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+  flex-shrink: 0;
+}
+
+.scooter-pill.active {
+  border-color: var(--pc, #fff);
+  color: var(--pc, #fff);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--pc, #fff) 25%, transparent);
+}
+
+.scooter-pill.soon {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.scooter-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.scooter-pill-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+  padding: 1px 5px;
+  margin-left: 2px;
+}
+
+/* ── Mappa ───────────────────────────────────────── */
+.scooter-map-wrap {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+  min-height: 0;
+}
+
+.scooter-map {
+  width: 100%;
+  height: 100%;
+}
+
+.scooter-map-msg {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  z-index: 20;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.scooter-map-msg.error {
+  background: rgba(230,57,70,0.85);
+  color: #fff;
+}
+
+.scooter-map-msg.info {
+  background: rgba(15,30,45,0.88);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: var(--muted);
+}
+
+.scooter-locate {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  z-index: 20;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(8,17,28,0.88);
+  border: 1px solid rgba(79,195,247,0.3);
+  color: var(--cyan);
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.18s;
+}
+
+.scooter-locate:active {
+  background: rgba(79,195,247,0.12);
+  border-color: rgba(79,195,247,0.6);
+}
+
+.scooter-timestamp {
+  position: absolute;
+  bottom: 14px;
+  right: 60px;
+  z-index: 20;
+  font-size: 10px;
+  color: rgba(255,255,255,0.35);
+  background: rgba(8,17,28,0.7);
+  border-radius: 10px;
+  padding: 3px 9px;
+  pointer-events: none;
+}
+
+/* ── Bottom bar ──────────────────────────────────── */
+.scooter-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(8,17,28,0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  position: relative;
+  z-index: 10;
+  flex-shrink: 0;
+}
+
+.scooter-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--muted);
+  flex: 1;
+  min-width: 0;
+}
+
+.scooter-count strong { color: var(--text); }
+
+.muted-text { color: var(--muted); }
+
+.scooter-refresh {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 19px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  transition: color 0.15s;
+  flex-shrink: 0;
+}
+
+.scooter-refresh:hover { color: var(--text); }
+.scooter-refresh:disabled { opacity: 0.3; cursor: default; }
+
+.scooter-open-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 16px;
+  border-radius: 22px;
+  border: 1px solid var(--pc, rgba(255,255,255,0.2));
+  color: var(--pc, var(--text));
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.18s;
+}
+
+.scooter-open-btn:active {
+  background: rgba(255,255,255,0.08);
+}
+
+/* ── Leaflet dark overrides ──────────────────────── */
+.leaflet-container {
+  background: #08111c;
+  font-family: inherit;
+}
+
+.leaflet-control-attribution {
+  background: rgba(8,17,28,0.75) !important;
+  color: rgba(255,255,255,0.28) !important;
+  font-size: 9px !important;
+}
+
+.leaflet-control-attribution a {
+  color: rgba(79,195,247,0.55) !important;
+}
+
+.leaflet-control-zoom a {
+  background: rgba(15,30,45,0.9) !important;
+  color: var(--text) !important;
+  border-color: rgba(79,195,247,0.18) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: rgba(22,38,56,0.95) !important;
+}
+
+/* Popup monopattino */
+.scooter-popup .leaflet-popup-content-wrapper {
+  background: rgba(15,30,45,0.96);
+  border: 1px solid rgba(255,255,255,0.13);
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.55);
+  backdrop-filter: blur(12px);
+}
+
+.scooter-popup .leaflet-popup-tip {
+  background: rgba(15,30,45,0.96);
+}
+
+.scooter-popup .leaflet-popup-content {
+  margin: 7px 12px;
+}
+
+.scooter-popup-inner {
+  color: #e9ecef;
+  font-size: 13px;
+  font-weight: 500;
 }

@@ -26,9 +26,15 @@ export default function Landing({ onSelect }) {
           <span className="landing-btn-label">Bus</span>
           <span className="landing-btn-desc">AMTS · 46 linee</span>
         </button>
+
+        <button className="landing-btn scooter-btn" onClick={() => onSelect('scooter')}>
+          <span className="landing-btn-icon">🛴</span>
+          <span className="landing-btn-label">Monopattini</span>
+          <span className="landing-btn-desc">Dott · posizioni live</span>
+        </button>
       </div>
 
-      <p className="landing-footer">Dati non ufficiali — FCE &amp; AMTS Catania</p>
+      <p className="landing-footer">Dati non ufficiali — FCE, AMTS &amp; Dott Catania</p>
     </div>
   );
 }
