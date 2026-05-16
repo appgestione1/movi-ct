@@ -143,6 +143,7 @@ export default function ScooterApp({ onBack }) {
   const [lastUpdate, setLastUpdate] = useState(null);
   const [selected,   setSelected]   = useState(null); // scooter object | null
   const [address,    setAddress]    = useState(null); // reverse geocode
+  const [showModal,  setShowModal]  = useState(false); // popup "servizio non attivo"
 
   selectedRef.current = selected;
 
@@ -239,6 +240,7 @@ export default function ScooterApp({ onBack }) {
 
   useEffect(() => {
     setSelected(null);
+    setScooters([]); // svuota subito per evitare che rental_uris del provider precedente restino visibili
     fetchScooters();
     const id = setInterval(fetchScooters, 60_000);
     return () => clearInterval(id);
@@ -449,7 +451,7 @@ export default function ScooterApp({ onBack }) {
             >↺</button>
           </div>
 
-          {bottomScanUrl && (
+          {bottomScanUrl ? (
             <a
               href={bottomScanUrl}
               target="_blank"
@@ -459,7 +461,27 @@ export default function ScooterApp({ onBack }) {
             >
               Sblocca con {provider?.name} →
             </a>
+          ) : !provider?.comingSoon && (
+            <button
+              className="scooter-open-btn scooter-open-btn-disabled"
+              style={{ '--pc': provider?.color ?? '#888' }}
+              onClick={() => setShowModal(true)}
+            >
+              Sblocca con {provider?.name} →
+            </button>
           )}
+        </div>
+      )}
+
+      {/* Modal "servizio non attivo" */}
+      {showModal && (
+        <div className="scooter-modal-overlay" onClick={() => setShowModal(false)}>
+          <div className="scooter-modal" onClick={e => e.stopPropagation()}>
+            <div className="scooter-modal-icon">🛴</div>
+            <div className="scooter-modal-title">{provider?.name}</div>
+            <div className="scooter-modal-msg">Servizio ancora non attivo a Catania</div>
+            <button className="scooter-modal-btn" onClick={() => setShowModal(false)}>OK</button>
+          </div>
         </div>
       )}
     </div>

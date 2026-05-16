@@ -6,8 +6,8 @@ export default function Landing({ onSelect }) {
           <svg viewBox="0 0 48 48" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="24" r="7" fill="white"/>
             <rect x="19" y="22" width="10" height="4" rx="2" fill="white"/>
-            <circle cx="36" cy="24" r="7" fill="none" stroke="#4fc3f7" strokeWidth="3.5"/>
-            <circle cx="36" cy="24" r="2.5" fill="#4fc3f7"/>
+            <circle cx="36" cy="24" r="7" fill="none" stroke="white" strokeWidth="3.5"/>
+            <circle cx="36" cy="24" r="2.5" fill="white"/>
           </svg>
         </div>
         <h1 className="landing-title">Movì CT</h1>
@@ -30,7 +30,7 @@ export default function Landing({ onSelect }) {
         <button className="landing-btn scooter-btn" onClick={() => onSelect('scooter')}>
           <span className="landing-btn-icon">🛴</span>
           <span className="landing-btn-label">Monopattini</span>
-          <span className="landing-btn-desc">Lime · live map</span>
+          <span className="landing-btn-desc">Dott · Lime · Elérent</span>
         </button>
       </div>
 
