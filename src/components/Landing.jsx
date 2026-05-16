@@ -30,11 +30,11 @@ export default function Landing({ onSelect }) {
         <button className="landing-btn scooter-btn" onClick={() => onSelect('scooter')}>
           <span className="landing-btn-icon">🛴</span>
           <span className="landing-btn-label">Monopattini</span>
-          <span className="landing-btn-desc">Dott · posizioni live</span>
+          <span className="landing-btn-desc">Lime · live map</span>
         </button>
       </div>
 
-      <p className="landing-footer">Dati non ufficiali — FCE, AMTS &amp; Dott Catania</p>
+      <p className="landing-footer">Dati non ufficiali — FCE, AMTS &amp; Lime Catania</p>
     </div>
   );
 }

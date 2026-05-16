@@ -727,12 +727,12 @@ html, body {
 .bus-btn:hover { box-shadow: 0 8px 40px rgba(79,195,247,0.2); }
 
 .scooter-btn {
-  background: linear-gradient(135deg, rgba(239,77,35,0.15), rgba(180,50,20,0.1));
-  border-color: rgba(239,77,35,0.25);
-  box-shadow: 0 8px 32px rgba(239,77,35,0.08);
+  background: linear-gradient(135deg, rgba(200,241,53,0.15), rgba(140,180,20,0.08));
+  border-color: rgba(200,241,53,0.3);
+  box-shadow: 0 8px 32px rgba(200,241,53,0.1);
 }
 
-.scooter-btn:hover { box-shadow: 0 8px 40px rgba(239,77,35,0.2); }
+.scooter-btn:hover { box-shadow: 0 8px 40px rgba(200,241,53,0.25); }
 
 .landing-btn-icon { font-size: 36px; line-height: 1; }
 
