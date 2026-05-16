@@ -66,16 +66,22 @@ Mappa verticale: Stesicoro in CIMA, Monte Po in FONDO (funzione `fy()` in MetroM
 ## Dati GTFS
 I file in `public/gtfs/` sono generati da `scripts/processGtfs.cjs` a partire da `gtfs_amts.zip` (escluso da git). Non rigenerare a meno di aggiornamenti AMTS.
 
-## Sezione Monopattini (`src/components/LimeLive.jsx`)
+## Sezione Monopattini (`src/components/ScooterApp.jsx`)
 
-- Provider: **Lime** — feed GBFS `https://data.lime.bike/api/partners/v2/gbfs/catania`
-- Proxy CORS Vercel: `api/lime-gbfs.js` → chiamata frontend a `/api/lime-gbfs?feed=free_bike_status`
-- In locale (`import.meta.env.DEV = true`) usa mock integrato con 40 scooter in 10 zone di Catania
-- In produzione usa il proxy Vercel che, se Lime non ha ancora attivato Catania, ritorna lo stesso mock
-- Mappa SVG custom (no Leaflet) con pin colorati per livello batteria: verde≥60%, arancio≥30%, rosso<30%
-- Filtri: Tutti / Alta batteria / Bassa batteria
-- Dettaglio scooter: batteria, autonomia km, link "Apri in Lime App"
-- Aggiornamento automatico ogni 30 s con countdown visivo
+Provider configurati in `src/data/scooterProviders.js`:
+
+| Provider | Stato | Endpoint / note |
+|---|---|---|
+| **Dott** | ✅ Live diretto | `https://gbfs.api.ridedott.com/public/v2/catania/free_bike_status.json` — CORS aperto, fetch browser |
+| **Lime** | ⚡ Via proxy | `/api/lime-gbfs?feed=free_bike_status` → `api/lime-gbfs.js` Vercel. Se 404, fallback mock 40 scooter |
+| **Elérent** | 🔗 Via proxy | `/api/elerent-gbfs` → `api/elerent-gbfs.js` Vercel. Usa endpoint ex-Helbiz; ritorna vuoto se richiede auth |
+| Bird, Tier, Voi, Bolt | 🔜 `comingSoon: true` | Pill visibili ma disabilitati |
+
+- **Mappa**: Leaflet + CartoDB dark tiles — mappa stradale reale
+- **Dettaglio**: appare SOLO al tap su un marker (nome via via Nominatim, batteria, autonomia, link sblocco)
+- **Layout**: full-height flex, mappa occupa spazio residuo tra pills e bottom bar
+- **Scooter selezionato**: icona ingrandita e evidenziata; tap su mappa deseleziona
+- Refresh automatico ogni 60 s per provider attivi
 
 ## Fine sessione
 Aggiorna questo file con le modifiche significative e committa.
