@@ -1,5 +1,6 @@
 // Fornitori monopattini Catania — predisposti per aggiunta rapida.
 // gbfsUrl: null  → nessun dato live disponibile, solo link all'app.
+// scanUrl        → apre lo scanner QR / sblocco nell'app nativa (universal link).
 // comingSoon: true → pulsante disabilitato (fornitore non ancora confermato a CT).
 
 export const SCOOTER_PROVIDERS = [
@@ -8,25 +9,24 @@ export const SCOOTER_PROVIDERS = [
     name: 'Dott',
     color: '#EF4D23',
     gbfsUrl: 'https://gbfs.api.ridedott.com/public/v2/catania/free_bike_status.json',
-    appUrl: 'https://ridedott.com',
+    scanUrl: 'https://ridedott.com/scan',
     comingSoon: false,
   },
   {
     id: 'lime',
     name: 'Lime',
     color: '#C8F135',
-    // Proxy Vercel CORS → api/lime-gbfs.js (fallback a mock se Lime non ha Catania)
     gbfsUrl: '/api/lime-gbfs?feed=free_bike_status',
-    appUrl: 'https://li.me',
+    // Universal link Lime — apre l'app direttamente alla schermata di sblocco
+    scanUrl: 'https://limebike.app.link/TviIBQCOGB',
     comingSoon: false,
   },
   {
     id: 'elerent',
     name: 'Elérent',
     color: '#7C3AED',
-    // Proxy Vercel → api/elerent-gbfs.js (ex Helbiz)
     gbfsUrl: '/api/elerent-gbfs',
-    appUrl: 'https://www.elerent.it',
+    scanUrl: 'https://www.elerent.it',
     comingSoon: false,
   },
   {
@@ -34,7 +34,7 @@ export const SCOOTER_PROVIDERS = [
     name: 'Bird',
     color: '#AAAAAA',
     gbfsUrl: null,
-    appUrl: 'https://bird.co',
+    scanUrl: 'https://bird.co',
     comingSoon: true,
   },
   {
@@ -42,7 +42,7 @@ export const SCOOTER_PROVIDERS = [
     name: 'Tier',
     color: '#4F6BFF',
     gbfsUrl: null,
-    appUrl: 'https://tier.app',
+    scanUrl: 'https://tier.app',
     comingSoon: true,
   },
   {
@@ -50,7 +50,7 @@ export const SCOOTER_PROVIDERS = [
     name: 'Voi',
     color: '#FF4F4F',
     gbfsUrl: null,
-    appUrl: 'https://www.voiscooters.com',
+    scanUrl: 'https://www.voiscooters.com',
     comingSoon: true,
   },
   {
@@ -58,7 +58,7 @@ export const SCOOTER_PROVIDERS = [
     name: 'Bolt',
     color: '#34D186',
     gbfsUrl: null,
-    appUrl: 'https://bolt.eu/it/scooters/',
+    scanUrl: 'https://bolt.eu/it/scooters/',
     comingSoon: true,
   },
 ];

@@ -406,9 +406,9 @@ export default function ScooterApp({ onBack }) {
             )}
           </div>
 
-          {provider?.appUrl && (
+          {provider?.scanUrl && (
             <a
-              href={selected.rental_uris?.ios || selected.rental_uris?.android || provider.appUrl}
+              href={selected.rental_uris?.ios || selected.rental_uris?.android || provider.scanUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="scooter-open-btn"
@@ -441,15 +441,15 @@ export default function ScooterApp({ onBack }) {
             >↺</button>
           </div>
 
-          {provider?.appUrl && (
+          {provider?.scanUrl && (
             <a
-              href={provider.appUrl}
+              href={provider.scanUrl}
               target="_blank"
               rel="noreferrer"
               className="scooter-open-btn"
               style={{ '--pc': provider?.color ?? '#888' }}
             >
-              Apri {provider?.name} →
+              Sblocca con {provider?.name} →
             </a>
           )}
         </div>
