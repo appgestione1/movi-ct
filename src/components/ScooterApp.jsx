@@ -25,14 +25,14 @@ function makeScooterIcon(color) {
   return L.divIcon({
     className: '',
     html: `<div style="
-      width:14px;height:14px;
+      width:16px;height:16px;
       background:${color};
-      border:2.5px solid rgba(255,255,255,0.9);
+      border:2.5px solid #fff;
       border-radius:50%;
-      box-shadow:0 0 8px ${color}BB, 0 2px 4px rgba(0,0,0,0.4);
+      box-shadow:0 2px 6px rgba(0,0,0,0.28), 0 0 0 1px rgba(0,0,0,0.08);
     "></div>`,
-    iconSize: [14, 14],
-    iconAnchor: [7, 7],
+    iconSize: [16, 16],
+    iconAnchor: [8, 8],
   });
 }
 
@@ -40,14 +40,14 @@ function makeScooterIconSelected(color) {
   return L.divIcon({
     className: '',
     html: `<div style="
-      width:20px;height:20px;
+      width:22px;height:22px;
       background:${color};
       border:3px solid #fff;
       border-radius:50%;
-      box-shadow:0 0 0 5px ${color}44, 0 0 12px ${color}99;
+      box-shadow:0 2px 10px rgba(0,0,0,0.3), 0 0 0 5px ${color}33;
     "></div>`,
-    iconSize: [20, 20],
-    iconAnchor: [10, 10],
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
   });
 }
 
@@ -111,8 +111,8 @@ export default function ScooterApp({ onBack }) {
       zoomControl: false,
     });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright" style="color:#4fc3f7">OSM</a> © <a href="https://carto.com/attributions" style="color:#4fc3f7">CARTO</a>',
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/attributions">CARTO</a>',
       maxZoom: 19,
     }).addTo(map);
 
