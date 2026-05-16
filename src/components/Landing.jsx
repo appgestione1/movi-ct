@@ -30,7 +30,6 @@ export default function Landing({ onSelect }) {
         <button className="landing-btn scooter-btn" onClick={() => onSelect('scooter')}>
           <span className="landing-btn-icon">🛴</span>
           <span className="landing-btn-label">Monopattini</span>
-          <span className="landing-btn-desc">Dott · Lime · Elérent</span>
         </button>
       </div>
 

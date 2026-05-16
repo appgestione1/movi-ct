@@ -26,7 +26,7 @@ function ProgressBar({ direction, interpolatedPos }) {
 
 export default function TrainCard({ train, direction, travelMins }) {
   const isToStesicoro = direction === 'stesicoro';
-  const label = isToStesicoro ? '→ Monte Po' : '← Stesicoro';
+  const label = isToStesicoro ? '→ Stesicoro' : '→ Monte Po';
   const color = isToStesicoro ? '#e63946' : '#4fc3f7';
   const mins = Math.floor(train.minsToArrive);
   const secs = train.secsToArrive % 60;
@@ -87,7 +87,7 @@ export default function TrainCard({ train, direction, travelMins }) {
 
 export function NoTrainCard({ direction, travelMins }) {
   const isToStesicoro = direction === 'stesicoro';
-  const label = isToStesicoro ? '→ Monte Po' : '← Stesicoro';
+  const label = isToStesicoro ? '→ Stesicoro' : '→ Monte Po';
   const color = isToStesicoro ? '#e63946' : '#4fc3f7';
   return (
     <div className="train-card no-train">

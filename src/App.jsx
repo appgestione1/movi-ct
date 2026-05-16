@@ -76,7 +76,7 @@ function MetroApp({ onBack }) {
       <header className="header">
         <div className="header-logo">
           <div className="logo-badge">M</div>
-          <span className="logo-text">etro FCE</span>
+          <span className="logo-text">Metro FCE</span>
         </div>
         <div className="header-time">{formatTime(now)}</div>
       </header>
