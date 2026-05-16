@@ -26,7 +26,7 @@ export const SCOOTER_PROVIDERS = [
     name: 'Elérent',
     color: '#7C3AED',
     gbfsUrl: '/api/elerent-gbfs',
-    scanUrl: 'https://www.elerent.it',
+    scanUrl: null, // nessun deep link verificato; bottone nascosto finché GBFS non è attivo
     comingSoon: false,
   },
   {

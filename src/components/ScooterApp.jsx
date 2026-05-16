@@ -311,6 +311,14 @@ export default function ScooterApp({ onBack }) {
   const batt  = selected?.current_fuel_percent;
   const range = selected?.current_range_meters;
 
+  // URL sblocco per il bottone fisso in basso: usa rental_uris del primo scooter
+  // (stesso link che appare toccando un pallino sulla mappa), fallback a scanUrl
+  const bottomScanUrl =
+    scooters[0]?.rental_uris?.ios  ||
+    scooters[0]?.rental_uris?.android ||
+    provider?.scanUrl ||
+    null;
+
   return (
     <div className="scooter-app">
       <div className="ambient-red" />
@@ -441,9 +449,9 @@ export default function ScooterApp({ onBack }) {
             >↺</button>
           </div>
 
-          {provider?.scanUrl && (
+          {bottomScanUrl && (
             <a
-              href={provider.scanUrl}
+              href={bottomScanUrl}
               target="_blank"
               rel="noreferrer"
               className="scooter-open-btn"
