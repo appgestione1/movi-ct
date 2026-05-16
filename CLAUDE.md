@@ -22,21 +22,24 @@ npx vite --host --port 5174   # http://192.168.1.86:5174 da mobile (adatta IP al
 ## Struttura principale
 ```
 src/
-  App.jsx              # Root + MetroApp + BusApp
-  App.css              # Tutti gli stili
+  App.jsx              # Root + MetroApp + BusApp + LimeLive (mode: null|metro|bus|scooter)
+  App.css              # Tutti gli stili (incl. .scooter-btn verde Lime #C8F135)
   components/
-    Landing.jsx         # Home "Movì CT" con logo ●—◎
+    Landing.jsx         # Home "Movì CT" con logo ●—◎ — 3 bottoni: Metro, Bus, Monopattini
     Onboarding.jsx      # Selezione percorso metro (2 step)
     TrainCard.jsx       # Card treno: countdown flip + tempo percorrenza
     MetroMapVertical.jsx # Barra SVG stazioni (88px, sticky, lato destro)
     BusPlanner.jsx      # Ricerca bus: origine → destinazione
     BusView.jsx         # Vista partenze bus in tempo reale
+    LimeLive.jsx        # Mappa live scooter Lime (GBFS) con stats batteria e filtri
   data/
     schedule.js         # Stazioni FCE + orari generati + STATION_TIMES
   utils/
     calculator.js       # getNextTrains (metro)
     busPlanner.js       # findJourneys + findTransferJourneys (1 e 2 cambi)
     busCalculator.js    # fetchRouteData con cache in memoria
+api/
+  lime-gbfs.js          # Vercel Serverless Function — proxy CORS per Lime GBFS Catania
 public/
   gtfs/
     stops_index.json    # 1322 fermate AMTS
@@ -63,21 +66,16 @@ Mappa verticale: Stesicoro in CIMA, Monte Po in FONDO (funzione `fy()` in MetroM
 ## Dati GTFS
 I file in `public/gtfs/` sono generati da `scripts/processGtfs.cjs` a partire da `gtfs_amts.zip` (escluso da git). Non rigenerare a meno di aggiornamenti AMTS.
 
-## Sezione Monopattini (`src/components/ScooterApp.jsx`)
+## Sezione Monopattini (`src/components/LimeLive.jsx`)
 
-Provider configurati in `src/data/scooterProviders.js`:
-
-| Provider | Stato | GBFS Catania |
-|---|---|---|
-| **Dott** | ✅ Live | `https://gbfs.api.ridedott.com/public/v2/catania/free_bike_status.json` |
-| **Lime** | 🔗 Link app | Nessun GBFS pubblico per CT (solo Bari in Italia) |
-| Bird, Tier, Voi, Bolt | 🔜 Presto | `gbfsUrl: null, comingSoon: true` |
-
-- Mappa Leaflet dark (CartoDB tiles)
-- Fetch ogni 60 s, CORS supportato da Dott
-- Pulsante locate (centra sulla posizione utente), contatore "N a 500 m"
-- Popup su ogni marker: nome provider + stato batteria
-- Per aggiungere un nuovo provider: aggiungi oggetto in `scooterProviders.js` con `gbfsUrl` e `comingSoon: false`
+- Provider: **Lime** — feed GBFS `https://data.lime.bike/api/partners/v2/gbfs/catania`
+- Proxy CORS Vercel: `api/lime-gbfs.js` → chiamata frontend a `/api/lime-gbfs?feed=free_bike_status`
+- In locale (`import.meta.env.DEV = true`) usa mock integrato con 40 scooter in 10 zone di Catania
+- In produzione usa il proxy Vercel che, se Lime non ha ancora attivato Catania, ritorna lo stesso mock
+- Mappa SVG custom (no Leaflet) con pin colorati per livello batteria: verde≥60%, arancio≥30%, rosso<30%
+- Filtri: Tutti / Alta batteria / Bassa batteria
+- Dettaglio scooter: batteria, autonomia km, link "Apri in Lime App"
+- Aggiornamento automatico ogni 30 s con countdown visivo
 
 ## Fine sessione
 Aggiorna questo file con le modifiche significative e committa.
