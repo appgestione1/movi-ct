@@ -2075,173 +2075,175 @@ html, body {
   font-weight: 500;
 }
 
-/* ── Stop Map Picker ─────────────────────────────── */
-.stop-map-overlay {
+/* ── Stop Map Picker (address search + lista fermate) ── */
+.smp-overlay {
   position: fixed;
   inset: 0;
   z-index: 900;
-  height: 100dvh;
+  background: #0d1b2a;
   display: flex;
   flex-direction: column;
-  background: #0d1b2a;
   overflow: hidden;
 }
 
-.stop-map-topbar {
+.smp-header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-  background: rgba(13,27,42,0.97);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
   flex-shrink: 0;
 }
 
-.stop-map-back {
-  width: 40px;
-  height: 40px;
+.smp-back {
+  width: 38px;
+  height: 38px;
   border-radius: 10px;
   background: rgba(255,255,255,0.07);
   border: 1px solid rgba(255,255,255,0.1);
   color: #fff;
   font-size: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.15s;
 }
-.stop-map-back:active { background: rgba(255,255,255,0.13); }
+.smp-back:active { background: rgba(255,255,255,0.14); }
 
-.stop-map-search-input {
+.smp-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.smp-search-wrap {
+  display: flex;
+  gap: 8px;
+  padding: 14px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  flex-shrink: 0;
+}
+
+.smp-input {
   flex: 1;
-  min-width: 0;
   background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 12px;
   color: #fff;
   font-size: 15px;
-  padding: 10px 14px;
+  padding: 11px 14px;
   outline: none;
-  transition: border-color 0.15s;
 }
-.stop-map-search-input::placeholder { color: rgba(255,255,255,0.3); }
-.stop-map-search-input:focus { border-color: rgba(79,195,247,0.4); }
+.smp-input::placeholder { color: rgba(255,255,255,0.3); }
+.smp-input:focus { border-color: rgba(79,195,247,0.45); }
 
-.stop-map-go-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(42,157,143,0.15);
-  border: 1px solid rgba(42,157,143,0.35);
-  color: #2a9d8f;
-  font-size: 16px;
+.smp-go {
+  padding: 0 18px;
+  border-radius: 12px;
+  background: #2a9d8f;
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
   flex-shrink: 0;
-  transition: background 0.15s;
 }
-.stop-map-go-btn:active { background: rgba(42,157,143,0.25); }
-.stop-map-go-btn:disabled { opacity: 0.4; cursor: default; }
+.smp-go:disabled { opacity: 0.4; cursor: default; }
+.smp-go:active { opacity: 0.8; }
 
-.stop-map-geo-error {
-  font-size: 12px;
+.smp-error {
+  margin: 0;
+  padding: 12px 16px;
+  font-size: 13px;
   color: var(--red);
-  text-align: center;
-  padding: 8px 16px;
   background: rgba(230,57,70,0.08);
   border-bottom: 1px solid rgba(230,57,70,0.15);
   flex-shrink: 0;
 }
 
-.stop-map-wrap {
+.smp-results {
   flex: 1;
-  position: relative;
-  min-height: 0;
-  overflow: hidden;
+  overflow-y: auto;
+  padding: 12px 16px;
+  -webkit-overflow-scrolling: touch;
 }
 
-.stop-map-container {
-  position: absolute;
-  inset: 0;
+.smp-hint {
+  margin: 40px 0 0;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.5;
 }
 
-.stop-map-hint {
-  position: absolute;
-  bottom: 24px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1000;
-  background: rgba(13,27,42,0.88);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.1);
-  color: rgba(255,255,255,0.55);
-  font-size: 13px;
-  padding: 10px 20px;
-  border-radius: 24px;
-  white-space: nowrap;
-  pointer-events: none;
+.smp-count {
+  font-size: 12px;
+  color: rgba(255,255,255,0.35);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-.stop-map-panel {
-  background: rgba(12,24,38,0.98);
-  backdrop-filter: blur(20px);
-  border-top: 1px solid rgba(79,195,247,0.14);
-  padding: 16px 20px calc(20px + env(safe-area-inset-bottom));
-  flex-shrink: 0;
+.smp-stop-card {
+  background: rgba(22,38,56,0.7);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 10px;
 }
 
-.stop-map-panel-name {
+.smp-stop-info {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 14px;
-  letter-spacing: -0.1px;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
-.stop-map-panel-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: #2a9d8f;
-  box-shadow: 0 0 0 3px rgba(42,157,143,0.25);
+.smp-stop-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.smp-stop-dist {
+  font-size: 12px;
+  color: var(--cyan);
+  font-weight: 600;
+  background: rgba(79,195,247,0.1);
+  border-radius: 8px;
+  padding: 3px 8px;
   flex-shrink: 0;
 }
 
-.stop-map-panel-actions {
+.smp-stop-actions {
   display: flex;
-  gap: 10px;
+  gap: 8px;
 }
 
-.stop-map-btn {
+.smp-btn {
   flex: 1;
-  padding: 12px 8px;
-  border-radius: 12px;
+  padding: 10px 8px;
+  border-radius: 10px;
   font-size: 13px;
   font-weight: 700;
   cursor: pointer;
   border: 1px solid transparent;
-  transition: opacity 0.12s, transform 0.12s;
 }
-.stop-map-btn:active { opacity: 0.7; transform: scale(0.97); }
+.smp-btn:active { opacity: 0.7; }
 
-.stop-map-btn-origin {
+.smp-btn-origin {
   background: rgba(42,157,143,0.12);
   border-color: rgba(42,157,143,0.35);
   color: #2a9d8f;
 }
 
-.stop-map-btn-dest {
+.smp-btn-dest {
   background: rgba(230,57,70,0.12);
   border-color: rgba(230,57,70,0.35);
   color: var(--red);
 }
 
-/* ── Trova sulla mappa button ────────────────────── */
+/* ── Trova fermata button nel planner ── */
 .planner-map-btn {
   width: 100%;
   max-width: 440px;
@@ -2258,7 +2260,6 @@ html, body {
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
 }
 .planner-map-btn:active {
   background: rgba(79,195,247,0.12);
