@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { loadPlannerData, searchStops, findJourneys, findTransferJourneys } from '../utils/busPlanner';
+import StopMapPicker from './StopMapPicker';
 
 export default function BusPlanner({ onComplete, onBack }) {
   const [plannerData, setPlannerData] = useState(null);
@@ -16,6 +17,7 @@ export default function BusPlanner({ onComplete, onBack }) {
   const [journeys,  setJourneys]  = useState(null);
   const [transfers, setTransfers] = useState(null);
   const [searching, setSearching] = useState(false);
+  const [showMap,   setShowMap]   = useState(false);
 
   useEffect(() => {
     loadPlannerData()
@@ -67,6 +69,11 @@ export default function BusPlanner({ onComplete, onBack }) {
 
   function clearOrigin() { setOriginStop(null); setOriginInput(''); setJourneys(null); setTransfers(null); }
   function clearDest()   { setDestStop(null);   setDestInput('');   setJourneys(null); setTransfers(null); }
+
+  function handleMapSelect(stop, field) {
+    if (field === 'origin') selectOrigin(stop);
+    else                    selectDest(stop);
+  }
 
   if (!plannerData && !loadError) {
     return (
@@ -145,6 +152,18 @@ export default function BusPlanner({ onComplete, onBack }) {
           </div>
         </div>
       </div>
+
+      <button className="planner-map-btn" onClick={() => setShowMap(true)}>
+        📍 Trova fermata sulla mappa
+      </button>
+
+      {showMap && plannerData && (
+        <StopMapPicker
+          stopsIndex={plannerData.stopsIndex}
+          onSelect={handleMapSelect}
+          onClose={() => setShowMap(false)}
+        />
+      )}
 
       {searching && (
         <p className="ob-loading" style={{ marginTop: 24 }}>Ricerca percorsi…</p>
