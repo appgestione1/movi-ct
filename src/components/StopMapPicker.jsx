@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -101,7 +102,7 @@ export default function StopMapPicker({ stopsIndex, onSelect, onClose }) {
     onClose();
   }
 
-  return (
+  return createPortal(
     <div className="stop-map-overlay">
       {/* ── Top bar ── */}
       <div className="stop-map-topbar">
@@ -153,6 +154,7 @@ export default function StopMapPicker({ stopsIndex, onSelect, onClose }) {
           </div>
         </div>
       )}
-    </div>
+    </div>,
+    document.body
   );
 }
