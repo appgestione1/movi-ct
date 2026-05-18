@@ -1,7 +1,7 @@
 {
-  "name": "Metro CT",
-  "short_name": "Metro CT",
-  "description": "Orari in tempo reale della metropolitana FCE di Catania",
+  "name": "Movì CT",
+  "short_name": "Movì CT",
+  "description": "Trasporti pubblici in tempo reale · Catania",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0d1b2a",
@@ -9,7 +9,7 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/metro-icon.svg",
+      "src": "/movi-icon.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
