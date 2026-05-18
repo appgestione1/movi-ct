@@ -2153,9 +2153,15 @@ html, body {
   flex-shrink: 0;
 }
 
-.stop-map-container {
+.stop-map-wrap {
   flex: 1;
+  position: relative;
   min-height: 0;
+}
+
+.stop-map-container {
+  width: 100%;
+  height: 100%;
 }
 
 .stop-map-hint {

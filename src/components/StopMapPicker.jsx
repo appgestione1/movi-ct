@@ -64,7 +64,7 @@ export default function StopMapPicker({ stopsIndex, onSelect, onClose }) {
       markersRef.current.set(stop.id, marker);
     });
 
-    setTimeout(() => map.invalidateSize(), 80);
+    requestAnimationFrame(() => requestAnimationFrame(() => map.invalidateSize()));
     mapRef.current = map;
 
     return () => {
@@ -127,7 +127,9 @@ export default function StopMapPicker({ stopsIndex, onSelect, onClose }) {
       )}
 
       {/* ── Map ── */}
-      <div ref={containerRef} className="stop-map-container" />
+      <div className="stop-map-wrap">
+        <div ref={containerRef} className="stop-map-container" />
+      </div>
 
       {/* ── Hint when nothing selected ── */}
       {!selectedStop && (
