@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "refresh-intercity": "node scripts/refreshIntercity.cjs",
+    "add-intercity-doc": "node scripts/addIntercityDoc.cjs"
   },
   "dependencies": {
     "leaflet": "^1.9.4",

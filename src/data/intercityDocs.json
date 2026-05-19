@@ -1,0 +1,102 @@
+{
+  "docs": [
+    {
+      "id": "fce-autolinee-2026-03",
+      "carrierId": "fce",
+      "tratta": null,
+      "title": "Orario autolinee — invernale 2025-2026 (agg. 30 mar 2026)",
+      "filename": null,
+      "sourceUrl": "https://www.circumetnea.it/download/orario-autolinee-in-vigore-dal-16-marzo-2026/",
+      "type": "orari",
+      "size": 2981541,
+      "validFrom": "2026-03-30",
+      "validTo": null,
+      "addedAt": "2026-05-20",
+      "note": "Quadro orari completo di tutte le autolinee FCE."
+    },
+    {
+      "id": "ast-carta-servizi",
+      "carrierId": "ast",
+      "tratta": null,
+      "title": "Carta dei Servizi AST",
+      "filename": null,
+      "sourceUrl": "http://www.astsicilia.it/wp-content/uploads/2017/02/cartaservizi.pdf",
+      "type": "brochure",
+      "size": null,
+      "validFrom": null,
+      "validTo": null,
+      "addedAt": "2026-05-20",
+      "note": "Documento ufficiale AST con servizi, tariffe e regolamento."
+    },
+    {
+      "id": "ast-bus-catania-etna",
+      "carrierId": "ast",
+      "tratta": "c-rifugio",
+      "title": "Linea Bus Catania-Etna (Rifugio Sapienza)",
+      "filename": null,
+      "sourceUrl": "https://www.astsicilia.it/bus-catania-etna/",
+      "type": "info",
+      "size": null,
+      "validFrom": null,
+      "validTo": null,
+      "addedAt": "2026-05-20",
+      "note": "Pagina ufficiale AST con orari, prezzo e info turistiche per la salita all'Etna."
+    },
+    {
+      "id": "sais-sito-ufficiale-sais-autolinee",
+      "carrierId": "sais",
+      "tratta": null,
+      "title": "Sito ufficiale SAIS Autolinee",
+      "filename": null,
+      "sourceUrl": "https://www.saisautolinee.it/",
+      "type": "info",
+      "size": null,
+      "validFrom": null,
+      "validTo": null,
+      "addedAt": "2026-05-20",
+      "note": "Motore di ricerca biglietti e abbonamenti SAIS."
+    },
+    {
+      "id": "interbus-motore-biglietti-interbus",
+      "carrierId": "interbus",
+      "tratta": null,
+      "title": "Motore biglietti Interbus",
+      "filename": null,
+      "sourceUrl": "https://www.interbus.it/",
+      "type": "info",
+      "size": null,
+      "validFrom": null,
+      "validTo": null,
+      "addedAt": "2026-05-20",
+      "note": "Gruppo Interbus / Etna / Segesta — biglietti online e ricerca tratte."
+    },
+    {
+      "id": "etna-motore-biglietti-etna-trasporti",
+      "carrierId": "etna",
+      "tratta": null,
+      "title": "Motore biglietti Etna Trasporti",
+      "filename": null,
+      "sourceUrl": "https://www.etnatrasporti.it/",
+      "type": "info",
+      "size": null,
+      "validFrom": null,
+      "validTo": null,
+      "addedAt": "2026-05-20",
+      "note": "Stesso motore di ricerca del gruppo Interbus."
+    },
+    {
+      "id": "fce-le-linee-fce-pagina-ufficiale",
+      "carrierId": "fce",
+      "tratta": null,
+      "title": "Le linee FCE (pagina ufficiale)",
+      "filename": null,
+      "sourceUrl": "https://www.circumetnea.it/le-nostre-linee/",
+      "type": "info",
+      "size": null,
+      "validFrom": null,
+      "validTo": null,
+      "addedAt": "2026-05-20",
+      "note": "Indice delle autolinee FCE con tutti gli orari scaricabili."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+# Movì CT — Documenti ufficiali pullman extraurbani
+
+I file PDF dei vettori vengono caricati qui dallo script `scripts/addIntercityDoc.cjs`.
+Sono serviti da Vercel come asset statici sotto `/intercity-docs/<filename>`.

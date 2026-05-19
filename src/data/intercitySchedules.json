@@ -1,0 +1,321 @@
+{
+  "c-rifugio": {
+    "meta": {
+      "source": "AST — Linea Bus Catania-Etna",
+      "sourceUrl": "https://www.astsicilia.it/bus-catania-etna/",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": null,
+      "validTo": null
+    },
+    "schedules": [
+      { "carrierId": "ast", "from": "catania", "to": "rifugio-sapienza", "orario_partenza": "08:15", "orario_arrivo": "10:15", "feriale": true, "festivo": true, "scolastico": false, "note": "Da Piazza Papa Giovanni XXIII. Sospesa 25/12, 1/1, 1/5, 15/8, Pasqua. Biglietto a/r €6,60." },
+      { "carrierId": "ast", "from": "rifugio-sapienza", "to": "catania", "orario_partenza": "16:30", "orario_arrivo": "18:30", "feriale": true, "festivo": true, "scolastico": false, "note": "Rientro dal Rifugio Sapienza. Sospesa 25/12, 1/1, 1/5, 15/8, Pasqua." }
+    ]
+  },
+  "c-fce-randazzo": {
+    "meta": {
+      "source": "FCE — Autolinee Circumetnea (invernale 2025-2026)",
+      "sourceUrl": "https://www.circumetnea.it/download/orario-autolinee-in-vigore-dal-16-marzo-2026/",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": "2026-03-30",
+      "validTo": null
+    },
+    "schedules": []
+  },
+  "c-fce-linguaglossa": {
+    "meta": {
+      "source": "FCE — Autolinee Circumetnea (invernale 2025-2026)",
+      "sourceUrl": "https://www.circumetnea.it/download/orario-autolinee-in-vigore-dal-16-marzo-2026/",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": "2026-03-30",
+      "validTo": null
+    },
+    "schedules": []
+  },
+  "c-fce-nicolosi": {
+    "meta": {
+      "source": "FCE — Linea Belpasso-Catania (orario invernale scolastico 2025-2026)",
+      "sourceUrl": "https://www.circumetnea.it/download/orario-autolinee-in-vigore-dal-16-marzo-2026/",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": "2025-11-06",
+      "validTo": null
+    },
+    "schedules": [
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "06:20",
+        "orario_arrivo": "07:05",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 853 — sospesa sabato"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "06:20",
+        "orario_arrivo": "07:05",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 851"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "06:30",
+        "orario_arrivo": "07:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 871"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "06:30",
+        "orario_arrivo": "07:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa bis 871 — sospesa sabato"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "07:05",
+        "orario_arrivo": "07:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 353 — diretta a P. Risorgimento"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "07:45",
+        "orario_arrivo": "08:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 873"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "08:45",
+        "orario_arrivo": "09:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 875"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "12:00",
+        "orario_arrivo": "12:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 883"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "13:45",
+        "orario_arrivo": "14:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 885"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "15:00",
+        "orario_arrivo": "15:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 887"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "16:00",
+        "orario_arrivo": "16:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 889"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "17:00",
+        "orario_arrivo": "17:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 891"
+      },
+      {
+        "carrierId": "fce",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "18:30",
+        "orario_arrivo": "19:10",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 893"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "06:45",
+        "orario_arrivo": "07:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 870 — prosegue per Nicolosi"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "07:45",
+        "orario_arrivo": "08:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 872"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "11:00",
+        "orario_arrivo": "11:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 880"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "12:00",
+        "orario_arrivo": "12:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa bis 880 — sospesa sabato; prosegue per Nicolosi"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "12:35",
+        "orario_arrivo": "13:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 882"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "13:50",
+        "orario_arrivo": "14:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 884"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "14:50",
+        "orario_arrivo": "15:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 886"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "16:00",
+        "orario_arrivo": "16:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 888"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "17:35",
+        "orario_arrivo": "18:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 890"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "18:30",
+        "orario_arrivo": "19:10",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 892"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "nicolosi",
+        "orario_partenza": "06:45",
+        "orario_arrivo": "07:35",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 870 via Belpasso"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "nicolosi",
+        "orario_partenza": "12:00",
+        "orario_arrivo": "12:50",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa bis 880 via Belpasso — sospesa sabato"
+      }
+    ]
+  }
+}

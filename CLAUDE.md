@@ -83,5 +83,81 @@ Provider configurati in `src/data/scooterProviders.js`:
 - **Scooter selezionato**: icona ingrandita e evidenziata; tap su mappa deseleziona
 - Refresh automatico ogni 60 s per provider attivi
 
+## Sezione Pullman Sicilia (`src/components/IntercityBus.jsx`)
+
+App-in-app per orari/biglietti dei pullman extraurbani e regionali.
+Tre viste: Ricerca → Risultati → Dettaglio.
+
+### Architettura dati
+
+| File | Ruolo |
+|---|---|
+| `src/data/intercityNetwork.js` | Vettori, città, hub, connection (rete fissa) |
+| `src/data/intercitySchedules.json` | Manifest orari (popolato da script + a mano) |
+| `src/data/intercityDocs.json` | Manifest dei documenti ufficiali (PDF/pagine) |
+| `src/utils/intercity.js` | Logica: ricerca, filtri calendario, deep-link |
+| `public/intercity-docs/` | PDF locali serviti come asset statici da Vercel |
+
+### Vettori coperti
+SAIS Autolinee, SAIS Trasporti, Interbus, Etna Trasporti, Segesta, AST, FCE.
+
+### Orari attualmente verificati in-app
+
+| Tratta | Fonte | Corse |
+|---|---|---|
+| Catania ↔ Belpasso ↔ Nicolosi (FCE) | PDF FCE invernale scolastico 2025-2026 | 25 |
+| Catania ↔ Rifugio Sapienza (AST) | Pagina ufficiale astsicilia.it | 2 |
+
+Le altre connection hanno solo provenance + link al PDF/sito ufficiale finché non
+si parsa il quadro orari. Lo schema (`schedule.from`, `schedule.to`, `feriale`,
+`festivo`, `scolastico`, `orario_partenza`, `orario_arrivo`, `note`) è già usato
+dalla logica di filtro `getAvailableBuses` e dalla UI dettaglio.
+
+### Aggiungere un documento ufficiale
+
+```bash
+# 1. PDF locale, generico per il vettore
+npm run add-intercity-doc -- ./orari-ast.pdf \
+  --carrier ast --title "Orario linea Acireale 2026" --type orari
+
+# 2. Solo link ufficiale (niente file locale)
+npm run add-intercity-doc -- \
+  --url "https://www.example.it/orari.pdf" \
+  --carrier sais --title "Tariffe 2026" --type tariffe
+
+# 3. Specifico per una tratta + periodo di validità
+npm run add-intercity-doc -- ./pdf-rifugio.pdf \
+  --carrier ast --title "Linea Etna estate 2026" --type orari \
+  --tratta c-rifugio --valid-from 2026-06-01 --valid-to 2026-09-30
+```
+
+Tipi validi: `orari | tariffe | brochure | avviso | info`.
+Il file PDF viene copiato in `public/intercity-docs/` e servito come
+`https://<deploy>/intercity-docs/<filename>`.
+
+### Refresh automatico orari
+
+```bash
+npm run refresh-intercity                # tutti i vettori
+npm run refresh-intercity -- --only fce  # solo FCE
+npm run refresh-intercity -- --dry-run   # non scrive il manifest
+```
+
+Dipende da `pdftotext` (Poppler). GitHub Action `.github/workflows/refresh-intercity.yml`
+gira ogni lunedì 04:00 UTC e committa il manifest aggiornato.
+Gli schedules curati a mano vengono **preservati** dal merge se l'extractor automatico
+non li ha ancora estratti.
+
+### Limiti tecnici noti dei vettori
+
+- **AST** — Certificato SSL self-signed sui domini ufficiali. Lo script di refresh usa
+  `rejectUnauthorized: false` solo per AST. Gli orari delle linee provinciali stanno
+  in pagine HTML, non in PDF.
+- **SAIS / Interbus / Etna** — Booking dietro a JavaScript dinamico (Next.js / PHP).
+  Nessun deep-link autocompile possibile senza headless browser (Playwright).
+  Il CTA rimanda al portale + bottone "Copia tratta" per incollare nei loro form.
+- **FCE** — PDF unico con tutte le autolinee, matrice multi-colonna complessa.
+  Sezione Belpasso parsata; Randazzo (ovest) e Linguaglossa (est via A18) ancora da parsare.
+
 ## Fine sessione
 Aggiorna questo file con le modifiche significative e committa.

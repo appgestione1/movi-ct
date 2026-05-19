@@ -1,0 +1,45 @@
+name: Refresh orari pullman extraurbani
+
+# Esegue lo script di refresh degli orari dei vettori e committa il manifest
+# aggiornato. Frequenza: ogni lunedì alle 04:00 UTC (~05:00 ora italiana).
+# Triggerabile anche manualmente dalla tab Actions.
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install poppler-utils (pdftotext)
+        run: sudo apt-get update && sudo apt-get install -y poppler-utils
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run refresh script
+        run: npm run refresh-intercity
+
+      - name: Commit manifest if changed
+        run: |
+          if [ -n "$(git status --porcelain src/data/intercitySchedules.json)" ]; then
+            git config user.name  "movi-ct-bot"
+            git config user.email "movi-ct-bot@users.noreply.github.com"
+            git add src/data/intercitySchedules.json
+            git commit -m "chore: aggiornamento automatico orari pullman extraurbani"
+            git push
+          else
+            echo "Nessun cambiamento nel manifest."
+          fi
