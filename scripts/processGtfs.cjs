@@ -12,11 +12,33 @@ const ROUTE_DIR = path.join(OUT_DIR, 'routes');
 
 [OUT_DIR, ROUTE_DIR].forEach(d => { if (!fs.existsSync(d)) fs.mkdirSync(d, { recursive: true }); });
 
+// Parser di una riga CSV che rispetta i campi quotati: un nome tipo
+// "Poggio del Lupo, Narcisi" non deve far slittare le colonne successive.
+function parseCsvLine(line) {
+  const out = [];
+  let cur = '', inQ = false;
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (inQ) {
+      if (ch === '"') {
+        if (line[i + 1] === '"') { cur += '"'; i++; }  // virgolette escapate ""
+        else inQ = false;
+      } else cur += ch;
+    } else {
+      if (ch === '"') inQ = true;
+      else if (ch === ',') { out.push(cur); cur = ''; }
+      else cur += ch;
+    }
+  }
+  out.push(cur);
+  return out;
+}
+
 function parseCsv(text) {
-  const lines = text.trim().split('\n');
-  const headers = lines[0].replace(/\r/g, '').split(',').map(h => h.replace(/"/g, ''));
+  const lines = text.replace(/\r/g, '').trim().split('\n');
+  const headers = parseCsvLine(lines[0]);
   return lines.slice(1).filter(l => l.trim()).map(line => {
-    const values = line.replace(/\r/g, '').split(',').map(v => v.replace(/"/g, ''));
+    const values = parseCsvLine(line);
     const obj = {};
     headers.forEach((h, i) => obj[h] = values[i] ?? '');
     return obj;

@@ -5,6 +5,7 @@ import MetroMapVertical from './components/MetroMapVertical';
 import TrainCard, { NoTrainCard } from './components/TrainCard';
 import BusPlanner from './components/BusPlanner';
 import BusView from './components/BusView';
+import IntercityBus from './components/IntercityBus';
 import ScooterApp from './components/ScooterApp';
 import { STATIONS, STATION_TIMES } from './data/schedule';
 import { getNextTrains } from './utils/calculator';
@@ -179,10 +180,11 @@ function BusApp({ onBack }) {
 
 // ── Root ───────────────────────────────────────────────────────
 export default function App() {
-  const [mode, setMode] = useState(null); // null | 'metro' | 'bus' | 'scooter'
+  const [mode, setMode] = useState(null); // null | 'metro' | 'bus' | 'pullman' | 'scooter'
 
   if (mode === 'metro')   return <MetroApp onBack={() => setMode(null)} />;
   if (mode === 'bus')     return <BusApp   onBack={() => setMode(null)} />;
+  if (mode === 'pullman') return <IntercityBus onBack={() => setMode(null)} />;
   if (mode === 'scooter') return <ScooterApp onBack={() => setMode(null)} />;
   return <Landing onSelect={setMode} />;
 }
