@@ -3018,3 +3018,121 @@ html, body {
   color: var(--muted);
   font-style: italic;
 }
+
+/* ── Partenze live (serviziinformazioni.it) ─────────────────────────── */
+.ic-live-block {
+  margin: 16px 0;
+}
+.ic-section-label .ic-live-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: #ef4444;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  vertical-align: middle;
+  animation: live-pulse 2s ease-in-out infinite;
+}
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+.ic-live-loading,
+.ic-live-error,
+.ic-live-empty {
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.04);
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+.ic-live-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ic-live-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.ic-live-times {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ic-live-dep {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.ic-live-arr-sep {
+  color: var(--muted);
+  font-size: 12px;
+}
+.ic-live-arr {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.ic-live-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+.ic-live-seats {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: rgba(74,222,128,0.15);
+  color: #4ade80;
+}
+.ic-live-seats.is-scarce {
+  background: rgba(251,191,36,0.15);
+  color: #fbbf24;
+}
+.ic-live-seats.is-full {
+  background: rgba(239,68,68,0.15);
+  color: #f87171;
+}
+.ic-live-code {
+  font-size: 10px;
+  color: var(--muted);
+  font-family: monospace;
+}
+.ic-live-book {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: rgba(79,195,247,0.15);
+  color: var(--cyan);
+  font-size: 12px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid rgba(79,195,247,0.25);
+}
+.ic-live-book:active { background: rgba(79,195,247,0.28); }
+.ic-live-note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+  text-align: right;
+}

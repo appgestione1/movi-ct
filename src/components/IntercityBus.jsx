@@ -19,6 +19,11 @@ import {
   DOC_TYPE_LABELS,
 } from '../utils/intercity';
 
+// Carriers e città coperti da serviziinformazioni.it (dati live)
+const LIVE_CARRIERS = new Set(['interbus', 'etna', 'segesta']);
+const LIVE_CITIES   = new Set(['catania','aeroporto','siracusa','taormina','messina',
+                                'palermo','enna','ragusa','noto','acireale','belpasso']);
+
 // Formatta una Date come valore per <input type="datetime-local"> ("YYYY-MM-DDTHH:MM").
 function toLocalInputValue(date) {
   const pad = n => String(n).padStart(2, '0');
@@ -591,6 +596,17 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
         </div>
       )}
 
+      {LIVE_CARRIERS.has(carrier.id) &&
+       LIVE_CITIES.has(originId) &&
+       LIVE_CITIES.has(destId) && (
+        <LiveDepartures
+          originId={originId}
+          destId={destId}
+          carrierId={carrier.id}
+          date={searchAt}
+        />
+      )}
+
       {docs.length > 0 && (
         <>
           <p className="ic-section-label">📂 Documenti ufficiali</p>
@@ -777,4 +793,103 @@ function formatDay(date) {
   const mesi = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno',
                 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
   return `${giorni[date.getDay()]} ${date.getDate()} ${mesi[date.getMonth()]}`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// LiveDepartures — partenze in tempo reale via serviziinformazioni.it
+// Visibile solo per Interbus / Etna Trasporti / Segesta e città coperte.
+// ─────────────────────────────────────────────────────────────────────────
+function LiveDepartures({ originId, destId, carrierId, date }) {
+  const [state, setState] = useState('idle'); // 'idle'|'loading'|'ok'|'error'
+  const [corse, setCorse] = useState([]);
+
+  const dateStr = date instanceof Date
+    ? date.toLocaleDateString('sv-SE') // YYYY-MM-DD
+    : new Date().toLocaleDateString('sv-SE');
+
+  useEffect(() => {
+    setState('loading');
+    setCorse([]);
+    const url = `/api/intercity-live?from=${originId}&to=${destId}&date=${dateStr}`;
+    fetch(url)
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(data => {
+        // filtra solo il carrier della tratta selezionata
+        const CARRIER_IDS = { interbus: 2, etna: 1, segesta: 3 };
+        const myId = CARRIER_IDS[carrierId];
+        const filtered = myId
+          ? data.corse.filter(c => c.carrierId === myId)
+          : data.corse;
+        // mostra solo partenze dall'ora in poi (rispetto a date/ora ricerca)
+        const nowHHMM = date instanceof Date
+          ? `${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`
+          : '00:00';
+        const future = filtered.filter(c => c.dep >= nowHHMM);
+        setCorse(future.length > 0 ? future : filtered);
+        setState('ok');
+      })
+      .catch(() => setState('error'));
+  }, [originId, destId, carrierId, dateStr]);
+
+  if (state === 'idle') return null;
+
+  return (
+    <div className="ic-live-block">
+      <p className="ic-section-label">
+        ⚡ Partenze in tempo reale
+        <span className="ic-live-badge">LIVE</span>
+      </p>
+
+      {state === 'loading' && (
+        <div className="ic-live-loading">Carico disponibilità…</div>
+      )}
+
+      {state === 'error' && (
+        <div className="ic-live-error">
+          Dati live non disponibili al momento.
+        </div>
+      )}
+
+      {state === 'ok' && corse.length === 0 && (
+        <div className="ic-live-empty">
+          Nessuna corsa disponibile per questa data su questo vettore.
+        </div>
+      )}
+
+      {state === 'ok' && corse.length > 0 && (
+        <ul className="ic-live-list">
+          {corse.map((c, i) => (
+            <li key={i} className="ic-live-row">
+              <div className="ic-live-times">
+                <span className="ic-live-dep">{c.dep}</span>
+                <span className="ic-live-arr-sep">→</span>
+                <span className="ic-live-arr">{c.arr}</span>
+              </div>
+              <div className="ic-live-meta">
+                <span
+                  className={`ic-live-seats ${
+                    c.seats === 0 ? 'is-full' : c.seats <= 5 ? 'is-scarce' : ''
+                  }`}
+                >
+                  {c.seats === 0 ? 'Esaurito' : `${c.seats} posti`}
+                </span>
+                {c.code && <span className="ic-live-code">{c.code}</span>}
+              </div>
+              {c.bookUrl && c.seats > 0 && (
+                <a
+                  href={c.bookUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ic-live-book"
+                >
+                  Acquista ↗
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      )}
+      <p className="ic-live-note">Posti disponibili in tempo reale · fonte: vettore</p>
+    </div>
+  );
 }
