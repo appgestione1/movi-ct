@@ -106,11 +106,29 @@ SAIS Autolinee, SAIS Trasporti, Interbus, Etna Trasporti, Segesta, AST, FCE.
 | Tratta | Fonte | Corse |
 |---|---|---|
 | Catania ↔ Belpasso ↔ Nicolosi (FCE) | PDF FCE invernale scolastico 2025-2026 | 25 |
-| Catania ↔ Rifugio Sapienza (AST) | Pagina ufficiale astsicilia.it | 2 |
+| Catania ↔ Rifugio Sapienza (AST) | Regione Siciliana — AST | 2 |
+| Catania ↔ Acireale (AST linee 595 + 605) | Regione Siciliana — AST | 19 |
+| Catania ↔ Siracusa (Interbus L159) | Regione Siciliana — Interbus | 19 |
+| Catania ↔ Agrigento (SAIS Trasporti) | Regione Siciliana — SAIS Trasporti | 16 |
+| Catania ↔ Caltanissetta (SAIS Trasporti) | Regione Siciliana — SAIS Trasporti | 22 |
+| Leonforte ↔ Catania + Catania→Nicosia (Interbus L1568/L1631) | Regione Siciliana — Interbus | 4 |
+| Aeroporto → Taormina (Interbus) | Regione Siciliana — Interbus | 17 |
 
-Le altre connection hanno solo provenance + link al PDF/sito ufficiale finché non
-si parsa il quadro orari. Lo schema (`schedule.from`, `schedule.to`, `feriale`,
-`festivo`, `scolastico`, `orario_partenza`, `orario_arrivo`, `note`) è già usato
+**Tariffe:** nessuna tariffa trovata nei PDF Regione Siciliana (AST, SAIS Trasporti, Interbus).
+La funzione `extractFareTable()` in `regione-sicilia.cjs` ha restituito `null` per tutti e tre.
+Verificare direttamente sui siti dei vettori.
+
+**Note parser Regione Siciliana:**
+- `c-agrigento` e `c-caltanissetta`: aggiunto `saist` ai carriers in `intercityNetwork.js`
+  (il PDF è SAIS Trasporti, non SAIS Autolinee).
+- Routes estratte per c-acireale/c-belpasso-ast/c-nicolosi-ast contengono ancora
+  header-as-stop (bug `isNameLine` poi fixato in `regione-sicilia.cjs`): riprocessare
+  con `npm run refresh-intercity -- --only ast --force` per ripulire i `routes[]`.
+- I duplicati nei tempi (es. 16:25 due volte in L159) riflettono corse feriale vs festivo/scolastico
+  che nel PDF condividono la stessa ora — da raffinare con analisi delle intestazioni CORSE.
+
+Lo schema (`schedule.from`, `schedule.to`, `feriale`,
+`festivo`, `scolastico`, `orario_partenza`, `orario_arrivo`, `note`) è usato
 dalla logica di filtro `getAvailableBuses` e dalla UI dettaglio.
 
 ### Aggiungere un documento ufficiale
@@ -150,14 +168,63 @@ non li ha ancora estratti.
 
 ### Limiti tecnici noti dei vettori
 
-- **AST** — Certificato SSL self-signed sui domini ufficiali. Lo script di refresh usa
-  `rejectUnauthorized: false` solo per AST. Gli orari delle linee provinciali stanno
-  in pagine HTML, non in PDF.
-- **SAIS / Interbus / Etna** — Booking dietro a JavaScript dinamico (Next.js / PHP).
+- **AST / SAIS Trasporti / Interbus** — Niente più scraping del sito commerciale del vettore.
+  Gli orari ufficiali si scaricano dal portale **Regione Siciliana** (`pti.regione.sicilia.it`,
+  sezione `PIR_OrariAutolinee`). Pipeline gestita da `scripts/extractors/regione-sicilia.cjs`
+  (vedi sotto). I siti commerciali rimangono solo come CTA / fallback documentale.
+- **SAIS / Etna / Segesta booking** — Booking dietro a JavaScript dinamico (Next.js / PHP).
   Nessun deep-link autocompile possibile senza headless browser (Playwright).
   Il CTA rimanda al portale + bottone "Copia tratta" per incollare nei loro form.
 - **FCE** — PDF unico con tutte le autolinee, matrice multi-colonna complessa.
   Sezione Belpasso parsata; Randazzo (ovest) e Linguaglossa (est via A18) ancora da parsare.
+
+### Pipeline orari dal portale Regione Sicilia
+
+Fonte: `https://pti.regione.sicilia.it/.../PIR_OrariAutolinee/<vettore>/<file>.pdf`.
+PDF strutturati uniformemente: ogni linea introdotta da `Orario Autolinea Extraurbana:
+<ORIGINE> - <DESTINAZIONE> (cod. NNN)`, tabella `KM / FERMATA / orari per corsa`,
+periodi `FERIALE` / `FESTIVO` / `ESTIVO` / `INVERNALE` / `SCOLASTICO`, talvolta tariffa
+chilometrica in coda al PDF.
+
+| File | Ruolo |
+|---|---|
+| `scripts/extractors/regione-sicilia.cjs` | Parser comune (download, hash, pdftotext, route block split, mapping fermate → cityId, generazione `schedules[]` + `routes[]`) |
+| `scripts/refreshIntercity.cjs` | Driver: invoca `refreshRegione(agencyId, carrierId)` per AST, SAIS Trasporti, Interbus + FCE separato |
+| `data/import-log.json` | Hash SHA1 + timestamp + statistiche per ogni PDF scaricato. Permette skip se il PDF non è cambiato |
+| `data/manual/<agency>/` | Fallback locale: se il download fallisce (rete, geo-block) lo script usa il primo `*.pdf` qui dentro |
+| `src/data/intercitySchedules.json` | Manifest: `{ connectionId: { meta, routes, schedules } }`. `routes[]` ha codice ministeriale + fermate con km |
+
+Comandi:
+
+```bash
+npm run refresh-intercity                          # tutti i vettori
+npm run refresh-intercity -- --only ast            # solo AST (Regione Sicilia)
+npm run refresh-intercity -- --only saist          # solo SAIS Trasporti
+npm run refresh-intercity -- --only interbus       # solo Interbus
+npm run refresh-intercity -- --force               # ignora import-log, riprocessa
+npm run refresh-intercity -- --dry-run             # non scrive il manifest
+npm run refresh-intercity -- --input <pdf> --agency ast   # parsa un PDF locale (debug)
+```
+
+Dati extra estratti dal parser Regione e usati dall'app:
+- **Tappe ufficiali con km** — sezione "🚏 Fermate ufficiali della linea" nel dettaglio tratta
+- **Tariffe chilometriche** — sezione "💶 Tariffe ufficiali (Regione Sicilia)" se la tabella tariffa è presente nel PDF
+- **Codice ministeriale linea** — mostrato accanto a ogni quadro orari
+
+Il parser è "best-effort v1": il formato Regione è uniforme ma con piccole variazioni
+per vettore. Quando una fermata non si mappa a una città di `CITIES` o una corsa è ambigua,
+viene loggata (non produce dati errati). Iterando sul log si raffina il mapping
+aggiungendo alias/città a `src/data/intercityNetwork.js`.
+
+### Geo-block sviluppo da fuori IT
+
+`pti.regione.sicilia.it` blocca traffico esterno all'Italia: l'estrazione automatica
+funziona dal PC dell'utente (Catania) e dovrebbe funzionare dai runner GitHub Actions
+(IP Microsoft variabili). Se la GitHub Action fallisce sul download, la sequenza è:
+
+1. scaricare manualmente i PDF dal browser
+2. metterli in `data/manual/{ast,sais,interbus}/`
+3. committare e ri-eseguire `npm run refresh-intercity`
 
 ## Fine sessione
 Aggiorna questo file con le modifiche significative e committa.

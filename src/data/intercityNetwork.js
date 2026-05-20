@@ -156,8 +156,8 @@ export const CITIES = [
   { id: 'caltanissetta',   name: 'Caltanissetta',            area: 'regione' },
   { id: 'piazza-armerina', name: 'Piazza Armerina',          area: 'regione' },
 
-  { id: 'acireale',        name: 'Acireale',                 area: 'provincia' },
-  { id: 'belpasso',        name: 'Belpasso',                 area: 'provincia' },
+  { id: 'acireale',        name: 'Acireale',                 area: 'provincia', aliases: ['monterosso etneo'] },
+  { id: 'belpasso',        name: 'Belpasso',                 area: 'provincia', aliases: ['borrello'] },
   { id: 'nicolosi',        name: 'Nicolosi',                 area: 'provincia' },
   { id: 'rifugio-sapienza', name: 'Rifugio Sapienza (Etna)', area: 'provincia', aliases: ['etna', 'sapienza', 'etna sud'] },
   { id: 'paterno',         name: 'Paternò',                  area: 'provincia' },
@@ -176,6 +176,38 @@ export const CITIES = [
   { id: 'riposto',         name: 'Riposto',                  area: 'provincia' },
   { id: 'mascali',         name: 'Mascali',                  area: 'provincia' },
   { id: 'piedimonte',      name: 'Piedimonte Etneo',         area: 'provincia' },
+  { id: 'mascalucia',      name: 'Mascalucia',               area: 'provincia', aliases: ['massa annunziata'] },
+  { id: 'pedara',          name: 'Pedara',                   area: 'provincia' },
+  { id: 'trecastagni',     name: 'Trecastagni',              area: 'provincia' },
+  { id: 'viagrande',       name: 'Viagrande',                area: 'provincia' },
+  { id: 'aci-santantonio', name: "Aci Sant'Antonio",         area: 'provincia', aliases: ['aci sant antonio', 'aci santantonio'] },
+  { id: 'aci-catena',      name: 'Aci Catena',               area: 'provincia', aliases: ['acicatena', 'aci san filippo', 'reitana', 'vampolieri'] },
+  { id: 'aci-castello',    name: 'Aci Castello',             area: 'provincia', aliases: ['ficarazzi', 'acicastello', 'acitrezza', 'aci trezza'] },
+  { id: 'aci-bonaccorsi',  name: 'Aci Bonaccorsi',            area: 'provincia', aliases: ['acibonaccorsi'] },
+  { id: 'motta-santanastasia', name: "Motta Sant'Anastasia", area: 'provincia', aliases: ['motta sant anastasia', 'motta santanastasia'] },
+  { id: 'camporotondo',    name: 'Camporotondo Etneo',       area: 'provincia', aliases: ['camporotondo'] },
+  { id: 'san-pietro-clarenza', name: 'San Pietro Clarenza',  area: 'provincia' },
+  { id: 'ragalna',         name: 'Ragalna',                  area: 'provincia' },
+  { id: 'valverde',        name: 'Valverde',                 area: 'provincia' },
+  { id: 'zafferana',       name: 'Zafferana Etnea',          area: 'provincia', aliases: ['zafferana etnea'] },
+  { id: 'san-gregorio',    name: 'San Gregorio di Catania',  area: 'provincia', aliases: ['san gregorio'] },
+  { id: 'lentini',         name: 'Lentini',                  area: 'provincia' },
+  { id: 'carlentini',      name: 'Carlentini',               area: 'provincia' },
+  { id: 'francofonte',     name: 'Francofonte',              area: 'provincia' },
+  { id: 'licodia',         name: 'Licodia Eubea',            area: 'provincia', aliases: ['licodia'] },
+  { id: 'gravina',         name: 'Gravina di Catania',       area: 'provincia' },
+  { id: 'san-giovanni-la-punta', name: 'San Giovanni La Punta', area: 'provincia', aliases: ['san giovanni la punta', 'san giovanni la p'] },
+  { id: 'sant-agata-li-battiati', name: "Sant'Agata Li Battiati", area: 'provincia', aliases: ['sant agata li battiati', 'santagata li battiati', 'sant agata li b'] },
+  { id: 'tremestieri',     name: 'Tremestieri Etneo',        area: 'provincia' },
+  { id: 'mineo',           name: 'Mineo',                    area: 'provincia' },
+  { id: 'militello',       name: 'Militello in Val di Catania', area: 'provincia', aliases: ['militello'] },
+  { id: 'vizzini',         name: 'Vizzini',                  area: 'provincia' },
+  { id: 'grammichele',     name: 'Grammichele',              area: 'provincia' },
+  { id: 'raddusa',         name: 'Raddusa',                  area: 'provincia' },
+  { id: 'mirabella',       name: 'Mirabella Imbaccari',      area: 'provincia', aliases: ['mirabella imbaccari'] },
+  { id: 'san-michele-ganzaria', name: 'San Michele di Ganzaria', area: 'provincia', aliases: ['san michele di ganzaria'] },
+  { id: 'san-cono',        name: 'San Cono',                 area: 'provincia' },
+  { id: 'castel-di-judica', name: 'Castel di Judica',        area: 'provincia', aliases: ['castel di iudica'] },
 
   { id: 'roma',            name: 'Roma',                     area: 'nazionale' },
   { id: 'napoli',          name: 'Napoli',                   area: 'nazionale' },
@@ -191,8 +223,8 @@ export const CONNECTIONS = [
   { id: 'c-palermo',       endpoints: ['catania', 'palermo'],       via: [],                          carriers: ['sais'],            departureHub: 'ct-archimede', category: 'lunga-percorrenza', schedules: [] },
   { id: 'c-messina',       endpoints: ['catania', 'messina'],       via: [],                          carriers: ['sais', 'interbus'], departureHub: 'ct-archimede', category: 'lunga-percorrenza', schedules: [] },
   { id: 'c-enna',          endpoints: ['catania', 'enna'],          via: [],                          carriers: ['sais'],            departureHub: 'ct-archimede', category: 'lunga-percorrenza', schedules: [] },
-  { id: 'c-caltanissetta', endpoints: ['catania', 'caltanissetta'], via: ['enna'],                    carriers: ['sais'],            departureHub: 'ct-archimede', category: 'lunga-percorrenza', schedules: [] },
-  { id: 'c-agrigento',     endpoints: ['catania', 'agrigento'],     via: [],                          carriers: ['sais'],            departureHub: 'ct-archimede', category: 'lunga-percorrenza', schedules: [] },
+  { id: 'c-caltanissetta', endpoints: ['catania', 'caltanissetta'], via: ['enna'],                    carriers: ['sais', 'saist'],   departureHub: 'ct-archimede', category: 'lunga-percorrenza', schedules: [] },
+  { id: 'c-agrigento',     endpoints: ['catania', 'agrigento'],     via: [],                          carriers: ['sais', 'saist'],   departureHub: 'ct-archimede', category: 'lunga-percorrenza', schedules: [] },
   { id: 'c-roma',          endpoints: ['catania', 'roma'],          via: ['messina', 'napoli'],       carriers: ['saist'],           departureHub: 'ct-archimede', category: 'nazionale',          schedules: [] },
 
   // ── Gruppo Interbus / Etna Trasporti / Segesta — regionali ──
@@ -291,7 +323,7 @@ export const CATEGORY_LABELS = {
 // Il manifest è prodotto da `scripts/refreshIntercity.cjs`: una mappa
 // `connectionId -> { meta, schedules }` con la provenance e le corse estratte
 // dai siti ufficiali. Lo fondiamo qui per non duplicare logica di lookup.
-import SCHEDULES_MANIFEST from './intercitySchedules.json';
+import SCHEDULES_MANIFEST from './intercitySchedules.json' with { type: 'json' };
 
 for (const conn of CONNECTIONS) {
   const entry = SCHEDULES_MANIFEST[conn.id];
@@ -299,5 +331,11 @@ for (const conn of CONNECTIONS) {
   if (entry.meta) conn.schedulesMeta = entry.meta;
   if (Array.isArray(entry.schedules) && entry.schedules.length > 0) {
     conn.schedules = entry.schedules;
+  }
+  // routes[] (alimentato dal parser Regione Sicilia): percorso completo
+  // della linea ufficiale con codice ministeriale, fermate ordinate e km.
+  // Permette al frontend di mostrare le tappe dettagliate e la distanza.
+  if (Array.isArray(entry.routes) && entry.routes.length > 0) {
+    conn.routes = entry.routes;
   }
 }

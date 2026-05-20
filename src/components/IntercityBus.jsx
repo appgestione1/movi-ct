@@ -539,6 +539,10 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
         ))}
       </ol>
 
+      <OfficialRouteStops connection={connection} originId={originId} destId={destId} />
+
+      <FareTable meta={meta} originId={originId} destId={destId} routes={connection.routes} />
+
       {connection.note && (
         <div className="ic-alert ic-alert-info">
           <span className="ic-alert-icon">ℹ️</span>
@@ -634,6 +638,104 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
       </div>
 
       <button className="home-btn" onClick={onHome}>⌂ Home</button>
+    </div>
+  );
+}
+
+// Mostra il percorso ufficiale completo della linea (codice ministeriale + km +
+// fermate in ordine, tra origine e destinazione scelte dall'utente).
+// Si attiva solo quando il manifest ha `connection.routes[]` popolato dal
+// parser Regione Sicilia. Non sostituisce le "tappe" sintetiche, le integra.
+function OfficialRouteStops({ connection, originId, destId }) {
+  const routes = connection.routes;
+  if (!Array.isArray(routes) || routes.length === 0) return null;
+
+  // Per ogni route della linea, mostra solo il segmento tra origine e dest.
+  const segments = routes.map(route => {
+    const fermate = Array.isArray(route.fermate) ? route.fermate : [];
+    if (fermate.length === 0) return null;
+    const iFrom = fermate.findIndex(f => f.cityId === originId);
+    const iTo = fermate.findIndex(f => f.cityId === destId);
+    if (iFrom < 0 || iTo < 0) return null;
+    const [lo, hi] = iFrom < iTo ? [iFrom, iTo] : [iTo, iFrom];
+    const segment = fermate.slice(lo, hi + 1);
+    const kmStart = segment[0].km;
+    const kmEnd = segment[segment.length - 1].km;
+    const km = (kmStart != null && kmEnd != null && segment.length > 1)
+      ? Math.abs(kmEnd - kmStart)
+      : null;
+    return { route, segment, km };
+  }).filter(Boolean);
+
+  if (segments.length === 0) return null;
+
+  return (
+    <div className="ic-official-routes">
+      <p className="ic-section-label">🚏 Fermate ufficiali della linea</p>
+      {segments.map((s, i) => (
+        <div key={s.route.code + '-' + i} className="ic-official-route">
+          <div className="ic-official-route-head">
+            <strong>Linea {s.route.code}</strong>
+            {s.route.label && <span> · {s.route.label}</span>}
+            {s.km != null && <span className="ic-official-km"> · {s.km.toFixed(1)} km</span>}
+          </div>
+          <ol className="ic-official-stops">
+            {s.segment.map((f, j) => (
+              <li key={j} className="ic-official-stop">
+                <span className="ic-official-stop-km">{f.km != null ? f.km.toFixed(1) + ' km' : '—'}</span>
+                <span className="ic-official-stop-name">{f.name}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// Tariffe chilometriche pubblicate dalla Regione (quando disponibili nel PDF).
+// Calcola la fascia applicabile alla distanza tra origine e destinazione.
+function FareTable({ meta, originId, destId, routes }) {
+  const fareTable = meta && Array.isArray(meta.fareTable) ? meta.fareTable : null;
+  if (!fareTable || fareTable.length === 0) return null;
+
+  // Tenta di stimare la distanza tra origine e destinazione usando la route
+  // ufficiale con il km totale più rappresentativo.
+  let estKm = null;
+  if (Array.isArray(routes)) {
+    for (const r of routes) {
+      const fermate = Array.isArray(r.fermate) ? r.fermate : [];
+      const a = fermate.find(f => f.cityId === originId);
+      const b = fermate.find(f => f.cityId === destId);
+      if (a && b && a.km != null && b.km != null) {
+        estKm = Math.abs(b.km - a.km);
+        break;
+      }
+    }
+  }
+  const applicable = estKm != null
+    ? fareTable.find(f => f.kmMax >= estKm) || fareTable[fareTable.length - 1]
+    : null;
+
+  return (
+    <div className="ic-fares">
+      <p className="ic-section-label">💶 Tariffe ufficiali (Regione Sicilia)</p>
+      {applicable && estKm != null && (
+        <p className="ic-fare-est">
+          Tratta stimata <strong>{estKm.toFixed(1)} km</strong> · fascia
+          fino a {applicable.kmMax} km: <strong>€ {applicable.euro.toFixed(2)}</strong>
+        </p>
+      )}
+      <ul className="ic-fare-list">
+        {fareTable.map((f, i) => (
+          <li key={i} className={applicable && f.kmMax === applicable.kmMax ? 'is-active' : ''}>
+            fino a <strong>{f.kmMax} km</strong> — € {f.euro.toFixed(2)}
+          </li>
+        ))}
+      </ul>
+      <p className="ic-fare-note">
+        Tariffario ufficiale del concedente regionale. Verifica sempre a bordo o in biglietteria.
+      </p>
     </div>
   );
 }

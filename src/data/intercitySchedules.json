@@ -1,15 +1,61 @@
 {
   "c-rifugio": {
     "meta": {
-      "source": "AST — Linea Bus Catania-Etna",
-      "sourceUrl": "https://www.astsicilia.it/bus-catania-etna/",
+      "source": "Regione Siciliana — AST — Provincia di Catania",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
       "lastUpdatedAt": "2026-05-20",
       "validFrom": null,
       "validTo": null
     },
+    "routes": [
+      {
+        "code": "607",
+        "label": "CATANIA - NICOLOSI - ETNA",
+        "origine": "CATANIA",
+        "destinazione": "ETNA",
+        "kmTotali": 38.3,
+        "fermate": [
+          {
+            "name": "Catania (piazza Giovanni XXIII)",
+            "km": 0,
+            "cityId": "catania"
+          },
+          {
+            "name": "Nicolosi (via Etnea)",
+            "km": null,
+            "cityId": "nicolosi"
+          },
+          {
+            "name": "Etna (rifugio Sapienza)",
+            "km": 38.3,
+            "cityId": "rifugio-sapienza"
+          }
+        ]
+      }
+    ],
     "schedules": [
-      { "carrierId": "ast", "from": "catania", "to": "rifugio-sapienza", "orario_partenza": "08:15", "orario_arrivo": "10:15", "feriale": true, "festivo": true, "scolastico": false, "note": "Da Piazza Papa Giovanni XXIII. Sospesa 25/12, 1/1, 1/5, 15/8, Pasqua. Biglietto a/r €6,60." },
-      { "carrierId": "ast", "from": "rifugio-sapienza", "to": "catania", "orario_partenza": "16:30", "orario_arrivo": "18:30", "feriale": true, "festivo": true, "scolastico": false, "note": "Rientro dal Rifugio Sapienza. Sospesa 25/12, 1/1, 1/5, 15/8, Pasqua." }
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "rifugio-sapienza",
+        "orario_partenza": "08:15",
+        "orario_arrivo": "10:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 607"
+      },
+      {
+        "carrierId": "ast",
+        "from": "rifugio-sapienza",
+        "to": "catania",
+        "orario_partenza": "16:30",
+        "orario_arrivo": "18:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 607"
+      }
     ]
   },
   "c-fce-randazzo": {
@@ -316,6 +362,1166 @@
         "scolastico": true,
         "note": "Corsa bis 880 via Belpasso — sospesa sabato"
       }
+    ]
+  },
+  "c-acireale": {
+    "meta": {
+      "source": "Regione Siciliana — AST — Provincia di Catania",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": "595",
+        "label": "ACIREALE - ACI CATENA - FICARAZZI - CATANIA con deviazione ACI SAN FILIPPO - VAMPOLIERI",
+        "origine": "ACIREALE",
+        "destinazione": "VAMPOLIERI",
+        "kmTotali": 27.3,
+        "fermate": [
+          {
+            "name": "Acicatena (via Roma)",
+            "km": 0,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Aci San Filippo (via Finocchiari)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Torre Casalotto",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "Reitana (piazza Reitana)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Vampolieri (via Vampolieri)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "| Acireale (terminal corso Italia)",
+            "km": null,
+            "cityId": "acireale"
+          },
+          {
+            "name": "17,7 Acicatena (via Roma)",
+            "km": 9.5,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Ficarazzi (via Tripoli)",
+            "km": null,
+            "cityId": "aci-castello"
+          },
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "Orario Autolinea Extraurbana: BELPASSO - NICOLOSI - MASCALUCIA -TREMESTIERI -S. G. LA PUNTA - CATANIA con dev. Nicolosi-Pedara -Tremestieri (cod. 581\\604)",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "Belpasso (piazza Santa Lucia)",
+            "km": 0,
+            "cityId": "belpasso"
+          },
+          {
+            "name": "Borrello",
+            "km": 2,
+            "cityId": "belpasso"
+          },
+          {
+            "name": "Pedara",
+            "km": null,
+            "cityId": "pedara"
+          },
+          {
+            "name": "Nicolosi (via Regione Siciliana)",
+            "km": 3,
+            "cityId": "nicolosi"
+          },
+          {
+            "name": "Massa Annunziata (via Del Bosco)",
+            "km": 6.5,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "Mascalucia (via De Gasperi)",
+            "km": 8.9,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "Tremestieri (via Marconi)",
+            "km": 10.6,
+            "cityId": null
+          },
+          {
+            "name": "San Giovanni La Punta (Ist. Polivalente)",
+            "km": 11.6,
+            "cityId": "san-giovanni-la-punta"
+          },
+          {
+            "name": "San Giovanni La Punta (p.za Lucia Mangano)",
+            "km": 14.5,
+            "cityId": "san-giovanni-la-punta"
+          },
+          {
+            "name": "San Gregorio (p.za Regina Margherita)",
+            "km": 16.3,
+            "cityId": "san-gregorio"
+          },
+          {
+            "name": "Catania (p.za Giovanni XXIII°)",
+            "km": 27.3,
+            "cityId": "catania"
+          }
+        ]
+      },
+      {
+        "code": "597",
+        "label": "CATANIA - ACICASTELLO - ACIREALE",
+        "origine": "CATANIA",
+        "destinazione": "ACIREALE",
+        "kmTotali": 0,
+        "fermate": [
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "Acitrezza (via Provinciale\\via Livorno)",
+            "km": null,
+            "cityId": "aci-castello"
+          },
+          {
+            "name": "Acireale (terminal corso Italia)",
+            "km": null,
+            "cityId": "acireale"
+          },
+          {
+            "name": "Orario Autolinea Extraurbana : CATANIA - BELPASSO - RAGALNA (codice 587) foglio 1",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "Mascalucia (viale De Gasperi)",
+            "km": 0,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "San Pietro Clarenza (via Umberto)",
+            "km": null,
+            "cityId": "san-pietro-clarenza"
+          },
+          {
+            "name": "Camporotondo (via Umberto)",
+            "km": null,
+            "cityId": "camporotondo"
+          },
+          {
+            "name": "Belpasso (via Santa Maria di Licodia)",
+            "km": null,
+            "cityId": "belpasso"
+          },
+          {
+            "name": "Ragalna (via Rocca)",
+            "km": null,
+            "cityId": "ragalna"
+          },
+          {
+            "name": "Belpasso (via Santa Maria di Licodia) 0,0",
+            "km": null,
+            "cityId": "belpasso"
+          }
+        ]
+      },
+      {
+        "code": "598",
+        "label": "CATANIA - VIAGRANDE - ZAFFERANA ETNEA con dir. Viscalori",
+        "origine": "CATANIA",
+        "destinazione": "ZAFFERANA ETNEA con dir. Viscalori",
+        "kmTotali": 14.9,
+        "fermate": [
+          {
+            "name": "CATANIA - Piazza Giovanni XXIII",
+            "km": 0,
+            "cityId": "catania"
+          },
+          {
+            "name": "Viagrande (via Garibaldi)",
+            "km": null,
+            "cityId": "viagrande"
+          },
+          {
+            "name": "Monterosso Etneo",
+            "km": null,
+            "cityId": "acireale"
+          },
+          {
+            "name": "ZAFFERANA ETNEA (via Garibaldi)",
+            "km": 14.9,
+            "cityId": "zafferana"
+          }
+        ]
+      },
+      {
+        "code": "588",
+        "label": "CATANIA - VIAGRANDE - ZAFFERANA ETNEA -SANT'ALFIO",
+        "origine": "CATANIA",
+        "destinazione": "SANT'ALFIO",
+        "kmTotali": 39.8,
+        "fermate": [
+          {
+            "name": "CATANIA - Piazza Giovanni XXIII",
+            "km": 0,
+            "cityId": "catania"
+          },
+          {
+            "name": "Trappeto",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "San Giovanni la Punta (via Roma)",
+            "km": null,
+            "cityId": "san-giovanni-la-punta"
+          },
+          {
+            "name": "Aci Bonaccorsi (via Etna) 0,0",
+            "km": null,
+            "cityId": "aci-bonaccorsi"
+          },
+          {
+            "name": "Viagrande (via Garibaldi)",
+            "km": 14.9,
+            "cityId": "viagrande"
+          },
+          {
+            "name": "Viscalori",
+            "km": 16.1,
+            "cityId": null
+          },
+          {
+            "name": "Monterosso Etneo",
+            "km": 20,
+            "cityId": "acireale"
+          },
+          {
+            "name": "ZAFFERANA ETNEA (via Garibaldi)",
+            "km": 24,
+            "cityId": "zafferana"
+          },
+          {
+            "name": "Milo - Via Marconi",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "SANT'ALFIO - Via Roma",
+            "km": 39.8,
+            "cityId": null
+          }
+        ]
+      },
+      {
+        "code": "582",
+        "label": "PUNTALAZZO - SANT'ALFIO - ACIREALE - CATANIA",
+        "origine": "PUNTALAZZO",
+        "destinazione": "CATANIA",
+        "kmTotali": 0,
+        "fermate": [
+          {
+            "name": "S. G. Montebello (p.za S. Guiovanni Battista)",
+            "km": 0,
+            "cityId": null
+          },
+          {
+            "name": "Macchia di Giarre (piazza San Vito)",
+            "km": null,
+            "cityId": "giarre"
+          },
+          {
+            "name": "Acireale (terminal corso Italia)",
+            "km": 5.1,
+            "cityId": "acireale"
+          },
+          {
+            "name": "Acicastello (via Re Martino)",
+            "km": 7.3,
+            "cityId": "aci-castello"
+          },
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": 21.2,
+            "cityId": "catania"
+          },
+          {
+            "name": "Orario Autolinea Extraurbana: ZAFFERANA - LAVINAIO - ACI SANT'ANTONIO - CATANIA con dev. LAVINAIO - S. MARIA LA STELLA - A18 - CATANIA (cod. 606) foglio 1",
+            "km": 28.9,
+            "cityId": "catania"
+          },
+          {
+            "name": "| Monterosso Etneo",
+            "km": 38.6,
+            "cityId": "acireale"
+          },
+          {
+            "name": "Lavinaio (via Cristaudo)",
+            "km": 0,
+            "cityId": null
+          },
+          {
+            "name": "Aci Sant'Antonio (via Vittorio Emanuele)",
+            "km": 20.4,
+            "cityId": "aci-santantonio"
+          },
+          {
+            "name": "Valverde (corso Vittorio Emanuele)",
+            "km": 18,
+            "cityId": "valverde"
+          },
+          {
+            "name": "San Gregorio (P.za Regina Margherita)",
+            "km": null,
+            "cityId": "san-gregorio"
+          },
+          {
+            "name": "Santa Maria La Stella (V.S.Maria la Stella)",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "Svincolo A18 Acireale",
+            "km": null,
+            "cityId": "acireale"
+          },
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": null,
+            "cityId": "catania"
+          }
+        ]
+      }
+    ],
+    "schedules": [
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "06:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 595 — via Aci Catena/Ficarazzi" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "07:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605 — via S.Gregorio/Aci S.Antonio" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "08:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "09:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "10:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "12:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "14:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "15:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "16:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "18:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "19:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "21:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "11:05", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605 — via S.Gregorio/Aci S.Antonio" },
+      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "12:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "13:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "16:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "18:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "19:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
+      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "21:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" }
+    ]
+  },
+  "c-belpasso-ast": {
+    "meta": {
+      "source": "Regione Siciliana — AST — Provincia di Catania",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": "595",
+        "label": "ACIREALE - ACI CATENA - FICARAZZI - CATANIA con deviazione ACI SAN FILIPPO - VAMPOLIERI",
+        "origine": "ACIREALE",
+        "destinazione": "VAMPOLIERI",
+        "kmTotali": 27.3,
+        "fermate": [
+          {
+            "name": "Acicatena (via Roma)",
+            "km": 0,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Aci San Filippo (via Finocchiari)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Torre Casalotto",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "Reitana (piazza Reitana)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Vampolieri (via Vampolieri)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "| Acireale (terminal corso Italia)",
+            "km": null,
+            "cityId": "acireale"
+          },
+          {
+            "name": "17,7 Acicatena (via Roma)",
+            "km": 9.5,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Ficarazzi (via Tripoli)",
+            "km": null,
+            "cityId": "aci-castello"
+          },
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "Orario Autolinea Extraurbana: BELPASSO - NICOLOSI - MASCALUCIA -TREMESTIERI -S. G. LA PUNTA - CATANIA con dev. Nicolosi-Pedara -Tremestieri (cod. 581\\604)",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "Belpasso (piazza Santa Lucia)",
+            "km": 0,
+            "cityId": "belpasso"
+          },
+          {
+            "name": "Borrello",
+            "km": 2,
+            "cityId": "belpasso"
+          },
+          {
+            "name": "Pedara",
+            "km": null,
+            "cityId": "pedara"
+          },
+          {
+            "name": "Nicolosi (via Regione Siciliana)",
+            "km": 3,
+            "cityId": "nicolosi"
+          },
+          {
+            "name": "Massa Annunziata (via Del Bosco)",
+            "km": 6.5,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "Mascalucia (via De Gasperi)",
+            "km": 8.9,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "Tremestieri (via Marconi)",
+            "km": 10.6,
+            "cityId": null
+          },
+          {
+            "name": "San Giovanni La Punta (Ist. Polivalente)",
+            "km": 11.6,
+            "cityId": "san-giovanni-la-punta"
+          },
+          {
+            "name": "San Giovanni La Punta (p.za Lucia Mangano)",
+            "km": 14.5,
+            "cityId": "san-giovanni-la-punta"
+          },
+          {
+            "name": "San Gregorio (p.za Regina Margherita)",
+            "km": 16.3,
+            "cityId": "san-gregorio"
+          },
+          {
+            "name": "Catania (p.za Giovanni XXIII°)",
+            "km": 27.3,
+            "cityId": "catania"
+          }
+        ]
+      },
+      {
+        "code": "597",
+        "label": "CATANIA - ACICASTELLO - ACIREALE",
+        "origine": "CATANIA",
+        "destinazione": "ACIREALE",
+        "kmTotali": 0,
+        "fermate": [
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "Acitrezza (via Provinciale\\via Livorno)",
+            "km": null,
+            "cityId": "aci-castello"
+          },
+          {
+            "name": "Acireale (terminal corso Italia)",
+            "km": null,
+            "cityId": "acireale"
+          },
+          {
+            "name": "Orario Autolinea Extraurbana : CATANIA - BELPASSO - RAGALNA (codice 587) foglio 1",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "Mascalucia (viale De Gasperi)",
+            "km": 0,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "San Pietro Clarenza (via Umberto)",
+            "km": null,
+            "cityId": "san-pietro-clarenza"
+          },
+          {
+            "name": "Camporotondo (via Umberto)",
+            "km": null,
+            "cityId": "camporotondo"
+          },
+          {
+            "name": "Belpasso (via Santa Maria di Licodia)",
+            "km": null,
+            "cityId": "belpasso"
+          },
+          {
+            "name": "Ragalna (via Rocca)",
+            "km": null,
+            "cityId": "ragalna"
+          },
+          {
+            "name": "Belpasso (via Santa Maria di Licodia) 0,0",
+            "km": null,
+            "cityId": "belpasso"
+          }
+        ]
+      }
+    ],
+    "schedules": []
+  },
+  "c-nicolosi-ast": {
+    "meta": {
+      "source": "Regione Siciliana — AST — Provincia di Catania",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": "595",
+        "label": "ACIREALE - ACI CATENA - FICARAZZI - CATANIA con deviazione ACI SAN FILIPPO - VAMPOLIERI",
+        "origine": "ACIREALE",
+        "destinazione": "VAMPOLIERI",
+        "kmTotali": 27.3,
+        "fermate": [
+          {
+            "name": "Acicatena (via Roma)",
+            "km": 0,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Aci San Filippo (via Finocchiari)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Torre Casalotto",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "Reitana (piazza Reitana)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Vampolieri (via Vampolieri)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "| Acireale (terminal corso Italia)",
+            "km": null,
+            "cityId": "acireale"
+          },
+          {
+            "name": "17,7 Acicatena (via Roma)",
+            "km": 9.5,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Ficarazzi (via Tripoli)",
+            "km": null,
+            "cityId": "aci-castello"
+          },
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "Orario Autolinea Extraurbana: BELPASSO - NICOLOSI - MASCALUCIA -TREMESTIERI -S. G. LA PUNTA - CATANIA con dev. Nicolosi-Pedara -Tremestieri (cod. 581\\604)",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "Belpasso (piazza Santa Lucia)",
+            "km": 0,
+            "cityId": "belpasso"
+          },
+          {
+            "name": "Borrello",
+            "km": 2,
+            "cityId": "belpasso"
+          },
+          {
+            "name": "Pedara",
+            "km": null,
+            "cityId": "pedara"
+          },
+          {
+            "name": "Nicolosi (via Regione Siciliana)",
+            "km": 3,
+            "cityId": "nicolosi"
+          },
+          {
+            "name": "Massa Annunziata (via Del Bosco)",
+            "km": 6.5,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "Mascalucia (via De Gasperi)",
+            "km": 8.9,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "Tremestieri (via Marconi)",
+            "km": 10.6,
+            "cityId": null
+          },
+          {
+            "name": "San Giovanni La Punta (Ist. Polivalente)",
+            "km": 11.6,
+            "cityId": "san-giovanni-la-punta"
+          },
+          {
+            "name": "San Giovanni La Punta (p.za Lucia Mangano)",
+            "km": 14.5,
+            "cityId": "san-giovanni-la-punta"
+          },
+          {
+            "name": "San Gregorio (p.za Regina Margherita)",
+            "km": 16.3,
+            "cityId": "san-gregorio"
+          },
+          {
+            "name": "Catania (p.za Giovanni XXIII°)",
+            "km": 27.3,
+            "cityId": "catania"
+          }
+        ]
+      },
+      {
+        "code": "602",
+        "label": "CATANIA - MASCAUCIA - NICOLOSI - BELPASSO - MASCALUCIA - CATANIA",
+        "origine": "CATANIA",
+        "destinazione": "CATANIA",
+        "kmTotali": 0,
+        "fermate": [
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "| Nicolosi (via della Regione\\via Garibaldi)",
+            "km": null,
+            "cityId": "nicolosi"
+          },
+          {
+            "name": "Camporotondo (via Umberto)",
+            "km": null,
+            "cityId": "camporotondo"
+          },
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": 38.5,
+            "cityId": "catania"
+          },
+          {
+            "name": "CATANIA - GRAVINA - MASCALUCIA - POLIVALENTE - S.G. LA PUNTA - CATANIA con dev.. e dir. Cod. 604 Foglio 1",
+            "km": null,
+            "cityId": "catania"
+          },
+          {
+            "name": "SCOLASTICA",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "| | San Giovanni Galermo",
+            "km": null,
+            "cityId": null
+          }
+        ]
+      },
+      {
+        "code": "607",
+        "label": "CATANIA - NICOLOSI - ETNA",
+        "origine": "CATANIA",
+        "destinazione": "ETNA",
+        "kmTotali": 38.3,
+        "fermate": [
+          {
+            "name": "Catania (piazza Giovanni XXIII)",
+            "km": 0,
+            "cityId": "catania"
+          },
+          {
+            "name": "Nicolosi (via Etnea)",
+            "km": null,
+            "cityId": "nicolosi"
+          },
+          {
+            "name": "Etna (rifugio Sapienza)",
+            "km": 38.3,
+            "cityId": "rifugio-sapienza"
+          }
+        ]
+      }
+    ],
+    "schedules": []
+  },
+  "c-siracusa": {
+    "meta": {
+      "source": "Regione Siciliana — Interbus (L159)",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_INTERBUSSPA/ORARI%20INTERBUS.pdf",
+      "lastUpdatedAt": "2026-05-21",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": "L159",
+        "label": "SIRACUSA - AEROPORTO FONTANAROSSA - CATANIA",
+        "origine": "SIRACUSA",
+        "destinazione": "CATANIA",
+        "kmTotali": 68.6,
+        "fermate": [
+          { "name": "Siracusa (C.so Umberto/Terminal Bus)", "km": 0, "cityId": "siracusa" },
+          { "name": "Aeroporto Fontanarossa", "km": 61.7, "cityId": "aeroporto" },
+          { "name": "Catania (Terminal Bus/Via D'Amico-Archimede)", "km": 68.6, "cityId": "catania" }
+        ]
+      }
+    ],
+    "schedules": [
+      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "06:20", "orario_arrivo": "07:45", "feriale": true, "festivo": false, "scolastico": false, "note": "L159 via Aeroporto" },
+      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "06:40", "orario_arrivo": "08:05", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "07:30", "orario_arrivo": "08:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "11:00", "orario_arrivo": "12:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "13:00", "orario_arrivo": "14:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "14:30", "orario_arrivo": "15:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "15:00", "orario_arrivo": "16:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "17:00", "orario_arrivo": "18:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "19:00", "orario_arrivo": "20:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "08:30", "orario_arrivo": "09:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159 via Aeroporto" },
+      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "09:30", "orario_arrivo": "10:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "10:30", "orario_arrivo": "11:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "11:30", "orario_arrivo": "12:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "12:30", "orario_arrivo": "13:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "13:30", "orario_arrivo": "14:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "14:00", "orario_arrivo": "15:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "15:30", "orario_arrivo": "16:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "17:00", "orario_arrivo": "18:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
+      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "18:30", "orario_arrivo": "19:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" }
+    ]
+  },
+  "c-noto": {
+    "meta": {
+      "source": "Regione Siciliana — AST — Provincia di Catania",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": "586",
+        "label": "CATANIA - SIRACUSA",
+        "origine": "CATANIA",
+        "destinazione": "SIRACUSA",
+        "kmTotali": 0,
+        "fermate": [
+          {
+            "name": "| CATANIA (piazza Giovanni XXIII°)",
+            "km": 0,
+            "cityId": "catania"
+          },
+          {
+            "name": "Priolo (via Pentapoli)",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "SIRACUSA (via Rubino)",
+            "km": 0,
+            "cityId": "siracusa"
+          }
+        ]
+      }
+    ],
+    "schedules": []
+  },
+  "c-ramacca": {
+    "meta": {
+      "source": "Regione Siciliana — AST — Provincia di Catania",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": "1036",
+        "label": "CATANIA - ACI CASTELLO - VAMPOLIERI - FICARAZZI - CATANIA",
+        "origine": "CATANIA",
+        "destinazione": "CATANIA",
+        "kmTotali": 0,
+        "fermate": [
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": 0,
+            "cityId": "catania"
+          },
+          {
+            "name": "Ficarazzi (via Tripoli)",
+            "km": null,
+            "cityId": "aci-castello"
+          },
+          {
+            "name": "Vampolieri (via dello Ionio)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Acicastello (via Re Martino)",
+            "km": null,
+            "cityId": "aci-castello"
+          },
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": 21.7,
+            "cityId": "catania"
+          },
+          {
+            "name": "ASSORO (piazza 1° Maggio)",
+            "km": 0,
+            "cityId": null
+          },
+          {
+            "name": "DITTAINO (piazzale Stazione)",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "Orario Autolinea Extraurbana: MINEO - PALAGONIA - CATANIA con diramazione MINEO - RAMACCA - CATANIA (codice 579) foglio 1",
+            "km": 20,
+            "cityId": "catania"
+          },
+          {
+            "name": "CATANIA (piazza Giovanni XXIII°)",
+            "km": 0,
+            "cityId": "catania"
+          },
+          {
+            "name": "RAMACCA (via Risorgimento)",
+            "km": null,
+            "cityId": "ramacca"
+          },
+          {
+            "name": "BIVIO MINEO",
+            "km": 13.5,
+            "cityId": "mineo"
+          },
+          {
+            "name": "MINEO (porta Adinolfi)",
+            "km": null,
+            "cityId": "mineo"
+          }
+        ]
+      }
+    ],
+    "schedules": []
+  },
+  "c-caltagirone": {
+    "meta": {
+      "source": "Regione Siciliana — AST — Provincia di Catania",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": "580",
+        "label": "MIRABELLA I. - CALTAGIRONE - PALAGONIA- AEROPORTO - CATANIA",
+        "origine": "MIRABELLA I.",
+        "destinazione": "CATANIA",
+        "kmTotali": 0,
+        "fermate": [
+          {
+            "name": "| MIRABELLA (via Roma)",
+            "km": 0,
+            "cityId": null
+          },
+          {
+            "name": "CALTAGIRONE (Stazione Autolinee)",
+            "km": null,
+            "cityId": "caltagirone"
+          },
+          {
+            "name": "AEROPORTO FONTANAROSSA",
+            "km": 93.5,
+            "cityId": "aeroporto"
+          },
+          {
+            "name": "CATANIA (piazza Giovanni XXIII)",
+            "km": null,
+            "cityId": "catania"
+          }
+        ]
+      }
+    ],
+    "schedules": []
+  },
+  "c-gela": {
+    "meta": {
+      "source": "Regione Siciliana — AST — Provincia di Catania",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
+      "lastUpdatedAt": "2026-05-20",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": "580",
+        "label": "MIRABELLA I. - CALTAGIRONE - PALAGONIA- AEROPORTO - CATANIA",
+        "origine": "MIRABELLA I.",
+        "destinazione": "CATANIA",
+        "kmTotali": 0,
+        "fermate": [
+          {
+            "name": "| MIRABELLA (via Roma)",
+            "km": 0,
+            "cityId": null
+          },
+          {
+            "name": "CALTAGIRONE (Stazione Autolinee)",
+            "km": null,
+            "cityId": "caltagirone"
+          },
+          {
+            "name": "AEROPORTO FONTANAROSSA",
+            "km": 93.5,
+            "cityId": "aeroporto"
+          },
+          {
+            "name": "CATANIA (piazza Giovanni XXIII)",
+            "km": null,
+            "cityId": "catania"
+          }
+        ]
+      }
+    ],
+    "schedules": []
+  },
+  "c-caltanissetta": {
+    "meta": {
+      "source": "Regione Siciliana — SAIS Trasporti (Agrigento-Caltanissetta-Aeroporto-Catania)",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_SAISTRASPORTI/SAIS%20TRASPORTI%20ORARI.pdf",
+      "lastUpdatedAt": "2026-05-21",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": null,
+        "label": "AGRIGENTO - CANICATTÌ - CALTANISSETTA - AEROPORTO FONTANAROSSA - CATANIA",
+        "origine": "AGRIGENTO",
+        "destinazione": "CATANIA",
+        "kmTotali": null,
+        "fermate": [
+          { "name": "Agrigento", "km": 0, "cityId": "agrigento" },
+          { "name": "Canicattì", "km": null, "cityId": null },
+          { "name": "Caltanissetta", "km": null, "cityId": "caltanissetta" },
+          { "name": "Aeroporto Fontanarossa", "km": null, "cityId": "aeroporto" },
+          { "name": "Catania (Via D'Amico)", "km": null, "cityId": "catania" }
+        ]
+      }
+    ],
+    "schedules": [
+      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "05:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
+      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "06:35", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
+      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "08:05", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
+      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "11:40", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
+      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "12:40", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
+      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "16:40", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
+      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "19:25", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "06:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "07:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "08:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "09:45", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "11:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "12:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "13:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "14:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "15:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "16:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "17:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "18:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "19:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "20:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "21:45", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" }
+    ]
+  },
+  "c-agrigento": {
+    "meta": {
+      "source": "Regione Siciliana — SAIS Trasporti (Agrigento-Caltanissetta-Aeroporto-Catania)",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_SAISTRASPORTI/SAIS%20TRASPORTI%20ORARI.pdf",
+      "lastUpdatedAt": "2026-05-21",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": null,
+        "label": "AGRIGENTO - CANICATTÌ - CALTANISSETTA - AEROPORTO FONTANAROSSA - CATANIA",
+        "origine": "AGRIGENTO",
+        "destinazione": "CATANIA",
+        "kmTotali": null,
+        "fermate": [
+          { "name": "Agrigento", "km": 0, "cityId": "agrigento" },
+          { "name": "Canicattì", "km": null, "cityId": null },
+          { "name": "Caltanissetta", "km": null, "cityId": "caltanissetta" },
+          { "name": "Aeroporto Fontanarossa", "km": null, "cityId": "aeroporto" },
+          { "name": "Catania (Via D'Amico)", "km": null, "cityId": "catania" }
+        ]
+      }
+    ],
+    "schedules": [
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "06:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "08:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "09:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "11:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "12:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "13:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "14:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "15:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "16:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "17:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "18:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "19:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "20:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "21:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
+      { "carrierId": "saist", "from": "agrigento", "to": "catania", "orario_partenza": "05:55", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Canicattì-Caltanissetta-Aeroporto" },
+      { "carrierId": "saist", "from": "agrigento", "to": "catania", "orario_partenza": "07:25", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Canicattì-Caltanissetta-Aeroporto" }
+    ]
+  },
+  "c-nicosia": {
+    "meta": {
+      "source": "Regione Siciliana — Interbus (L1568 / L1631)",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_INTERBUSSPA/ORARI%20INTERBUS.pdf",
+      "lastUpdatedAt": "2026-05-21",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": "L1568",
+        "label": "LEONFORTE - A19 - AEROPORTO FONTANAROSSA - CATANIA",
+        "origine": "LEONFORTE",
+        "destinazione": "CATANIA",
+        "kmTotali": 115.3,
+        "fermate": [
+          { "name": "Leonforte (C.so Umberto/P.zza IV Novembre)", "km": 0, "cityId": "leonforte" },
+          { "name": "Svincolo A19 Mulinello", "km": 25.3, "cityId": null },
+          { "name": "Svincolo A19 Catania", "km": 103.5, "cityId": null },
+          { "name": "Aeroporto Catania - Fontanarossa", "km": 108.4, "cityId": "aeroporto" },
+          { "name": "Catania - Via D'Amico/Archimede", "km": 115.3, "cityId": "catania" }
+        ]
+      }
+    ],
+    "schedules": [
+      { "carrierId": "interbus", "from": "leonforte", "to": "catania", "orario_partenza": "08:00", "orario_arrivo": "10:00", "feriale": true, "festivo": false, "scolastico": false, "note": "L1568 via A19/Aeroporto" },
+      { "carrierId": "interbus", "from": "leonforte", "to": "catania", "orario_partenza": "14:00", "orario_arrivo": "16:00", "feriale": true, "festivo": false, "scolastico": false, "note": "L1568 via A19/Aeroporto" },
+      { "carrierId": "interbus", "from": "catania", "to": "nicosia", "orario_partenza": "12:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "L1631 via A19/Leonforte" },
+      { "carrierId": "interbus", "from": "catania", "to": "nicosia", "orario_partenza": "14:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "L1631 via A19/Leonforte" }
+    ]
+  },
+  "c-air-taormina": {
+    "meta": {
+      "source": "Regione Siciliana — Interbus (Aeroporto-Taormina-Messina)",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_INTERBUSSPA/ORARI%20INTERBUS.pdf",
+      "lastUpdatedAt": "2026-05-21",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": null,
+        "label": "AEROPORTO FONTANAROSSA - CATANIA - ACIREALE - TAORMINA",
+        "origine": "AEROPORTO",
+        "destinazione": "TAORMINA",
+        "kmTotali": null,
+        "fermate": [
+          { "name": "Aeroporto - Fontanarossa", "km": 0, "cityId": "aeroporto" },
+          { "name": "Catania (Via D'Amico/Archimede)", "km": 9.8, "cityId": "catania" },
+          { "name": "Acireale (P.zza Duomo/C.so Umberto)", "km": 14.6, "cityId": "acireale" },
+          { "name": "Taormina (P.zza L. Pirandello)", "km": 30.6, "cityId": "taormina" }
+        ]
+      }
+    ],
+    "schedules": [
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "05:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "06:10", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "06:30", "orario_arrivo": "07:05", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "07:00", "orario_arrivo": "07:35", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "07:15", "orario_arrivo": "07:50", "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "07:50", "orario_arrivo": "08:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "08:30", "orario_arrivo": "09:05", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "08:50", "orario_arrivo": "09:25", "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "10:50", "orario_arrivo": "11:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "12:50", "orario_arrivo": "13:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "13:05", "orario_arrivo": "13:40", "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "13:50", "orario_arrivo": "14:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "14:50", "orario_arrivo": "15:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "16:50", "orario_arrivo": "17:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "17:05", "orario_arrivo": "17:40", "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "18:50", "orario_arrivo": "19:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
+      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "19:05", "orario_arrivo": "19:40", "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" }
     ]
   }
 }

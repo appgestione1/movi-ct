@@ -2937,3 +2937,84 @@ html, body {
   text-decoration: none;
 }
 .ic-provenance-link:active { opacity: 0.7; }
+
+/* ── Fermate ufficiali (parser Regione Sicilia) ─────────────────────── */
+.ic-official-routes { margin-top: 16px; }
+.ic-official-route {
+  margin: 8px 0 14px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(10,22,36,0.5);
+  border: 1px solid rgba(79,195,247,0.12);
+}
+.ic-official-route-head {
+  font-size: 12.5px;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.ic-official-route-head strong { color: var(--cyan); font-weight: 700; }
+.ic-official-km { color: var(--muted); }
+.ic-official-stops {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ic-official-stop {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  padding: 4px 0;
+  font-size: 12.5px;
+  color: var(--text);
+  border-top: 1px dashed rgba(255,255,255,0.06);
+}
+.ic-official-stop:first-child { border-top: none; }
+.ic-official-stop-km {
+  flex-shrink: 0;
+  width: 56px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 11.5px;
+}
+.ic-official-stop-name { flex: 1; }
+
+/* ── Tariffe ufficiali Regione ─────────────────────────────────────── */
+.ic-fares {
+  margin-top: 16px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: rgba(10,22,36,0.5);
+  border: 1px solid rgba(34,197,94,0.18);
+}
+.ic-fare-est {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--text);
+}
+.ic-fare-est strong { color: #4ade80; }
+.ic-fare-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.ic-fare-list li {
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.04);
+  font-size: 11.5px;
+  color: var(--muted);
+}
+.ic-fare-list li.is-active {
+  background: rgba(34,197,94,0.18);
+  color: var(--text);
+  font-weight: 600;
+}
+.ic-fare-note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  color: var(--muted);
+  font-style: italic;
+}
