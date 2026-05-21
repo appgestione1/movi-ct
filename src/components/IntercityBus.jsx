@@ -34,6 +34,16 @@ const LIVE_CITIES   = new Set([
 // Carriers con proxy SAIS (api/sais-live.js — stub finché API non configurata)
 const SAIS_CARRIERS = new Set(['sais', 'saist']);
 
+// Carriers senza dati live ma con biglietteria online diretta (portale ufficiale).
+// Il dettaglio tratta mostra il pulsante "Acquista" su ogni corsa e una nota
+// sulla validità del titolo. Non c'è prenotazione posto: AST e FCE vendono
+// titoli validi per la tratta/fascia, non per la singola corsa.
+const PORTAL_CARRIERS = new Set(['ast', 'fce']);
+const PORTAL_TICKET_NOTE = {
+  ast: 'Biglietto valido per la tratta · acquisto sul portale AST, in app, a bordo o in rivendita',
+  fce: 'Biglietto a fasce chilometriche, validità giornaliera · acquisto sul portale FCE, in app, a bordo o in rivendita',
+};
+
 // Topic ntfy.sh per notifica errore proxy SAIS.
 // Configura VITE_NTFY_TOPIC in .env.local (o Vercel env) con il tuo topic.
 // Scarica l'app ntfy (iOS/Android) e iscriviti allo stesso topic.
@@ -599,7 +609,7 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
                   <span className="ic-trip-time">{t.orario_arrivo || '—'}</span>
                 </div>
                 {t.note && <span className="ic-trip-note">{t.note}</span>}
-                {carrier.id === 'ast' && (
+                {PORTAL_CARRIERS.has(carrier.id) && (
                   <a
                     href={link.url}
                     target="_blank"
@@ -612,10 +622,8 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
               </li>
             ))}
           </ul>
-          {carrier.id === 'ast' && (
-            <p className="ic-live-note">
-              Biglietto valido per la tratta · acquisto sul portale AST, in app, a bordo o in rivendita
-            </p>
+          {PORTAL_CARRIERS.has(carrier.id) && (
+            <p className="ic-live-note">{PORTAL_TICKET_NOTE[carrier.id]}</p>
           )}
           {meta && <SchedulesProvenance meta={meta} />}
         </>

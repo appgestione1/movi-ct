@@ -320,11 +320,13 @@ export function generateTicketLink(carrierId, fromId, toId, date) {
         query,
       };
     case 'fce':
-      // FCE: autolinee Circumetnea → pagina orari ufficiale.
+      // FCE: biglietteria online sul portale e-ticketing ufficiale (SPA B2C).
+      // Vende sia titoli urbani che extraurbani ("extra-urban-ticket": access).
+      // Niente deep-link con tratta precompilata → si apre la home del portale.
       return {
-        url: carrier.website,
-        label: 'Orari autolinee FCE',
-        type: 'timetable',
+        url: 'https://eticketing.circumetnea.it/',
+        label: 'Acquista biglietto FCE',
+        type: 'booking',
         query,
       };
     default:

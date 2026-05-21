@@ -247,6 +247,28 @@ mostra un pulsante "🎟️ Acquista" per ogni corsa + CTA "Acquista biglietto A
 verso `https://ast-pp.4cloud.it/` (il portale non accetta deep-link con tratta precompilata:
 pagine d'acquisto dietro login). Vedi `generateTicketLink` case `ast` in `utils/intercity.js`.
 
+### FCE — niente dati live, biglietteria online via portale e-ticketing
+
+FCE vende **titoli a fasce chilometriche** (8 fasce, 10-90 km) con **validità solare**
+(giornaliera), validi su tutti i mezzi FCE — **non legati alla singola corsa**.
+Stessa ragione di AST: niente prenotazione posto → live impossibile.
+
+Portali FCE:
+- **`eticketing.circumetnea.it`** — SPA Angular "B2C - Ticket": biglietteria online.
+  Vende sia titoli urbani che extraurbani (config `"extra-urban-ticket": {access:true}`).
+- **App FCE Catania** — carnet digitali con origine/destinazione prefissate.
+- `circumetnea.acquistitelematici.it` — solo albo fornitori/gare (NON biglietteria).
+
+**Scelta in-app:** FCE resta con orari statici (PDF FCE). Pulsante "🎟️ Acquista" per ogni
+corsa + CTA "Acquista biglietto FCE" verso `https://eticketing.circumetnea.it/`.
+Vedi `generateTicketLink` case `fce`.
+
+### Pattern carrier "portale" (`PORTAL_CARRIERS`)
+
+`IntercityBus.jsx` definisce `PORTAL_CARRIERS = {ast, fce}`: vettori senza live ma con
+biglietteria online diretta. Per questi il dettaglio tratta mostra pulsante "Acquista" su
+ogni riga orario + nota su validità del titolo (`PORTAL_TICKET_NOTE`). Stile `.ic-trip-book`.
+
 ### Pipeline orari dal portale Regione Sicilia
 
 Fonte: `https://pti.regione.sicilia.it/.../PIR_OrariAutolinee/<vettore>/<file>.pdf`.
