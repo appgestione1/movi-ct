@@ -70,13 +70,35 @@
   },
   "c-fce-linguaglossa": {
     "meta": {
-      "source": "FCE — Autolinee Circumetnea (invernale 2025-2026)",
+      "source": "FCE — Autolinee Circumetnea (invernale 2025-2026, agg. 30 marzo 2026)",
       "sourceUrl": "https://www.circumetnea.it/download/orario-autolinee-in-vigore-dal-16-marzo-2026/",
-      "lastUpdatedAt": "2026-05-20",
-      "validFrom": "2026-03-30",
+      "lastUpdatedAt": "2026-05-21",
+      "validFrom": "2025-11-06",
       "validTo": null
     },
-    "schedules": []
+    "schedules": [
+      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "11:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 202 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (12:30)" },
+      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "12:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 204 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (13:30)" },
+      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "13:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 206 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (14:30)" },
+      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "14:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 208 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (15:30)" },
+      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "16:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 210 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (17:40)" },
+      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "17:35", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 212 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (18:45)" },
+      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "18:40", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 214 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (19:50)" },
+      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "11:20", "orario_arrivo": "12:30", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 202 via A18/Acireale/Giarre/Riposto" },
+      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "12:20", "orario_arrivo": "13:30", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 204 via A18/Acireale/Giarre/Riposto" },
+      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "13:20", "orario_arrivo": "14:30", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 206 via A18/Acireale/Giarre/Riposto" },
+      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "14:20", "orario_arrivo": "15:30", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 208 via A18/Acireale/Giarre/Riposto" },
+      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "16:30", "orario_arrivo": "17:40", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 210 via A18/Acireale/Giarre/Riposto" },
+      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "17:35", "orario_arrivo": "18:45", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 212 via A18/Acireale/Giarre/Riposto" },
+      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "18:40", "orario_arrivo": "19:50", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 214 via A18/Acireale/Giarre/Riposto" },
+      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "06:20", "orario_arrivo": "07:35", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 201" },
+      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "06:20", "orario_arrivo": "07:35", "feriale": true, "festivo": false, "scolastico": true,  "note": "Corsa 203 (bis)" },
+      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "07:30", "orario_arrivo": "08:45", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 205 — fermata Acireale 08:10" },
+      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "08:30", "orario_arrivo": "09:45", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 207" },
+      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "11:30", "orario_arrivo": "12:45", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 209" },
+      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "14:30", "orario_arrivo": "15:40", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 211" },
+      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "16:00", "orario_arrivo": "17:10", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 213" }
+    ]
   },
   "c-fce-nicolosi": {
     "meta": {
