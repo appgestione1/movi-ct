@@ -166,6 +166,32 @@ gira ogni lunedì 04:00 UTC e committa il manifest aggiornato.
 Gli schedules curati a mano vengono **preservati** dal merge se l'extractor automatico
 non li ha ancora estratti.
 
+### API SAIS Autolinee (Albatross Gateway — SITRAP srl)
+
+Backend scoperto: `https://api.saisautolinee.it` (Albatross Gateway v8.2)
+
+| Endpoint | Auth | Note |
+|---|---|---|
+| `GET /` | nessuna | health check JSON |
+| `GET /stops?q=<città>` | nessuna | lista fermate con localityId |
+| `POST /trips` | Bearer token | ricerca corse — token da app mobile |
+
+**Locality IDs** (da `/stops`, pubblico):
+- Catania: `342bcab3-e36a-45b7-bf19-8ac39ee8fdf4` — stop principale: `IT15CTCAAATA` (Aeroporto Terminal Bus)
+- Palermo: `c518e433-60ab-4762-b74e-959160a7e743`
+- Messina: `94393218-6067-4adf-a8f6-fda6ad592bb6`
+- Siracusa: `1c84b45d-58fe-4450-aa90-7b3fb07ed49d`
+- Enna: `b5ccfa49-6ce6-4cfc-91e4-264f07fcfde3`
+
+**Per attivare il live SAIS:**
+1. Installa **mitmproxy** o **Charles Proxy**
+2. Apri l'app SAIS Autolinee (`com.sitrap.sais`) e cerca una corsa
+3. Cattura la chiamata POST a `api.saisautolinee.it/trips`
+4. Copia il valore dell'header `Authorization: Bearer <token>`
+5. In Vercel: aggiungi `SAIS_BEARER_TOKEN=<token>` e `SAIS_LIVE_CONFIGURED=true`
+
+**SAIS Trasporti**: sistema separato (`biglietti.saistrasporti.it`, .NET) — copre Agrigento e Caltanissetta. Non integrata nell'API Albatross.
+
 ### Limiti tecnici noti dei vettori
 
 - **AST / SAIS Trasporti / Interbus** — Niente più scraping del sito commerciale del vettore.
