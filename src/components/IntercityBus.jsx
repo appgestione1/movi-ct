@@ -643,6 +643,19 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
             >📄 Apri PDF orari ufficiali ↗</a>
           )}
           {meta && <SchedulesProvenance meta={meta} />}
+          {PORTAL_CARRIERS.has(carrier.id) && (
+            <>
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="ic-sais-book-btn"
+              >
+                🎟️ {link.label} ↗
+              </a>
+              <p className="ic-live-note">{PORTAL_TICKET_NOTE[carrier.id]}</p>
+            </>
+          )}
         </div>
       )}
 
