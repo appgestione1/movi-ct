@@ -21,8 +21,15 @@ import {
 
 // Carriers e città coperti da serviziinformazioni.it (dati live)
 const LIVE_CARRIERS = new Set(['interbus', 'etna', 'segesta']);
-const LIVE_CITIES   = new Set(['catania','aeroporto','siracusa','taormina','messina',
-                                'palermo','enna','ragusa','noto','acireale','belpasso']);
+const LIVE_CITIES   = new Set([
+  'catania','aeroporto',
+  'siracusa','noto','ragusa','modica',
+  'taormina','francavilla',
+  'messina','palermo','enna','caltanissetta',
+  'caltagirone','gela','piazza-armerina',
+  'troina','nicosia',
+  'acireale','belpasso',
+]);
 
 // Carriers con proxy SAIS (api/sais-live.js — stub finché API non configurata)
 const SAIS_CARRIERS = new Set(['sais', 'saist']);
@@ -1011,12 +1018,12 @@ function LiveDepartures({ originId, destId, carrierId, date }) {
     fetch(url)
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(data => {
-        // filtra solo il carrier della tratta selezionata
+        // Filtra per carrier principale; se il filtro non produce risultati
+        // (es. tratta servita da affiliato/subvettore), mostra tutte le corse.
         const CARRIER_IDS = { interbus: 2, etna: 1, segesta: 3 };
         const myId = CARRIER_IDS[carrierId];
-        const filtered = myId
-          ? data.corse.filter(c => c.carrierId === myId)
-          : data.corse;
+        const byCarrier = myId ? data.corse.filter(c => c.carrierId === myId) : data.corse;
+        const filtered = byCarrier.length > 0 ? byCarrier : data.corse;
         // mostra solo partenze dall'ora in poi (rispetto a date/ora ricerca)
         const nowHHMM = date instanceof Date
           ? `${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`

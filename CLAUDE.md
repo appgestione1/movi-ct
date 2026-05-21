@@ -166,6 +166,23 @@ gira ogni lunedì 04:00 UTC e committa il manifest aggiornato.
 Gli schedules curati a mano vengono **preservati** dal merge se l'extractor automatico
 non li ha ancora estratti.
 
+### serviziinformazioni.it — LIVE Interbus/Etna/Segesta ✅ (`api/intercity-live.js`)
+
+Backend: `https://cdn.serviziinformazioni.it/tpl/api/get_orari_multivettore.php` (piattaforma shared gruppo Interbus).
+
+**Endpoint:** `GET ...?cmd=lista_corse_per_relazione&id_fermata_partenza={id}&id_fermata_destinazione={id}&data_dal={YYYY-MM-DD}&data_al={YYYY-MM-DD}`
+
+**Nessun login/firma richiesti.** CORS aperto con Referer Interbus.
+
+**Città coperte (STOP_IDS in `api/intercity-live.js`):**
+catania(34), aeroporto(35), siracusa(427), taormina(92), messina(261), palermo(170), enna(368), ragusa(861), noto(420), acireale(767), belpasso(747), troina(386), nicosia(372), modica(632), francavilla(450), caltagirone(29), gela(113), piazza-armerina(73), caltanissetta(30).
+
+**Vettori sulla piattaforma:** Etna(1), Interbus(2), Segesta(3), SicilBus(4), Isea(7), + 8 operatori minori (id 8-15).
+
+**Nota carrier fallback:** Alcune tratte etichettate "Interbus" in `intercityNetwork.js` sono operate da subvettori (es. Troina→ISEA, Francavilla→Etna Trasporti). Il proxy filtra per carrier principale; se il filtro produce 0 risultati, mostra tutte le corse dell'O-D pair (sono comunque pertinenti).
+
+**AST / FCE:** Non presenti su serviziinformazioni.it. AST usa solo sito WordPress (no API). FCE usa PDF. Nessun live disponibile per questi vettori.
+
 ### API SAIS Autolinee — LIVE attivo ✅ (`api/sais-live.js`)
 
 Backend: `https://api.saisautolinee.it` (Albatross Gateway v8.2, SITRAP srl).

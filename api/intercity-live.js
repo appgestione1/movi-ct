@@ -11,27 +11,42 @@ const API_URL =
 // Stop IDs principali per le tratte coperte da serviziinformazioni.it
 // (Interbus id=2, Etna Trasporti id=1, Segesta id=3, SicilBus id=4)
 const STOP_IDS = {
-  catania:    34,   // Via Archimede - Autostazione
-  aeroporto:  35,   // Aeroporto Fontanarossa
-  siracusa:   427,  // Corso Umberto, 196
-  taormina:   92,   // Terminal Bus
-  messina:    261,  // Piazza Repubblica Terminal Bus
-  palermo:    170,  // Fazello Staz. FS
-  enna:       368,  // Enna Centro - Viale Diaz
-  ragusa:     861,  // Terminal Bus
-  noto:       420,  // Via Confalonieri
-  acireale:   767,  // Terminal Bus Corso Italia
-  belpasso:   747,  // Via Santa Maria di Licodia
+  catania:          34,   // Via Archimede - Autostazione
+  aeroporto:        35,   // Aeroporto Fontanarossa
+  siracusa:         427,  // Corso Umberto, 196
+  taormina:         92,   // Terminal Bus
+  messina:          261,  // Piazza Repubblica Terminal Bus
+  palermo:          170,  // Fazello Staz. FS
+  enna:             368,  // Enna Centro - Viale Diaz
+  ragusa:           861,  // Terminal Bus
+  noto:             420,  // Via Confalonieri
+  acireale:         767,  // Terminal Bus Corso Italia
+  belpasso:         747,  // Via Santa Maria di Licodia
+  troina:           386,  // Piazza Gramsci, 1
+  nicosia:          372,  // P.zza S. F. di Paola
+  modica:           632,  // Corso Umberto I n. 4801
+  francavilla:      450,  // Francavilla di Sicilia — P.zza Annunziata
+  caltagirone:      29,   // Autostazione
+  gela:             113,  // Stazione FS
+  'piazza-armerina': 73,  // P.zza Marescalchi
+  caltanissetta:    30,   // Autostazione
 };
 
-// Carrier names normalizzati
+// Carrier names normalizzati (fonte: lista_vettori serviziinformazioni.it)
 const CARRIER_NAMES = {
-  "1": "Etna Trasporti",
-  "2": "Interbus",
-  "3": "Segesta",
-  "4": "SicilBus",
-  "7": "Isea",
-  "8": "Russo",
+  "1":  "Etna Trasporti",
+  "2":  "Interbus",
+  "3":  "Segesta",
+  "4":  "SicilBus",
+  "7":  "Isea",
+  "8":  "Autoservizi Russo",
+  "9":  "Camarda e Drago",
+  "10": "Mercorillo",
+  "11": "S.C.A.D.I.",
+  "12": "Autoservizi Emanuele",
+  "13": "Autoservizi Matasso",
+  "14": "Bevacqua e Vitanza",
+  "15": "Giuntabus",
 };
 
 // URL di prenotazione per carrier
