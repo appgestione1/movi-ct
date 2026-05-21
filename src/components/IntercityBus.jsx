@@ -831,9 +831,9 @@ function formatDay(date) {
 // SaisLiveDepartures — blocco disponibilità per SAIS Autolinee / SAIS Trasporti
 //
 // Stato del proxy (api/sais-live.js):
-//   'not_configured' → API non ancora scoperta: mostra blocco prenotazione
-//   'live'           → dati reali: mostra corse con posti e link acquisto
-//   'error'          → proxy configurato ma rotto: toast + notifica + fallback
+//   'live'           → orari reali da /search/s: corse con orario, prezzo, acquisto
+//   'not_configured' → tratta non coperta o 0 corse: mostra orari statici + booking
+//   'error'          → proxy/API rotto: toast + notifica ntfy + fallback statico
 // ─────────────────────────────────────────────────────────────────────────
 function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier, bookingUrl }) {
   const [state, setState] = useState('loading');
@@ -881,11 +881,11 @@ function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier,
     return (
       <div className="ic-live-block">
         <p className="ic-section-label">
-          ⚡ Disponibilità in tempo reale
+          ⚡ Orari in tempo reale
           <span className="ic-live-badge">LIVE</span>
         </p>
         {corse.length === 0 ? (
-          <div className="ic-live-empty">Nessuna corsa disponibile per questa data.</div>
+          <div className="ic-live-empty">Nessuna corsa SAIS per questa data.</div>
         ) : (
           <ul className="ic-live-list">
             {corse.map((c, i) => (
@@ -896,14 +896,16 @@ function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier,
                   <span className="ic-live-arr">{c.arr}</span>
                 </div>
                 <div className="ic-live-meta">
-                  <span className={`ic-live-seats ${
-                    c.seats === 0 ? 'is-full' : c.seats <= 5 ? 'is-scarce' : ''
-                  }`}>
-                    {c.seats === 0 ? 'Esaurito' : `${c.seats} posti`}
-                  </span>
-                  {c.code && <span className="ic-live-code">{c.code}</span>}
+                  {c.price != null && (
+                    <span className="ic-live-price">€{c.price.toFixed(2)}</span>
+                  )}
+                  {c.changes > 0 && (
+                    <span className="ic-live-code">
+                      {c.changes} {c.changes === 1 ? 'cambio' : 'cambi'}
+                    </span>
+                  )}
                 </div>
-                {c.bookUrl && c.seats > 0 && (
+                {c.bookUrl && (
                   <a href={c.bookUrl} target="_blank" rel="noopener noreferrer" className="ic-live-book">
                     Acquista ↗
                   </a>
@@ -912,7 +914,7 @@ function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier,
             ))}
           </ul>
         )}
-        <p className="ic-live-note">Posti disponibili in tempo reale · fonte: vettore</p>
+        <p className="ic-live-note">Orari e tariffe in tempo reale · fonte: SAIS Autolinee</p>
       </div>
     );
   }

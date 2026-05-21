@@ -3116,6 +3116,14 @@ html, body {
   color: var(--muted);
   font-family: monospace;
 }
+.ic-live-price {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(79,195,247,0.15);
+  color: var(--cyan);
+}
 .ic-live-book {
   display: inline-block;
   padding: 6px 12px;

@@ -166,47 +166,39 @@ gira ogni lunedì 04:00 UTC e committa il manifest aggiornato.
 Gli schedules curati a mano vengono **preservati** dal merge se l'extractor automatico
 non li ha ancora estratti.
 
-### API SAIS Autolinee (Albatross Gateway — SITRAP srl)
+### API SAIS Autolinee — LIVE attivo ✅ (`api/sais-live.js`)
 
-Backend scoperto: `https://api.saisautolinee.it` (Albatross Gateway v8.2)
+Backend: `https://api.saisautolinee.it` (Albatross Gateway v8.2, SITRAP srl).
 
-| Endpoint | Auth | Note |
-|---|---|---|
-| `GET /` | nessuna | health check JSON |
-| `GET /stops?q=<città>` | nessuna | lista fermate con localityId |
-| `POST /trips` | Bearer token | ricerca corse — token da app mobile |
+**Endpoint usato:** `POST /search/s/{from}/{to}/{d1}/{d2}` — ricerca corse per fascia
+di date. `from`/`to` sono **nomi città** (`Catania`, `Palermo`, …), `d1`/`d2` date
+`YYYY-MM-DD`. Body: `[{"fId":null,"extra":{},"subGroupId":0}]`.
 
-**Locality IDs** (da `/stops`, pubblico):
-- Catania: `342bcab3-e36a-45b7-bf19-8ac39ee8fdf4` — stop principale: `IT15CTCAAATA` (Aeroporto Terminal Bus)
-- Palermo: `c518e433-60ab-4762-b74e-959160a7e743`
-- Messina: `94393218-6067-4adf-a8f6-fda6ad592bb6`
-- Siracusa: `1c84b45d-58fe-4450-aa90-7b3fb07ed49d`
-- Enna: `b5ccfa49-6ce6-4cfc-91e4-264f07fcfde3`
+**Nessun login necessario.** L'unica protezione è una firma `s` in header,
+calcolata client-side → il proxy la rigenera ad ogni richiesta. Funziona in
+modo permanente, senza token/cookie/account/env-var.
 
-**Per attivare il live SAIS (metodo browser — più semplice):**
-1. Vai su `https://booking.saisautolinee.it/it/login`
-2. Crea un account gratuito (o usa Login con Google)
-3. Esegui il login
-4. Apri DevTools → Application → Session Storage → `https://api.saisautolinee.it`
-5. Trova la chiave `jwt` → copia il valore (stringa `eyJ...`)
-6. In Vercel: aggiungi `SAIS_BEARER_TOKEN=<valore>` e `SAIS_LIVE_CONFIGURED=true`
+**Firma `s` (header obbligatorio):**
+- `s: i="{cid}", t="{ts}", n="{nonce}", m="{mac}"`
+- `cid` = UUID v4 casuale · `ts` = unix time (s) · `nonce` = `{16 byte hex}:{ts hex UPPER pad16}`
+- `mac` = **HMAC-SHA256**(key, `"{METHOD}\n{fullUrl}\n{id=..&nonce=..&ts=..}"`)
+  — i 3 param ordinati alfabeticamente e URL-encoded
+- key = stringa UTF-8 `2F0294611E814D078293452B58C324DC`
+  (offuscata nella funzione `Jt()` del bundle `booking.saisautolinee.it`)
+- Altri header richiesti: `albatross-tenant: sais`, `frontend-version`, `iw`, `ih`, `sc: 1`
 
-**Alternativa mitmproxy:**
-1. Installa **mitmproxy** o **Charles Proxy**
-2. Apri l'app SAIS Autolinee (`com.sitrap.sais`) e cerca una corsa
-3. Cattura la chiamata POST a `api.saisautolinee.it/trips`
-4. Copia il valore dell'header `Authorization: Bearer <token>`
-5. In Vercel: aggiungi `SAIS_BEARER_TOKEN=<token>` e `SAIS_LIVE_CONFIGURED=true`
+**Città coperte** (mappa in `SAIS_CITIES` dentro `api/sais-live.js`):
+Catania, Palermo, Messina, Enna, Caltanissetta. Catania→X funziona sempre;
+alcuni versi X→Catania no (es. Caltanissetta→Catania = 0 corse) → in quel caso
+il proxy ritorna `not_configured` e il client mostra gli orari statici.
 
-**Architettura Albatross (SITRAP srl) — note tecniche:**
-- Chiave di firma richiesta HMAC-MD5: `2F0294611E814D078293452B58C324DC`
-- Header `Albatross-Tenant: sais` obbligatorio su ogni richiesta
-- Header `Frontend-Version: 8.2.298-1779366222793` + `s: i="…"` (firma)
-- Il JWT viene salvato dal frontend in `sessionStorage["jwt"]` dopo login
-- Endpoint pubblici (no auth): `/`, `/health`, `/stops`, `/lines`
-- Endpoint privati (Bearer): `/trips`, `/routes`, `/users/login`
+**Risposta `/search/s`:** array di gruppi soluzione; ogni gruppo ha `trips[]`,
+`calculatedPrice`, `fullPrice`. Lo stesso viaggio compare più volte (fermate
+diverse della città) → `parseSaisSearch()` deduplica per sequenza `tripId` e
+mostra solo le corse dirette se esistono.
 
-**SAIS Trasporti**: sistema separato (`biglietti.saistrasporti.it`, .NET) — copre Agrigento e Caltanissetta. Non integrata nell'API Albatross.
+**SAIS Trasporti**: sistema separato (`biglietti.saistrasporti.it`, .NET) —
+copre solo Agrigento. Non integrato.
 
 ### Limiti tecnici noti dei vettori
 
