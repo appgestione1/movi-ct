@@ -24,6 +24,26 @@ const LIVE_CARRIERS = new Set(['interbus', 'etna', 'segesta']);
 const LIVE_CITIES   = new Set(['catania','aeroporto','siracusa','taormina','messina',
                                 'palermo','enna','ragusa','noto','acireale','belpasso']);
 
+// Carriers con proxy SAIS (api/sais-live.js — stub finché API non configurata)
+const SAIS_CARRIERS = new Set(['sais', 'saist']);
+
+// Topic ntfy.sh per notifica errore proxy SAIS.
+// Configura VITE_NTFY_TOPIC in .env.local (o Vercel env) con il tuo topic.
+// Scarica l'app ntfy (iOS/Android) e iscriviti allo stesso topic.
+const NTFY_TOPIC = import.meta.env.VITE_NTFY_TOPIC || 'movi-ct-sais-alerts';
+
+function sendErrorNotification(carrierName, originId, destId) {
+  fetch(`https://ntfy.sh/${NTFY_TOPIC}`, {
+    method: 'POST',
+    headers: {
+      Title:    `Movì CT — ${carrierName} live down`,
+      Priority: 'high',
+      Tags:     'warning,bus',
+    },
+    body: `Proxy ${carrierName} (${originId}→${destId}) ha restituito errore.\nVerifica e ripristina api/sais-live.js oppure attiva il fallback.`,
+  }).catch(() => {});
+}
+
 // Formatta una Date come valore per <input type="datetime-local"> ("YYYY-MM-DDTHH:MM").
 function toLocalInputValue(date) {
   const pad = n => String(n).padStart(2, '0');
@@ -607,6 +627,18 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
         />
       )}
 
+      {SAIS_CARRIERS.has(carrier.id) && (
+        <SaisLiveDepartures
+          originId={originId}
+          destId={destId}
+          carrierId={carrier.id}
+          date={searchAt}
+          trips={trips}
+          carrier={carrier}
+          bookingUrl={link.url}
+        />
+      )}
+
       {docs.length > 0 && (
         <>
           <p className="ic-section-label">📂 Documenti ufficiali</p>
@@ -793,6 +825,169 @@ function formatDay(date) {
   const mesi = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno',
                 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
   return `${giorni[date.getDay()]} ${date.getDate()} ${mesi[date.getMonth()]}`;
+}
+
+// ─────────────────────────────────────────────────────────────────────────
+// SaisLiveDepartures — blocco disponibilità per SAIS Autolinee / SAIS Trasporti
+//
+// Stato del proxy (api/sais-live.js):
+//   'not_configured' → API non ancora scoperta: mostra blocco prenotazione
+//   'live'           → dati reali: mostra corse con posti e link acquisto
+//   'error'          → proxy configurato ma rotto: toast + notifica + fallback
+// ─────────────────────────────────────────────────────────────────────────
+function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier, bookingUrl }) {
+  const [state, setState] = useState('loading');
+  const [corse, setCorse] = useState([]);
+  const [toast, setToast] = useState(false);
+
+  const dateStr = date instanceof Date
+    ? date.toLocaleDateString('sv-SE')
+    : new Date().toLocaleDateString('sv-SE');
+
+  const nowHHMM = date instanceof Date
+    ? `${String(date.getHours()).padStart(2,'0')}:${String(date.getMinutes()).padStart(2,'0')}`
+    : '00:00';
+
+  useEffect(() => {
+    setState('loading');
+    setCorse([]);
+    fetch(`/api/sais-live?from=${originId}&to=${destId}&date=${dateStr}&carrier=${carrierId}`)
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(data => {
+        if (data.status === 'live') {
+          const future = data.corse.filter(c => c.dep >= nowHHMM);
+          setCorse(future.length > 0 ? future : data.corse);
+          setState('live');
+        } else if (data.status === 'not_configured') {
+          setState('not_configured');
+        } else {
+          // proxy configurato ma ha restituito errore
+          setState('error');
+          setToast(true);
+          sendErrorNotification(carrier.name, originId, destId);
+          setTimeout(() => setToast(false), 6000);
+        }
+      })
+      .catch(() => {
+        setState('error');
+        setToast(true);
+        sendErrorNotification(carrier.name, originId, destId);
+        setTimeout(() => setToast(false), 6000);
+      });
+  }, [originId, destId, carrierId, dateStr]);
+
+  // ── Stato: live ──────────────────────────────────────────────────────────
+  if (state === 'live') {
+    return (
+      <div className="ic-live-block">
+        <p className="ic-section-label">
+          ⚡ Disponibilità in tempo reale
+          <span className="ic-live-badge">LIVE</span>
+        </p>
+        {corse.length === 0 ? (
+          <div className="ic-live-empty">Nessuna corsa disponibile per questa data.</div>
+        ) : (
+          <ul className="ic-live-list">
+            {corse.map((c, i) => (
+              <li key={i} className="ic-live-row">
+                <div className="ic-live-times">
+                  <span className="ic-live-dep">{c.dep}</span>
+                  <span className="ic-live-arr-sep">→</span>
+                  <span className="ic-live-arr">{c.arr}</span>
+                </div>
+                <div className="ic-live-meta">
+                  <span className={`ic-live-seats ${
+                    c.seats === 0 ? 'is-full' : c.seats <= 5 ? 'is-scarce' : ''
+                  }`}>
+                    {c.seats === 0 ? 'Esaurito' : `${c.seats} posti`}
+                  </span>
+                  {c.code && <span className="ic-live-code">{c.code}</span>}
+                </div>
+                {c.bookUrl && c.seats > 0 && (
+                  <a href={c.bookUrl} target="_blank" rel="noopener noreferrer" className="ic-live-book">
+                    Acquista ↗
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+        <p className="ic-live-note">Posti disponibili in tempo reale · fonte: vettore</p>
+      </div>
+    );
+  }
+
+  // ── Stato: error — mostra toast + fallback ───────────────────────────────
+  const showFallback = state === 'error';
+
+  // ── Stato: not_configured o error → blocco prenotazione ─────────────────
+  const hasTrips = Array.isArray(trips) && trips.length > 0;
+
+  return (
+    <>
+      {toast && (
+        <div className="ic-update-toast">
+          <span>🔧 Dati live temporaneamente non disponibili — sito in aggiornamento</span>
+          <button className="ic-toast-close" onClick={() => setToast(false)}>×</button>
+        </div>
+      )}
+
+      {state === 'loading' && (
+        <div className="ic-live-block">
+          <div className="ic-live-loading">Carico disponibilità…</div>
+        </div>
+      )}
+
+      {(state === 'not_configured' || showFallback) && (
+        <div className="ic-live-block ic-sais-block">
+          <p className="ic-section-label">
+            🎟️ Disponibilità e biglietti
+            {showFallback
+              ? <span className="ic-sais-badge ic-sais-badge-warn">IN AGGIORNAMENTO</span>
+              : <span className="ic-sais-badge">ONLINE</span>
+            }
+          </p>
+
+          {/* Orari programmati dal manifest (fallback Option A) */}
+          {hasTrips && showFallback && (
+            <>
+              <p className="ic-sais-fallback-note">
+                Orari programmati verificati (dati live temporaneamente non disponibili):
+              </p>
+              <ul className="ic-live-list">
+                {trips.map((t, i) => (
+                  <li key={i} className="ic-live-row">
+                    <div className="ic-live-times">
+                      <span className="ic-live-dep">{t.orario_partenza}</span>
+                      <span className="ic-live-arr-sep">→</span>
+                      <span className="ic-live-arr">{t.orario_arrivo || '—'}</span>
+                    </div>
+                    {t.note && <span className="ic-live-code">{t.note}</span>}
+                  </li>
+                ))}
+              </ul>
+              <p className="ic-live-note">Orari verificati · non in tempo reale</p>
+            </>
+          )}
+
+          {/* Booking link (Option B) */}
+          {bookingUrl && (
+            <a
+              href={bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ic-sais-book-btn"
+            >
+              Verifica disponibilità e acquista su {carrier.name} ↗
+            </a>
+          )}
+          {!bookingUrl && (
+            <p className="ic-live-empty">Verifica disponibilità sul sito ufficiale del vettore.</p>
+          )}
+        </div>
+      )}
+    </>
+  );
 }
 
 // ─────────────────────────────────────────────────────────────────────────
