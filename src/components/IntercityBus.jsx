@@ -599,9 +599,24 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
                   <span className="ic-trip-time">{t.orario_arrivo || '—'}</span>
                 </div>
                 {t.note && <span className="ic-trip-note">{t.note}</span>}
+                {carrier.id === 'ast' && (
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ic-trip-book"
+                  >
+                    🎟️ Acquista ↗
+                  </a>
+                )}
               </li>
             ))}
           </ul>
+          {carrier.id === 'ast' && (
+            <p className="ic-live-note">
+              Biglietto valido per la tratta · acquisto sul portale AST, in app, a bordo o in rivendita
+            </p>
+          )}
           {meta && <SchedulesProvenance meta={meta} />}
         </>
       ) : (

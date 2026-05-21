@@ -229,6 +229,24 @@ copre solo Agrigento. Non integrato.
 - **FCE** — PDF unico con tutte le autolinee, matrice multi-colonna complessa.
   Sezione Belpasso parsata; Randazzo (ovest) e Linguaglossa (est via A18) ancora da parsare.
 
+### AST — niente dati live, biglietteria online via portale
+
+AST ha due sistemi, entrambi reverse-engineerati:
+- **`ast-pp.4cloud.it`** — web app "AST Ticketing" (Ionic + Keycloak, realm `AST-UTILIZZATORI`,
+  client `applicazione`). API REST `/api/ast/Tratte/*`, `/api/ast/Movimenti/*`: solo
+  biglietteria (città, nodi, tratte+tariffe, acquisto). **Nessun endpoint orari/corse.**
+- **`aziendasicilianatrasporti.it:8080`** — portale ASP.NET WebForms "Percorsi e orari":
+  ricerca timetable. Tecnologia vecchia, niente API.
+
+**Live impossibile per AST:** non esiste prenotazione posto ("Il biglietto riporta soltanto
+la data in cui è stato acquistato, non la data del viaggio" — sito AST). Niente posti,
+niente GPS/AVL. Il dato live alla SAIS non esiste in nessun sistema AST.
+
+**Scelta in-app:** AST resta con orari statici (PDF Regione Sicilia). Il dettaglio tratta AST
+mostra un pulsante "🎟️ Acquista" per ogni corsa + CTA "Acquista biglietto AST", entrambi
+verso `https://ast-pp.4cloud.it/` (il portale non accetta deep-link con tratta precompilata:
+pagine d'acquisto dietro login). Vedi `generateTicketLink` case `ast` in `utils/intercity.js`.
+
 ### Pipeline orari dal portale Regione Sicilia
 
 Fonte: `https://pti.regione.sicilia.it/.../PIR_OrariAutolinee/<vettore>/<file>.pdf`.

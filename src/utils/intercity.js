@@ -310,11 +310,13 @@ export function generateTicketLink(carrierId, fromId, toId, date) {
         query,
       };
     case 'ast':
-      // AST: nessun acquisto online diretto → quadri orari ufficiali.
+      // AST: biglietteria online sul portale ufficiale (web app "AST Ticketing").
+      // Il portale non consente deep-link con tratta precompilata (pagine
+      // d'acquisto dietro login) → si apre la home del portale biglietti.
       return {
-        url: carrier.website,
-        label: 'Quadri orari ufficiali AST',
-        type: 'timetable',
+        url: 'https://ast-pp.4cloud.it/',
+        label: 'Acquista biglietto AST',
+        type: 'booking',
         query,
       };
     case 'fce':
