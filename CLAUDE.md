@@ -183,12 +183,28 @@ Backend scoperto: `https://api.saisautolinee.it` (Albatross Gateway v8.2)
 - Siracusa: `1c84b45d-58fe-4450-aa90-7b3fb07ed49d`
 - Enna: `b5ccfa49-6ce6-4cfc-91e4-264f07fcfde3`
 
-**Per attivare il live SAIS:**
+**Per attivare il live SAIS (metodo browser — più semplice):**
+1. Vai su `https://booking.saisautolinee.it/it/login`
+2. Crea un account gratuito (o usa Login con Google)
+3. Esegui il login
+4. Apri DevTools → Application → Session Storage → `https://api.saisautolinee.it`
+5. Trova la chiave `jwt` → copia il valore (stringa `eyJ...`)
+6. In Vercel: aggiungi `SAIS_BEARER_TOKEN=<valore>` e `SAIS_LIVE_CONFIGURED=true`
+
+**Alternativa mitmproxy:**
 1. Installa **mitmproxy** o **Charles Proxy**
 2. Apri l'app SAIS Autolinee (`com.sitrap.sais`) e cerca una corsa
 3. Cattura la chiamata POST a `api.saisautolinee.it/trips`
 4. Copia il valore dell'header `Authorization: Bearer <token>`
 5. In Vercel: aggiungi `SAIS_BEARER_TOKEN=<token>` e `SAIS_LIVE_CONFIGURED=true`
+
+**Architettura Albatross (SITRAP srl) — note tecniche:**
+- Chiave di firma richiesta HMAC-MD5: `2F0294611E814D078293452B58C324DC`
+- Header `Albatross-Tenant: sais` obbligatorio su ogni richiesta
+- Header `Frontend-Version: 8.2.298-1779366222793` + `s: i="…"` (firma)
+- Il JWT viene salvato dal frontend in `sessionStorage["jwt"]` dopo login
+- Endpoint pubblici (no auth): `/`, `/health`, `/stops`, `/lines`
+- Endpoint privati (Bearer): `/trips`, `/routes`, `/users/login`
 
 **SAIS Trasporti**: sistema separato (`biglietti.saistrasporti.it`, .NET) — copre Agrigento e Caltanissetta. Non integrata nell'API Albatross.
 
