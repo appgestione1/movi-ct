@@ -12,11 +12,7 @@ import {
   getAvailableBuses,
   generateTicketLink,
   mapsUrl,
-  clipboardText,
   reportErrorMailto,
-  getDocsForCarrier,
-  docUrl,
-  DOC_TYPE_LABELS,
 } from '../utils/intercity';
 
 // Carriers e città coperti da serviziinformazioni.it (dati live)
@@ -250,8 +246,7 @@ function IntercitySearch({
 
       <p className="ic-disclaimer">
         Movì CT centralizza i collegamenti dei vettori siciliani. Gli orari
-        ufficiali e l'acquisto dei biglietti restano sui siti delle compagnie:
-        non pubblichiamo orari non verificati.
+        ufficiali e l'acquisto dei biglietti restano sui siti delle compagnie.
       </p>
 
       <button className="home-btn" onClick={onHome}>⌂ Home</button>
@@ -480,7 +475,6 @@ function EmptyResults({ fromId, toId, hubMode }) {
 function IntercityDetail({ result, searchAt, onBack, onHome }) {
   const { connection, carrier, originId, destId, departureHubId, viaCities, isDirect } = result;
   const hub = departureHubId ? getHub(departureHubId) : null;
-  const [copied, setCopied] = useState(false);
 
   const link = useMemo(
     () => generateTicketLink(carrier.id, originId, destId, searchAt),
@@ -496,24 +490,6 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
   // Provenance: mostrata sia quando ci sono orari in app (per dichiarare la fonte),
   // sia quando non ce ne sono ma esiste un PDF/sito ufficiale che li contiene.
   const meta = connection.schedulesMeta || null;
-
-  // Documenti ufficiali pertinenti (carrier-level + connection-level).
-  const docs = useMemo(
-    () => getDocsForCarrier(carrier.id, connection.id),
-    [carrier.id, connection.id],
-  );
-
-  async function copyTratta() {
-    const text = clipboardText(originId, destId, searchAt);
-    try {
-      await navigator.clipboard.writeText(text);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-    } catch {
-      // fallback: alcuni browser bloccano clipboard in contesti non sicuri
-      window.prompt('Copia la tratta da incollare nel sito ufficiale:', text);
-    }
-  }
 
   function openCta() {
     if (link.url) window.open(link.url, '_blank', 'noopener,noreferrer');
@@ -682,43 +658,12 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
         />
       )}
 
-      {docs.length > 0 && (
-        <>
-          <p className="ic-section-label">📂 Documenti ufficiali</p>
-          <ul className="ic-docs">
-            {docs.map(d => (
-              <li key={d.id}>
-                <a
-                  href={docUrl(d)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="ic-doc"
-                >
-                  <div className="ic-doc-head">
-                    <span className="ic-doc-type">{DOC_TYPE_LABELS[d.type] || d.type}</span>
-                    <span className="ic-doc-title">{d.title}</span>
-                  </div>
-                  {d.note && <p className="ic-doc-note">{d.note}</p>}
-                  <div className="ic-doc-meta">
-                    {d.tratta ? <span className="ic-doc-tag ic-doc-tag-tratta">Per questa tratta</span> : <span className="ic-doc-tag">Generico vettore</span>}
-                    {d.size && <span>{(d.size / 1024 / 1024).toFixed(2)} MB</span>}
-                    {d.filename ? <span>PDF locale</span> : <span>Sito vettore ↗</span>}
-                  </div>
-                </a>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
 
       <div className="ic-detail-actions">
         <button className="ic-cta" onClick={openCta}>
           {link.label} ↗
         </button>
-        <button className="ic-cta-secondary" onClick={copyTratta}>
-          {copied ? '✓ Tratta copiata' : '📋 Copia tratta'}
-        </button>
-        {carrier.phone && (
+{carrier.phone && (
           <button className="ic-cta-secondary" onClick={openPhone}>
             📞 Contatta {carrier.name.split(' ')[0]}
           </button>
