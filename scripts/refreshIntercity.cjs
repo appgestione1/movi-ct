@@ -399,16 +399,16 @@ const REGIONE_TARGETS = {
   const final = { ...existing, ...merged };
 
   // Preserva schedules + meta curati a mano quando l'extractor automatico
-  // non produce ancora dati per quella connection.
+  // produce meno dati di quelli già presenti (estrazione incompleta o regressione).
   for (const [k, v] of Object.entries(final)) {
     const prev = existing[k];
-    const newEmpty = !v.schedules || v.schedules.length === 0;
-    const prevHasData = prev && Array.isArray(prev.schedules) && prev.schedules.length > 0;
-    if (newEmpty && prevHasData) {
+    const newCount  = Array.isArray(v.schedules)    ? v.schedules.length    : 0;
+    const prevCount = prev && Array.isArray(prev.schedules) ? prev.schedules.length : 0;
+    if (prevCount > newCount) {
       v.schedules = prev.schedules;
-      if (prev.meta) v.meta = prev.meta;
+      if (prev.meta)   v.meta   = prev.meta;
       if (prev.routes) v.routes = prev.routes;
-      log(`preservati ${prev.schedules.length} schedule curati per ${k}`);
+      log(`preservati ${prevCount} schedule esistenti per ${k} (extractor ne ha trovati solo ${newCount})`);
     }
   }
 

@@ -3,7 +3,7 @@
     "meta": {
       "source": "Regione Siciliana — AST — Provincia di Catania",
       "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
-      "lastUpdatedAt": "2026-05-20",
+      "lastUpdatedAt": "2026-05-22",
       "validFrom": null,
       "validTo": null
     },
@@ -60,13 +60,245 @@
   },
   "c-fce-randazzo": {
     "meta": {
-      "source": "FCE — Autolinee Circumetnea (invernale 2025-2026)",
-      "sourceUrl": "https://www.circumetnea.it/download/orario-autolinee-in-vigore-dal-16-marzo-2026/",
-      "lastUpdatedAt": "2026-05-20",
+      "source": "FCE — Autolinee Circumetnea (orario invernale 2025-2026)",
+      "sourceUrl": "https://www.circumetnea.it/le-nostre-linee/",
+      "lastUpdatedAt": "2026-05-22",
       "validFrom": "2026-03-30",
-      "validTo": null
+      "validTo": null,
+      "note": "Estratto da PDF (matrice multi-colonna). C/S = feriale, S = solo scolastico."
     },
-    "schedules": []
+    "schedules": [
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "12:55",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "13:25",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "16:30",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "18:55",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "05:30",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "06:40",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "06:50",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "08:30",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "09:25",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "10:25",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "11:40",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "11:55",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "12:25",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "13:55",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "14:35",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "17:25",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "18:25",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "randazzo",
+        "orario_partenza": "19:55",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "randazzo",
+        "to": "catania",
+        "orario_partenza": "05:35",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false
+      },
+      {
+        "carrierId": "fce",
+        "from": "randazzo",
+        "to": "catania",
+        "orario_partenza": "06:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false
+      },
+      {
+        "carrierId": "fce",
+        "from": "randazzo",
+        "to": "catania",
+        "orario_partenza": "08:40",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false
+      },
+      {
+        "carrierId": "fce",
+        "from": "randazzo",
+        "to": "catania",
+        "orario_partenza": "07:00",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      },
+      {
+        "carrierId": "fce",
+        "from": "randazzo",
+        "to": "catania",
+        "orario_partenza": "19:00",
+        "orario_arrivo": null,
+        "feriale": false,
+        "festivo": false,
+        "scolastico": true
+      }
+    ]
   },
   "c-fce-linguaglossa": {
     "meta": {
@@ -77,27 +309,237 @@
       "validTo": null
     },
     "schedules": [
-      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "11:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 202 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (12:30)" },
-      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "12:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 204 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (13:30)" },
-      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "13:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 206 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (14:30)" },
-      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "14:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 208 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (15:30)" },
-      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "16:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 210 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (17:40)" },
-      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "17:35", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 212 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (18:45)" },
-      { "carrierId": "fce", "from": "catania", "to": "acireale", "orario_partenza": "18:40", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 214 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (19:50)" },
-      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "11:20", "orario_arrivo": "12:30", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 202 via A18/Acireale/Giarre/Riposto" },
-      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "12:20", "orario_arrivo": "13:30", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 204 via A18/Acireale/Giarre/Riposto" },
-      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "13:20", "orario_arrivo": "14:30", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 206 via A18/Acireale/Giarre/Riposto" },
-      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "14:20", "orario_arrivo": "15:30", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 208 via A18/Acireale/Giarre/Riposto" },
-      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "16:30", "orario_arrivo": "17:40", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 210 via A18/Acireale/Giarre/Riposto" },
-      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "17:35", "orario_arrivo": "18:45", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 212 via A18/Acireale/Giarre/Riposto" },
-      { "carrierId": "fce", "from": "catania", "to": "linguaglossa", "orario_partenza": "18:40", "orario_arrivo": "19:50", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 214 via A18/Acireale/Giarre/Riposto" },
-      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "06:20", "orario_arrivo": "07:35", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 201" },
-      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "06:20", "orario_arrivo": "07:35", "feriale": true, "festivo": false, "scolastico": true,  "note": "Corsa 203 (bis)" },
-      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "07:30", "orario_arrivo": "08:45", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 205 — fermata Acireale 08:10" },
-      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "08:30", "orario_arrivo": "09:45", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 207" },
-      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "11:30", "orario_arrivo": "12:45", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 209" },
-      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "14:30", "orario_arrivo": "15:40", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 211" },
-      { "carrierId": "fce", "from": "linguaglossa", "to": "catania", "orario_partenza": "16:00", "orario_arrivo": "17:10", "feriale": true, "festivo": false, "scolastico": false, "note": "Corsa 213" }
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "11:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 202 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (12:30)"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "12:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 204 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (13:30)"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "13:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 206 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (14:30)"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "14:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 208 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (15:30)"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "16:30",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 210 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (17:40)"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "17:35",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 212 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (18:45)"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "18:40",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 214 — espresso A18, prosegue a Giarre/Riposto/Linguaglossa (19:50)"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "linguaglossa",
+        "orario_partenza": "11:20",
+        "orario_arrivo": "12:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 202 via A18/Acireale/Giarre/Riposto"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "linguaglossa",
+        "orario_partenza": "12:20",
+        "orario_arrivo": "13:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 204 via A18/Acireale/Giarre/Riposto"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "linguaglossa",
+        "orario_partenza": "13:20",
+        "orario_arrivo": "14:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 206 via A18/Acireale/Giarre/Riposto"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "linguaglossa",
+        "orario_partenza": "14:20",
+        "orario_arrivo": "15:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 208 via A18/Acireale/Giarre/Riposto"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "linguaglossa",
+        "orario_partenza": "16:30",
+        "orario_arrivo": "17:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 210 via A18/Acireale/Giarre/Riposto"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "linguaglossa",
+        "orario_partenza": "17:35",
+        "orario_arrivo": "18:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 212 via A18/Acireale/Giarre/Riposto"
+      },
+      {
+        "carrierId": "fce",
+        "from": "catania",
+        "to": "linguaglossa",
+        "orario_partenza": "18:40",
+        "orario_arrivo": "19:50",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 214 via A18/Acireale/Giarre/Riposto"
+      },
+      {
+        "carrierId": "fce",
+        "from": "linguaglossa",
+        "to": "catania",
+        "orario_partenza": "06:20",
+        "orario_arrivo": "07:35",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 201"
+      },
+      {
+        "carrierId": "fce",
+        "from": "linguaglossa",
+        "to": "catania",
+        "orario_partenza": "06:20",
+        "orario_arrivo": "07:35",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": true,
+        "note": "Corsa 203 (bis)"
+      },
+      {
+        "carrierId": "fce",
+        "from": "linguaglossa",
+        "to": "catania",
+        "orario_partenza": "07:30",
+        "orario_arrivo": "08:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 205 — fermata Acireale 08:10"
+      },
+      {
+        "carrierId": "fce",
+        "from": "linguaglossa",
+        "to": "catania",
+        "orario_partenza": "08:30",
+        "orario_arrivo": "09:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 207"
+      },
+      {
+        "carrierId": "fce",
+        "from": "linguaglossa",
+        "to": "catania",
+        "orario_partenza": "11:30",
+        "orario_arrivo": "12:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 209"
+      },
+      {
+        "carrierId": "fce",
+        "from": "linguaglossa",
+        "to": "catania",
+        "orario_partenza": "14:30",
+        "orario_arrivo": "15:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 211"
+      },
+      {
+        "carrierId": "fce",
+        "from": "linguaglossa",
+        "to": "catania",
+        "orario_partenza": "16:00",
+        "orario_arrivo": "17:10",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Corsa 213"
+      }
     ]
   },
   "c-fce-nicolosi": {
@@ -737,32 +1179,222 @@
       }
     ],
     "schedules": [
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "06:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 595 — via Aci Catena/Ficarazzi" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "07:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605 — via S.Gregorio/Aci S.Antonio" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "08:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "09:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "10:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "12:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "14:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "15:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "16:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "18:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "19:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "acireale", "to": "catania", "orario_partenza": "21:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "11:05", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605 — via S.Gregorio/Aci S.Antonio" },
-      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "12:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "13:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "16:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "18:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "19:50", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" },
-      { "carrierId": "ast", "from": "catania", "to": "acireale", "orario_partenza": "21:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Linea 605" }
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "06:30",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 595 — via Aci Catena/Ficarazzi"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "07:50",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605 — via S.Gregorio/Aci S.Antonio"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "08:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "09:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "10:50",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "12:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "14:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "15:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "16:50",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "18:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "19:50",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "acireale",
+        "to": "catania",
+        "orario_partenza": "21:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "11:05",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605 — via S.Gregorio/Aci S.Antonio"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "12:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "13:50",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "16:50",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "18:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "19:50",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "acireale",
+        "orario_partenza": "21:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 605"
+      }
     ]
   },
   "c-belpasso-ast": {
     "meta": {
       "source": "Regione Siciliana — AST — Provincia di Catania",
       "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
-      "lastUpdatedAt": "2026-05-20",
+      "lastUpdatedAt": "2026-05-22",
       "validFrom": null,
       "validTo": null
     },
@@ -775,8 +1407,13 @@
         "kmTotali": 27.3,
         "fermate": [
           {
-            "name": "Acicatena (via Roma)",
+            "name": "Acireale (terminal corso Italia)",
             "km": 0,
+            "cityId": "acireale"
+          },
+          {
+            "name": "Acicatena (via Roma)",
+            "km": null,
             "cityId": "aci-catena"
           },
           {
@@ -796,32 +1433,17 @@
           },
           {
             "name": "Vampolieri (via Vampolieri)",
-            "km": null,
-            "cityId": "aci-catena"
-          },
-          {
-            "name": "| Acireale (terminal corso Italia)",
-            "km": null,
-            "cityId": "acireale"
-          },
-          {
-            "name": "17,7 Acicatena (via Roma)",
-            "km": 9.5,
+            "km": 10.3,
             "cityId": "aci-catena"
           },
           {
             "name": "Ficarazzi (via Tripoli)",
-            "km": null,
+            "km": 9.5,
             "cityId": "aci-castello"
           },
           {
             "name": "Catania (piazza Giovanni XXIII°)",
-            "km": null,
-            "cityId": "catania"
-          },
-          {
-            "name": "Orario Autolinea Extraurbana: BELPASSO - NICOLOSI - MASCALUCIA -TREMESTIERI -S. G. LA PUNTA - CATANIA con dev. Nicolosi-Pedara -Tremestieri (cod. 581\\604)",
-            "km": null,
+            "km": 17.7,
             "cityId": "catania"
           },
           {
@@ -886,12 +1508,17 @@
         "label": "CATANIA - ACICASTELLO - ACIREALE",
         "origine": "CATANIA",
         "destinazione": "ACIREALE",
-        "kmTotali": 0,
+        "kmTotali": 42.3,
         "fermate": [
           {
             "name": "Catania (piazza Giovanni XXIII°)",
-            "km": null,
+            "km": 0,
             "cityId": "catania"
+          },
+          {
+            "name": "Acicastello (via Re Martino)",
+            "km": null,
+            "cityId": "aci-castello"
           },
           {
             "name": "Acitrezza (via Provinciale\\via Livorno)",
@@ -900,17 +1527,22 @@
           },
           {
             "name": "Acireale (terminal corso Italia)",
-            "km": null,
+            "km": 18,
             "cityId": "acireale"
           },
           {
-            "name": "Orario Autolinea Extraurbana : CATANIA - BELPASSO - RAGALNA (codice 587) foglio 1",
-            "km": null,
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": 0,
             "cityId": "catania"
           },
           {
+            "name": "Gravina (via A.Gramsci)",
+            "km": null,
+            "cityId": null
+          },
+          {
             "name": "Mascalucia (viale De Gasperi)",
-            "km": 0,
+            "km": null,
             "cityId": "mascalucia"
           },
           {
@@ -935,19 +1567,306 @@
           },
           {
             "name": "Belpasso (via Santa Maria di Licodia) 0,0",
-            "km": null,
+            "km": 42.3,
             "cityId": "belpasso"
+          }
+        ]
+      },
+      {
+        "code": "602",
+        "label": "CATANIA - MASCAUCIA - NICOLOSI - BELPASSO - MASCALUCIA - CATANIA",
+        "origine": "CATANIA",
+        "destinazione": "CATANIA",
+        "kmTotali": 38.5,
+        "fermate": [
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": 0,
+            "cityId": "catania"
+          },
+          {
+            "name": "Mascalucia (corso San Vito)",
+            "km": null,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "Nicolosi (via della Regione\\via Garibaldi)",
+            "km": null,
+            "cityId": "nicolosi"
+          },
+          {
+            "name": "Belpasso (via Seconda\\Terza Retta Levante)",
+            "km": 0,
+            "cityId": "belpasso"
+          },
+          {
+            "name": "Camporotondo (via Umberto)",
+            "km": null,
+            "cityId": "camporotondo"
+          },
+          {
+            "name": "Mascalucia (corso San Vito)",
+            "km": null,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": 38.5,
+            "cityId": "catania"
           }
         ]
       }
     ],
-    "schedules": []
+    "schedules": [
+      {
+        "carrierId": "ast",
+        "from": "belpasso",
+        "to": "catania",
+        "orario_partenza": "06:05",
+        "orario_arrivo": "07:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 597"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "belpasso",
+        "orario_partenza": "06:45",
+        "orario_arrivo": "15:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 597"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "05:00",
+        "orario_arrivo": "07:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "05:50",
+        "orario_arrivo": "08:05",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "06:40",
+        "orario_arrivo": "08:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "07:20",
+        "orario_arrivo": "09:35",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "08:20",
+        "orario_arrivo": "10:35",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "09:15",
+        "orario_arrivo": "11:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "10:10",
+        "orario_arrivo": "12:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "11:00",
+        "orario_arrivo": "13:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "11:50",
+        "orario_arrivo": "14:05",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "12:40",
+        "orario_arrivo": "14:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "13:30",
+        "orario_arrivo": "15:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "14:10",
+        "orario_arrivo": "16:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "15:10",
+        "orario_arrivo": "17:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "16:00",
+        "orario_arrivo": "18:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "17:00",
+        "orario_arrivo": "19:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "17:45",
+        "orario_arrivo": "20:00",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "18:30",
+        "orario_arrivo": "20:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "19:15",
+        "orario_arrivo": "21:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "20:00",
+        "orario_arrivo": "22:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "20:30",
+        "orario_arrivo": "22:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      }
+    ]
   },
   "c-nicolosi-ast": {
     "meta": {
       "source": "Regione Siciliana — AST — Provincia di Catania",
       "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
-      "lastUpdatedAt": "2026-05-20",
+      "lastUpdatedAt": "2026-05-22",
       "validFrom": null,
       "validTo": null
     },
@@ -960,8 +1879,13 @@
         "kmTotali": 27.3,
         "fermate": [
           {
-            "name": "Acicatena (via Roma)",
+            "name": "Acireale (terminal corso Italia)",
             "km": 0,
+            "cityId": "acireale"
+          },
+          {
+            "name": "Acicatena (via Roma)",
+            "km": null,
             "cityId": "aci-catena"
           },
           {
@@ -981,32 +1905,17 @@
           },
           {
             "name": "Vampolieri (via Vampolieri)",
-            "km": null,
-            "cityId": "aci-catena"
-          },
-          {
-            "name": "| Acireale (terminal corso Italia)",
-            "km": null,
-            "cityId": "acireale"
-          },
-          {
-            "name": "17,7 Acicatena (via Roma)",
-            "km": 9.5,
+            "km": 10.3,
             "cityId": "aci-catena"
           },
           {
             "name": "Ficarazzi (via Tripoli)",
-            "km": null,
+            "km": 9.5,
             "cityId": "aci-castello"
           },
           {
             "name": "Catania (piazza Giovanni XXIII°)",
-            "km": null,
-            "cityId": "catania"
-          },
-          {
-            "name": "Orario Autolinea Extraurbana: BELPASSO - NICOLOSI - MASCALUCIA -TREMESTIERI -S. G. LA PUNTA - CATANIA con dev. Nicolosi-Pedara -Tremestieri (cod. 581\\604)",
-            "km": null,
+            "km": 17.7,
             "cityId": "catania"
           },
           {
@@ -1071,17 +1980,27 @@
         "label": "CATANIA - MASCAUCIA - NICOLOSI - BELPASSO - MASCALUCIA - CATANIA",
         "origine": "CATANIA",
         "destinazione": "CATANIA",
-        "kmTotali": 0,
+        "kmTotali": 38.5,
         "fermate": [
           {
             "name": "Catania (piazza Giovanni XXIII°)",
-            "km": null,
+            "km": 0,
             "cityId": "catania"
           },
           {
-            "name": "| Nicolosi (via della Regione\\via Garibaldi)",
+            "name": "Mascalucia (corso San Vito)",
+            "km": null,
+            "cityId": "mascalucia"
+          },
+          {
+            "name": "Nicolosi (via della Regione\\via Garibaldi)",
             "km": null,
             "cityId": "nicolosi"
+          },
+          {
+            "name": "Belpasso (via Seconda\\Terza Retta Levante)",
+            "km": 0,
+            "cityId": "belpasso"
           },
           {
             "name": "Camporotondo (via Umberto)",
@@ -1089,24 +2008,14 @@
             "cityId": "camporotondo"
           },
           {
+            "name": "Mascalucia (corso San Vito)",
+            "km": null,
+            "cityId": "mascalucia"
+          },
+          {
             "name": "Catania (piazza Giovanni XXIII°)",
             "km": 38.5,
             "cityId": "catania"
-          },
-          {
-            "name": "CATANIA - GRAVINA - MASCALUCIA - POLIVALENTE - S.G. LA PUNTA - CATANIA con dev.. e dir. Cod. 604 Foglio 1",
-            "km": null,
-            "cityId": "catania"
-          },
-          {
-            "name": "SCOLASTICA",
-            "km": null,
-            "cityId": null
-          },
-          {
-            "name": "| | San Giovanni Galermo",
-            "km": null,
-            "cityId": null
           }
         ]
       },
@@ -1135,7 +2044,228 @@
         ]
       }
     ],
-    "schedules": []
+    "schedules": [
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "05:00",
+        "orario_arrivo": "07:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "05:50",
+        "orario_arrivo": "08:05",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "06:40",
+        "orario_arrivo": "08:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "07:20",
+        "orario_arrivo": "09:35",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "08:20",
+        "orario_arrivo": "10:35",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "09:15",
+        "orario_arrivo": "11:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "10:10",
+        "orario_arrivo": "12:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "11:00",
+        "orario_arrivo": "13:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "11:50",
+        "orario_arrivo": "14:05",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "12:40",
+        "orario_arrivo": "14:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "13:30",
+        "orario_arrivo": "15:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "14:10",
+        "orario_arrivo": "16:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "15:10",
+        "orario_arrivo": "17:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "16:00",
+        "orario_arrivo": "18:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "17:00",
+        "orario_arrivo": "19:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "17:45",
+        "orario_arrivo": "20:00",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "18:30",
+        "orario_arrivo": "20:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "19:15",
+        "orario_arrivo": "21:30",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "20:00",
+        "orario_arrivo": "22:15",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      },
+      {
+        "carrierId": "ast",
+        "from": "catania",
+        "to": "catania",
+        "orario_partenza": "20:30",
+        "orario_arrivo": "22:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Linea 602"
+      }
+    ]
   },
   "c-siracusa": {
     "meta": {
@@ -1153,32 +2283,234 @@
         "destinazione": "CATANIA",
         "kmTotali": 68.6,
         "fermate": [
-          { "name": "Siracusa (C.so Umberto/Terminal Bus)", "km": 0, "cityId": "siracusa" },
-          { "name": "Aeroporto Fontanarossa", "km": 61.7, "cityId": "aeroporto" },
-          { "name": "Catania (Terminal Bus/Via D'Amico-Archimede)", "km": 68.6, "cityId": "catania" }
+          {
+            "name": "Siracusa (C.so Umberto/Terminal Bus)",
+            "km": 0,
+            "cityId": "siracusa"
+          },
+          {
+            "name": "Aeroporto Fontanarossa",
+            "km": 61.7,
+            "cityId": "aeroporto"
+          },
+          {
+            "name": "Catania (Terminal Bus/Via D'Amico-Archimede)",
+            "km": 68.6,
+            "cityId": "catania"
+          }
         ]
       }
     ],
     "schedules": [
-      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "06:20", "orario_arrivo": "07:45", "feriale": true, "festivo": false, "scolastico": false, "note": "L159 via Aeroporto" },
-      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "06:40", "orario_arrivo": "08:05", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "07:30", "orario_arrivo": "08:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "11:00", "orario_arrivo": "12:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "13:00", "orario_arrivo": "14:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "14:30", "orario_arrivo": "15:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "15:00", "orario_arrivo": "16:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "17:00", "orario_arrivo": "18:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "siracusa", "to": "catania", "orario_partenza": "19:00", "orario_arrivo": "20:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "08:30", "orario_arrivo": "09:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159 via Aeroporto" },
-      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "09:30", "orario_arrivo": "10:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "10:30", "orario_arrivo": "11:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "11:30", "orario_arrivo": "12:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "12:30", "orario_arrivo": "13:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "13:30", "orario_arrivo": "14:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "14:00", "orario_arrivo": "15:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "15:30", "orario_arrivo": "16:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "17:00", "orario_arrivo": "18:25", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" },
-      { "carrierId": "interbus", "from": "catania", "to": "siracusa", "orario_partenza": "18:30", "orario_arrivo": "19:55", "feriale": true, "festivo": false, "scolastico": false, "note": "L159" }
+      {
+        "carrierId": "interbus",
+        "from": "siracusa",
+        "to": "catania",
+        "orario_partenza": "06:20",
+        "orario_arrivo": "07:45",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159 via Aeroporto"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "siracusa",
+        "to": "catania",
+        "orario_partenza": "06:40",
+        "orario_arrivo": "08:05",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "siracusa",
+        "to": "catania",
+        "orario_partenza": "07:30",
+        "orario_arrivo": "08:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "siracusa",
+        "to": "catania",
+        "orario_partenza": "11:00",
+        "orario_arrivo": "12:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "siracusa",
+        "to": "catania",
+        "orario_partenza": "13:00",
+        "orario_arrivo": "14:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "siracusa",
+        "to": "catania",
+        "orario_partenza": "14:30",
+        "orario_arrivo": "15:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "siracusa",
+        "to": "catania",
+        "orario_partenza": "15:00",
+        "orario_arrivo": "16:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "siracusa",
+        "to": "catania",
+        "orario_partenza": "17:00",
+        "orario_arrivo": "18:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "siracusa",
+        "to": "catania",
+        "orario_partenza": "19:00",
+        "orario_arrivo": "20:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "siracusa",
+        "orario_partenza": "08:30",
+        "orario_arrivo": "09:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159 via Aeroporto"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "siracusa",
+        "orario_partenza": "09:30",
+        "orario_arrivo": "10:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "siracusa",
+        "orario_partenza": "10:30",
+        "orario_arrivo": "11:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "siracusa",
+        "orario_partenza": "11:30",
+        "orario_arrivo": "12:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "siracusa",
+        "orario_partenza": "12:30",
+        "orario_arrivo": "13:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "siracusa",
+        "orario_partenza": "13:30",
+        "orario_arrivo": "14:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "siracusa",
+        "orario_partenza": "14:00",
+        "orario_arrivo": "15:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "siracusa",
+        "orario_partenza": "15:30",
+        "orario_arrivo": "16:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "siracusa",
+        "orario_partenza": "17:00",
+        "orario_arrivo": "18:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "siracusa",
+        "orario_partenza": "18:30",
+        "orario_arrivo": "19:55",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L159"
+      }
     ]
   },
   "c-noto": {
@@ -1221,7 +2553,7 @@
     "meta": {
       "source": "Regione Siciliana — AST — Provincia di Catania",
       "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
-      "lastUpdatedAt": "2026-05-20",
+      "lastUpdatedAt": "2026-05-22",
       "validFrom": null,
       "validTo": null
     },
@@ -1231,7 +2563,7 @@
         "label": "CATANIA - ACI CASTELLO - VAMPOLIERI - FICARAZZI - CATANIA",
         "origine": "CATANIA",
         "destinazione": "CATANIA",
-        "kmTotali": 0,
+        "kmTotali": 61.3,
         "fermate": [
           {
             "name": "Catania (piazza Giovanni XXIII°)",
@@ -1259,19 +2591,19 @@
             "cityId": "catania"
           },
           {
-            "name": "ASSORO (piazza 1° Maggio)",
+            "name": "LEONFORTE (corso Umberto I°)",
             "km": 0,
             "cityId": null
           },
           {
-            "name": "DITTAINO (piazzale Stazione)",
+            "name": "ASSORO (piazza 1° Maggio)",
             "km": null,
             "cityId": null
           },
           {
-            "name": "Orario Autolinea Extraurbana: MINEO - PALAGONIA - CATANIA con diramazione MINEO - RAMACCA - CATANIA (codice 579) foglio 1",
+            "name": "DITTAINO (piazzale Stazione)",
             "km": 20,
-            "cityId": "catania"
+            "cityId": null
           },
           {
             "name": "CATANIA (piazza Giovanni XXIII°)",
@@ -1279,18 +2611,28 @@
             "cityId": "catania"
           },
           {
+            "name": "PALAGONIA",
+            "km": 23.7,
+            "cityId": "palagonia"
+          },
+          {
             "name": "RAMACCA (via Risorgimento)",
-            "km": null,
+            "km": 4.5,
             "cityId": "ramacca"
           },
           {
-            "name": "BIVIO MINEO",
+            "name": "PALAGONIA (via Palermo)",
             "km": 13.5,
+            "cityId": "palagonia"
+          },
+          {
+            "name": "BIVIO MINEO",
+            "km": 4.5,
             "cityId": "mineo"
           },
           {
             "name": "MINEO (porta Adinolfi)",
-            "km": null,
+            "km": 61.3,
             "cityId": "mineo"
           }
         ]
@@ -1396,37 +2738,277 @@
         "destinazione": "CATANIA",
         "kmTotali": null,
         "fermate": [
-          { "name": "Agrigento", "km": 0, "cityId": "agrigento" },
-          { "name": "Canicattì", "km": null, "cityId": null },
-          { "name": "Caltanissetta", "km": null, "cityId": "caltanissetta" },
-          { "name": "Aeroporto Fontanarossa", "km": null, "cityId": "aeroporto" },
-          { "name": "Catania (Via D'Amico)", "km": null, "cityId": "catania" }
+          {
+            "name": "Agrigento",
+            "km": 0,
+            "cityId": "agrigento"
+          },
+          {
+            "name": "Canicattì",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "Caltanissetta",
+            "km": null,
+            "cityId": "caltanissetta"
+          },
+          {
+            "name": "Aeroporto Fontanarossa",
+            "km": null,
+            "cityId": "aeroporto"
+          },
+          {
+            "name": "Catania (Via D'Amico)",
+            "km": null,
+            "cityId": "catania"
+          }
         ]
       }
     ],
     "schedules": [
-      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "05:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
-      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "06:35", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
-      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "08:05", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
-      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "11:40", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
-      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "12:40", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
-      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "16:40", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
-      { "carrierId": "saist", "from": "caltanissetta", "to": "catania", "orario_partenza": "19:25", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto Fontanarossa" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "06:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "07:20", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "08:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "09:45", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "11:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "12:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "13:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "14:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "15:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "16:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "17:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "18:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "19:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "20:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "caltanissetta", "orario_partenza": "21:45", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Canicattì" }
+      {
+        "carrierId": "saist",
+        "from": "caltanissetta",
+        "to": "catania",
+        "orario_partenza": "05:30",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto Fontanarossa"
+      },
+      {
+        "carrierId": "saist",
+        "from": "caltanissetta",
+        "to": "catania",
+        "orario_partenza": "06:35",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto Fontanarossa"
+      },
+      {
+        "carrierId": "saist",
+        "from": "caltanissetta",
+        "to": "catania",
+        "orario_partenza": "08:05",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto Fontanarossa"
+      },
+      {
+        "carrierId": "saist",
+        "from": "caltanissetta",
+        "to": "catania",
+        "orario_partenza": "11:40",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto Fontanarossa"
+      },
+      {
+        "carrierId": "saist",
+        "from": "caltanissetta",
+        "to": "catania",
+        "orario_partenza": "12:40",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto Fontanarossa"
+      },
+      {
+        "carrierId": "saist",
+        "from": "caltanissetta",
+        "to": "catania",
+        "orario_partenza": "16:40",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto Fontanarossa"
+      },
+      {
+        "carrierId": "saist",
+        "from": "caltanissetta",
+        "to": "catania",
+        "orario_partenza": "19:25",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto Fontanarossa"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "06:30",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "07:20",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "08:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "09:45",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "11:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "12:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "13:30",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "14:30",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "15:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "16:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "17:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "18:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "19:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "20:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "caltanissetta",
+        "orario_partenza": "21:45",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Canicattì"
+      }
     ]
   },
   "c-agrigento": {
@@ -1445,31 +3027,211 @@
         "destinazione": "CATANIA",
         "kmTotali": null,
         "fermate": [
-          { "name": "Agrigento", "km": 0, "cityId": "agrigento" },
-          { "name": "Canicattì", "km": null, "cityId": null },
-          { "name": "Caltanissetta", "km": null, "cityId": "caltanissetta" },
-          { "name": "Aeroporto Fontanarossa", "km": null, "cityId": "aeroporto" },
-          { "name": "Catania (Via D'Amico)", "km": null, "cityId": "catania" }
+          {
+            "name": "Agrigento",
+            "km": 0,
+            "cityId": "agrigento"
+          },
+          {
+            "name": "Canicattì",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "Caltanissetta",
+            "km": null,
+            "cityId": "caltanissetta"
+          },
+          {
+            "name": "Aeroporto Fontanarossa",
+            "km": null,
+            "cityId": "aeroporto"
+          },
+          {
+            "name": "Catania (Via D'Amico)",
+            "km": null,
+            "cityId": "catania"
+          }
         ]
       }
     ],
     "schedules": [
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "06:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "08:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "09:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "11:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "12:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "13:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "14:15", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "15:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "16:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "17:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "18:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "19:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "20:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "catania", "to": "agrigento", "orario_partenza": "21:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Aeroporto-Caltanissetta-Canicattì" },
-      { "carrierId": "saist", "from": "agrigento", "to": "catania", "orario_partenza": "05:55", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Canicattì-Caltanissetta-Aeroporto" },
-      { "carrierId": "saist", "from": "agrigento", "to": "catania", "orario_partenza": "07:25", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Via Canicattì-Caltanissetta-Aeroporto" }
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "06:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "08:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "09:30",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "11:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "12:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "13:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "14:15",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "15:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "16:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "17:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "18:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "19:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "20:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "catania",
+        "to": "agrigento",
+        "orario_partenza": "21:30",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Aeroporto-Caltanissetta-Canicattì"
+      },
+      {
+        "carrierId": "saist",
+        "from": "agrigento",
+        "to": "catania",
+        "orario_partenza": "05:55",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Canicattì-Caltanissetta-Aeroporto"
+      },
+      {
+        "carrierId": "saist",
+        "from": "agrigento",
+        "to": "catania",
+        "orario_partenza": "07:25",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Via Canicattì-Caltanissetta-Aeroporto"
+      }
     ]
   },
   "c-nicosia": {
@@ -1488,19 +3250,79 @@
         "destinazione": "CATANIA",
         "kmTotali": 115.3,
         "fermate": [
-          { "name": "Leonforte (C.so Umberto/P.zza IV Novembre)", "km": 0, "cityId": "leonforte" },
-          { "name": "Svincolo A19 Mulinello", "km": 25.3, "cityId": null },
-          { "name": "Svincolo A19 Catania", "km": 103.5, "cityId": null },
-          { "name": "Aeroporto Catania - Fontanarossa", "km": 108.4, "cityId": "aeroporto" },
-          { "name": "Catania - Via D'Amico/Archimede", "km": 115.3, "cityId": "catania" }
+          {
+            "name": "Leonforte (C.so Umberto/P.zza IV Novembre)",
+            "km": 0,
+            "cityId": "leonforte"
+          },
+          {
+            "name": "Svincolo A19 Mulinello",
+            "km": 25.3,
+            "cityId": null
+          },
+          {
+            "name": "Svincolo A19 Catania",
+            "km": 103.5,
+            "cityId": null
+          },
+          {
+            "name": "Aeroporto Catania - Fontanarossa",
+            "km": 108.4,
+            "cityId": "aeroporto"
+          },
+          {
+            "name": "Catania - Via D'Amico/Archimede",
+            "km": 115.3,
+            "cityId": "catania"
+          }
         ]
       }
     ],
     "schedules": [
-      { "carrierId": "interbus", "from": "leonforte", "to": "catania", "orario_partenza": "08:00", "orario_arrivo": "10:00", "feriale": true, "festivo": false, "scolastico": false, "note": "L1568 via A19/Aeroporto" },
-      { "carrierId": "interbus", "from": "leonforte", "to": "catania", "orario_partenza": "14:00", "orario_arrivo": "16:00", "feriale": true, "festivo": false, "scolastico": false, "note": "L1568 via A19/Aeroporto" },
-      { "carrierId": "interbus", "from": "catania", "to": "nicosia", "orario_partenza": "12:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "L1631 via A19/Leonforte" },
-      { "carrierId": "interbus", "from": "catania", "to": "nicosia", "orario_partenza": "14:00", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "L1631 via A19/Leonforte" }
+      {
+        "carrierId": "interbus",
+        "from": "leonforte",
+        "to": "catania",
+        "orario_partenza": "08:00",
+        "orario_arrivo": "10:00",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L1568 via A19/Aeroporto"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "leonforte",
+        "to": "catania",
+        "orario_partenza": "14:00",
+        "orario_arrivo": "16:00",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L1568 via A19/Aeroporto"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "nicosia",
+        "orario_partenza": "12:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L1631 via A19/Leonforte"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "catania",
+        "to": "nicosia",
+        "orario_partenza": "14:00",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "L1631 via A19/Leonforte"
+      }
     ]
   },
   "c-air-taormina": {
@@ -1519,31 +3341,347 @@
         "destinazione": "TAORMINA",
         "kmTotali": null,
         "fermate": [
-          { "name": "Aeroporto - Fontanarossa", "km": 0, "cityId": "aeroporto" },
-          { "name": "Catania (Via D'Amico/Archimede)", "km": 9.8, "cityId": "catania" },
-          { "name": "Acireale (P.zza Duomo/C.so Umberto)", "km": 14.6, "cityId": "acireale" },
-          { "name": "Taormina (P.zza L. Pirandello)", "km": 30.6, "cityId": "taormina" }
+          {
+            "name": "Aeroporto - Fontanarossa",
+            "km": 0,
+            "cityId": "aeroporto"
+          },
+          {
+            "name": "Catania (Via D'Amico/Archimede)",
+            "km": 9.8,
+            "cityId": "catania"
+          },
+          {
+            "name": "Acireale (P.zza Duomo/C.so Umberto)",
+            "km": 14.6,
+            "cityId": "acireale"
+          },
+          {
+            "name": "Taormina (P.zza L. Pirandello)",
+            "km": 30.6,
+            "cityId": "taormina"
+          }
         ]
       }
     ],
     "schedules": [
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "05:30", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "06:10", "orario_arrivo": null, "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "06:30", "orario_arrivo": "07:05", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "07:00", "orario_arrivo": "07:35", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "07:15", "orario_arrivo": "07:50", "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "07:50", "orario_arrivo": "08:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "08:30", "orario_arrivo": "09:05", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "08:50", "orario_arrivo": "09:25", "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "10:50", "orario_arrivo": "11:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "12:50", "orario_arrivo": "13:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "13:05", "orario_arrivo": "13:40", "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "13:50", "orario_arrivo": "14:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "14:50", "orario_arrivo": "15:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "16:50", "orario_arrivo": "17:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "17:05", "orario_arrivo": "17:40", "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "18:50", "orario_arrivo": "19:25", "feriale": true, "festivo": true, "scolastico": false, "note": "Passa per Catania e Acireale" },
-      { "carrierId": "interbus", "from": "aeroporto", "to": "taormina", "orario_partenza": "19:05", "orario_arrivo": "19:40", "feriale": true, "festivo": false, "scolastico": false, "note": "Passa per Catania e Acireale" }
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "05:30",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "06:10",
+        "orario_arrivo": null,
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "06:30",
+        "orario_arrivo": "07:05",
+        "feriale": true,
+        "festivo": true,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "07:00",
+        "orario_arrivo": "07:35",
+        "feriale": true,
+        "festivo": true,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "07:15",
+        "orario_arrivo": "07:50",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "07:50",
+        "orario_arrivo": "08:25",
+        "feriale": true,
+        "festivo": true,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "08:30",
+        "orario_arrivo": "09:05",
+        "feriale": true,
+        "festivo": true,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "08:50",
+        "orario_arrivo": "09:25",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "10:50",
+        "orario_arrivo": "11:25",
+        "feriale": true,
+        "festivo": true,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "12:50",
+        "orario_arrivo": "13:25",
+        "feriale": true,
+        "festivo": true,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "13:05",
+        "orario_arrivo": "13:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "13:50",
+        "orario_arrivo": "14:25",
+        "feriale": true,
+        "festivo": true,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "14:50",
+        "orario_arrivo": "15:25",
+        "feriale": true,
+        "festivo": true,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "16:50",
+        "orario_arrivo": "17:25",
+        "feriale": true,
+        "festivo": true,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "17:05",
+        "orario_arrivo": "17:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "18:50",
+        "orario_arrivo": "19:25",
+        "feriale": true,
+        "festivo": true,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      },
+      {
+        "carrierId": "interbus",
+        "from": "aeroporto",
+        "to": "taormina",
+        "orario_partenza": "19:05",
+        "orario_arrivo": "19:40",
+        "feriale": true,
+        "festivo": false,
+        "scolastico": false,
+        "note": "Passa per Catania e Acireale"
+      }
     ]
+  },
+  "c-palagonia": {
+    "meta": {
+      "source": "Regione Siciliana — AST — Provincia di Catania",
+      "sourceUrl": "https://pti.regione.sicilia.it/portal/page/portal/PIR_PORTALE/PIR_LaStrutturaRegionale/PIR_AssInfrastruttureMobilita/PIR_InfrastruttureMobilitaTrasporti/PIR_Areetematiche/PIR_Altricontenuti/PIR_Trasportipubblici/PIR_OrariAutolinee/PIR_AST/AST%20prov.%20di%20CT%20-%20ORARI.pdf",
+      "lastUpdatedAt": "2026-05-22",
+      "validFrom": null,
+      "validTo": null
+    },
+    "routes": [
+      {
+        "code": "1036",
+        "label": "CATANIA - ACI CASTELLO - VAMPOLIERI - FICARAZZI - CATANIA",
+        "origine": "CATANIA",
+        "destinazione": "CATANIA",
+        "kmTotali": 61.3,
+        "fermate": [
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": 0,
+            "cityId": "catania"
+          },
+          {
+            "name": "Ficarazzi (via Tripoli)",
+            "km": null,
+            "cityId": "aci-castello"
+          },
+          {
+            "name": "Vampolieri (via dello Ionio)",
+            "km": null,
+            "cityId": "aci-catena"
+          },
+          {
+            "name": "Acicastello (via Re Martino)",
+            "km": null,
+            "cityId": "aci-castello"
+          },
+          {
+            "name": "Catania (piazza Giovanni XXIII°)",
+            "km": 21.7,
+            "cityId": "catania"
+          },
+          {
+            "name": "LEONFORTE (corso Umberto I°)",
+            "km": 0,
+            "cityId": null
+          },
+          {
+            "name": "ASSORO (piazza 1° Maggio)",
+            "km": null,
+            "cityId": null
+          },
+          {
+            "name": "DITTAINO (piazzale Stazione)",
+            "km": 20,
+            "cityId": null
+          },
+          {
+            "name": "CATANIA (piazza Giovanni XXIII°)",
+            "km": 0,
+            "cityId": "catania"
+          },
+          {
+            "name": "PALAGONIA",
+            "km": 23.7,
+            "cityId": "palagonia"
+          },
+          {
+            "name": "RAMACCA (via Risorgimento)",
+            "km": 4.5,
+            "cityId": "ramacca"
+          },
+          {
+            "name": "PALAGONIA (via Palermo)",
+            "km": 13.5,
+            "cityId": "palagonia"
+          },
+          {
+            "name": "BIVIO MINEO",
+            "km": 4.5,
+            "cityId": "mineo"
+          },
+          {
+            "name": "MINEO (porta Adinolfi)",
+            "km": 61.3,
+            "cityId": "mineo"
+          }
+        ]
+      },
+      {
+        "code": "580",
+        "label": "MIRABELLA I. - CALTAGIRONE - PALAGONIA- AEROPORTO - CATANIA",
+        "origine": "MIRABELLA I.",
+        "destinazione": "CATANIA",
+        "kmTotali": 93.5,
+        "fermate": [
+          {
+            "name": "MIRABELLA (via Roma)",
+            "km": 0,
+            "cityId": null
+          },
+          {
+            "name": "SAN MICHELE DI GANZARIA",
+            "km": null,
+            "cityId": "san-michele-ganzaria"
+          },
+          {
+            "name": "CALTAGIRONE (Stazione Autolinee)",
+            "km": null,
+            "cityId": "caltagirone"
+          },
+          {
+            "name": "PALAGONIA (via Palermo)",
+            "km": null,
+            "cityId": "palagonia"
+          },
+          {
+            "name": "AEROPORTO FONTANAROSSA",
+            "km": null,
+            "cityId": "aeroporto"
+          },
+          {
+            "name": "CATANIA (piazza Giovanni XXIII)",
+            "km": 93.5,
+            "cityId": "catania"
+          }
+        ]
+      }
+    ],
+    "schedules": []
   }
 }
