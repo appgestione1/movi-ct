@@ -80,7 +80,7 @@ Provider configurati in `src/data/scooterProviders.js`:
 |---|---|---|
 | **Dott** | ✅ Live diretto | `https://gbfs.api.ridedott.com/public/v2/catania/free_bike_status.json` — CORS aperto, fetch browser |
 | **Lime** | ⚡ Via proxy | `/api/lime-gbfs?feed=free_bike_status` → `api/lime-gbfs.js` Vercel. Se 404, fallback mock 40 scooter |
-| **Elérent** | 🔗 Via proxy | `/api/elerent-gbfs` → `api/elerent-gbfs.js` Vercel. Usa endpoint ex-Helbiz; ritorna vuoto se richiede auth |
+| **Elérent** | ⚡ Via proxy (ATOM) | `/api/elerent-gbfs` → `api/elerent-gbfs.js` Vercel. Usa **ATOM Mobility** `get-vehicles`. Richiede env `ELERENT_APP_PUBLIC_KEY` (vedi sotto). Senza chiave → fallback. |
 | Bird, Tier, Voi, Bolt | 🔜 `comingSoon: true` | Pill visibili ma disabilitati |
 
 - **Mappa**: Leaflet + CartoDB dark tiles — mappa stradale reale
@@ -88,6 +88,30 @@ Provider configurati in `src/data/scooterProviders.js`:
 - **Layout**: full-height flex, mappa occupa spazio residuo tra pills e bottom bar
 - **Scooter selezionato**: icona ingrandita e evidenziata; tap su mappa deseleziona
 - Refresh automatico ogni 60 s per provider attivi
+
+### Elérent — integrazione ATOM Mobility (GPS + batteria reali)
+
+Elérent gira sulla piattaforma **ATOM Mobility** (`rideatom.com`), non più su Helbiz.
+Proxy `api/elerent-gbfs.js`:
+```
+POST https://app.rideatom.com/openapi/v1.0/sharing/get-vehicles
+Header: App-Public-Key: <ELERENT_APP_PUBLIC_KEY>
+Body:   { user_latitude, user_longitude, radius_in_km }
+```
+- **Auth:** basta la sola `App-Public-Key` dell'operatore Elérent (NESSUN token utente/login —
+  verificato: senza key → "Missing app public key"; con key → mezzi). Va messa nell'env var
+  **`ELERENT_APP_PUBLIC_KEY`** su Vercel (Project Settings → Environment Variables).
+  La chiave NON è estraibile staticamente dall'APK (`com.elerent.elerent`): l'app la recupera a
+  runtime (Branch.io + endpoint interni `/api/v1/` offuscati). Va ottenuta da Elérent (partner
+  della promo "PASS MOVÌ CT") o sniffando il traffico dell'app.
+- **Mapping risposta** (`OpenAPIVehicle` → forma GBFS-like del frontend): `id`→`bike_id`,
+  `coordinates.latitude/longitude`→`lat/lon`, `battery_level` (0-100)→`current_fuel_percent` (0..1),
+  `nr`→`vehicle_nr`. Esclusi `is_active_ride`/`is_paused`. Autonomia non disponibile in get-vehicles
+  (solo lato admin) → `current_range_meters: null`, il dettaglio mostra "Disponibile".
+- **CTA "Sblocca con Elérent":** la promo **PASS MOVÌ CT** (Catania, €1,99 — 1 sblocco + 15 min)
+  è un abbonamento IN-APP. Il bottone apre lo store giusto per piattaforma
+  (`appStoreUrl`/`playStoreUrl` in `scooterProviders.js`, scelta via `IS_IOS` in `ScooterApp.jsx`).
+- Doc API: https://app.rideatom.com/api/docs
 
 ## Sezione Pullman Sicilia (`src/components/IntercityBus.jsx`)
 

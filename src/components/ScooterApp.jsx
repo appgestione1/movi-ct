@@ -6,6 +6,9 @@ import { SCOOTER_PROVIDERS } from '../data/scooterProviders';
 const CATANIA_CENTER = [37.5022, 15.0872];
 const NEARBY_METERS = 500;
 
+const IS_IOS = typeof navigator !== 'undefined'
+  && /iphone|ipad|ipod/i.test(navigator.userAgent || '');
+
 function haversine(lat1, lon1, lat2, lon2) {
   const R = 6371000;
   const dLat = (lat2 - lat1) * Math.PI / 180;
@@ -313,13 +316,21 @@ export default function ScooterApp({ onBack }) {
   const batt  = selected?.current_fuel_percent;
   const range = selected?.current_range_meters;
 
-  // URL sblocco per il bottone fisso in basso: usa rental_uris del primo scooter
-  // (stesso link che appare toccando un pallino sulla mappa), fallback a scanUrl
-  const bottomScanUrl =
-    scooters[0]?.rental_uris?.ios  ||
-    scooters[0]?.rental_uris?.android ||
-    provider?.scanUrl ||
-    null;
+  // URL di sblocco: preferisce i rental_uris del mezzo (Dott/Lime), poi lo store
+  // giusto per piattaforma (Elérent → app con la promo PASS MOVÌ CT), poi scanUrl.
+  const unlockUrl = (scooter) => {
+    const ru = scooter?.rental_uris;
+    if (ru) {
+      return IS_IOS ? (ru.ios || ru.android) : (ru.android || ru.ios);
+    }
+    const store = IS_IOS
+      ? (provider?.appStoreUrl || provider?.playStoreUrl)
+      : (provider?.playStoreUrl || provider?.appStoreUrl);
+    return store || provider?.scanUrl || null;
+  };
+
+  // URL sblocco per il bottone fisso in basso (usa il primo scooter come riferimento).
+  const bottomScanUrl = unlockUrl(scooters[0]);
 
   return (
     <div className="scooter-app">
@@ -418,7 +429,7 @@ export default function ScooterApp({ onBack }) {
 
           {provider?.scanUrl && (
             <a
-              href={selected.rental_uris?.ios || selected.rental_uris?.android || provider.scanUrl}
+              href={unlockUrl(selected)}
               target="_blank"
               rel="noopener noreferrer"
               className="scooter-open-btn"

@@ -24,9 +24,13 @@ export const SCOOTER_PROVIDERS = [
   {
     id: 'elerent',
     name: 'Elérent',
-    color: '#7C3AED',
+    color: '#8BC53F', // verde Elérent
     gbfsUrl: '/api/elerent-gbfs',
-    scanUrl: null, // nessun deep link verificato; bottone nascosto finché GBFS non è attivo
+    // Dati live via ATOM Mobility (vedi api/elerent-gbfs.js).
+    // La promo "PASS MOVÌ CT" vive dentro l'app Elérent → il CTA la apre.
+    scanUrl: 'https://elerent.com/',
+    appStoreUrl: 'https://apps.apple.com/app/id1518090808',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.elerent.elerent',
     comingSoon: false,
   },
   {
