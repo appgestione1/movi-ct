@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Popup pubblicitari: chiunque legge (per mostrarli in app), chiunque scrive
+    // (protezione tramite menu segreto lato client + password admin).
+    // Per maggiore sicurezza, in futuro: spostare admin auth su Firebase Auth.
+    match /popups/{section} {
+      allow read: if true;
+      allow write: if true;
+    }
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

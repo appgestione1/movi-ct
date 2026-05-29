@@ -11,7 +11,7 @@ import TreniApp from './components/TreniApp';
 import PopupAd from './components/PopupAd';
 import SecretLogin from './components/SecretLogin';
 import SecretAdminPanel from './components/SecretAdminPanel';
-import { shouldShowPopup } from './utils/popupStorage';
+import { shouldShowPopup, startSync, onPopupsChange } from './utils/popupStorage';
 import { STATIONS, STATION_TIMES } from './data/schedule';
 import { getNextTrains } from './utils/calculator';
 import './App.css';
@@ -192,9 +192,25 @@ export default function App() {
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const clickResetRef = useRef(null);
 
-  // Popup all'apertura dell'app (mode === null al primo render)
+  // Avvia sync Firestore real-time
+  useEffect(() => { startSync(); }, []);
+
+  // Popup all'apertura dell'app: aspetta che arrivino i dati da Firestore
+  // (lo snapshot scatta anche se il doc esiste già in cache localStorage)
   useEffect(() => {
-    if (shouldShowPopup('home')) setPopupSection('home');
+    let shown = false;
+    function tryShow() {
+      if (shown) return;
+      if (shouldShowPopup('home')) {
+        shown = true;
+        setPopupSection('home');
+      }
+    }
+    tryShow(); // tentativo immediato con cache localStorage
+    const off = onPopupsChange(tryShow); // ritenta quando arriva il primo snapshot
+    // Smetti di ascoltare dopo 5s (sync ormai arrivato)
+    const tid = setTimeout(off, 5000);
+    return () => { off(); clearTimeout(tid); };
   }, []);
 
   // Popup al cambio sezione

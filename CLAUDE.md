@@ -15,7 +15,7 @@ npx vite --host --port 5174   # http://192.168.1.86:5174 da mobile (adatta IP al
 
 ## Stack
 - React + Vite (no TypeScript)
-- Nessun backend, nessun Firebase — tutto client-side
+- **Firebase Firestore** (solo per popup pubblicitari, vedi sezione dedicata) — progetto `movi-ct`
 - CSS glassmorphism dark theme in `src/App.css`
 - PWA manifest in `public/manifest.json`
 
@@ -25,19 +25,25 @@ src/
   App.jsx              # Root + MetroApp + BusApp + LimeLive (mode: null|metro|bus|scooter)
   App.css              # Tutti gli stili (incl. .scooter-btn verde Lime #C8F135)
   components/
-    Landing.jsx         # Home "Movì CT" con logo ●—◎ — 3 bottoni: Metro, Bus, Monopattini
+    Landing.jsx         # Home "Movì CT" con logo ●—◎ — 5 bottoni: Metro, Bus, Treni, Pullman Sicilia, Monopattini (logo è trigger menu segreto)
     Onboarding.jsx      # Selezione percorso metro (2 step)
     TrainCard.jsx       # Card treno: countdown flip + tempo percorrenza
     MetroMapVertical.jsx # Barra SVG stazioni (88px, sticky, lato destro)
     BusPlanner.jsx      # Ricerca bus: origine → destinazione
     BusView.jsx         # Vista partenze bus in tempo reale
     LimeLive.jsx        # Mappa live scooter Lime (GBFS) con stats batteria e filtri
+    TreniApp.jsx        # Placeholder sezione Treni regionali Trenitalia (coming soon)
+    PopupAd.jsx         # Modale popup pubblicitario (immagine/video YouTube/MP4)
+    SecretLogin.jsx     # Login password admin (overlay)
+    SecretAdminPanel.jsx # Pannello editing popup per sezione (Firestore real-time)
   data/
     schedule.js         # Stazioni FCE + orari generati + STATION_TIMES
   utils/
     calculator.js       # getNextTrains (metro)
     busPlanner.js       # findJourneys + findTransferJourneys (1 e 2 cambi)
     busCalculator.js    # fetchRouteData con cache in memoria
+    popupStorage.js     # Storage popup: Firestore real-time + localStorage cache
+  firebase.js           # Init Firebase SDK (projectId: movi-ct)
 api/
   lime-gbfs.js          # Vercel Serverless Function — proxy CORS per Lime GBFS Catania
 public/
@@ -316,6 +322,41 @@ funziona dal PC dell'utente (Catania) e dovrebbe funzionare dai runner GitHub Ac
 1. scaricare manualmente i PDF dal browser
 2. metterli in `data/manual/{ast,sais,interbus}/`
 3. committare e ri-eseguire `npm run refresh-intercity`
+
+## Sezione Treni (`src/components/TreniApp.jsx`)
+
+Placeholder "Prossimamente disponibile" con CTA verso trenitalia.com. Da popolare con
+orari Trenitalia regionali Sicilia (Catania-Siracusa/Messina/Palermo).
+
+## Sistema popup pubblicitari (Firestore)
+
+**Progetto Firebase:** `movi-ct` (separato da disco-app)
+**Collezione:** `popups/{section}` — section ∈ `home | metro | bus | treni | pullman | scooter`
+**Schema doc:**
+```
+{ enabled, type: 'image'|'video', imageUrl, videoUrl, title, slogan,
+  ctaText, ctaUrl, expireAt: 'YYYY-MM-DD', cooldownHours, updatedAt }
+```
+
+**Comportamento:**
+- All'avvio app: `startSync()` apre onSnapshot su collezione `popups`
+- Popup `home` mostrato all'apertura (mode=null); altri popup mostrati all'ingresso nella sezione
+- Cache localStorage (`movi-popups-v2`) per quick boot offline
+- Cooldown e password admin sono **per-device** (localStorage, non sincronizzati)
+
+**Menu segreto:**
+- 7 click sul logo `●—◎` della Landing entro 2 s → `SecretLogin`
+- Password default: `movict2026` (modificabile dal pannello, salvata in localStorage per-device)
+- `SecretAdminPanel`: 6 tab (una per sezione), salva async su Firestore con optimistic update
+- Bottone "Testa ora" salva + azzera cooldown + apre subito il popup per anteprima
+
+**Security rules:** `popups/{section}` open read/write. Sufficiente perché la password
+admin protegge l'accesso al pannello lato client. Migrazione futura → Firebase Auth.
+
+**Immagini:** caricate da file → resize max 900px → base64 JPEG q=0.85 → salvato in Firestore
+(limite 1 MB/doc, ampiamente sotto). Alternativa: URL diretto.
+
+**Video:** YouTube (auto-detect, embed con autoplay+muted) o URL MP4 diretto.
 
 ## Fine sessione
 Aggiorna questo file con le modifiche significative e committa.

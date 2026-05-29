@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import {
   POPUP_SECTIONS,
   DEFAULT_POPUP,
@@ -6,6 +6,7 @@ import {
   setPopup,
   resetCooldown,
   setAdminPassword,
+  onPopupsChange,
 } from '../utils/popupStorage';
 
 function resizeImageToBase64(file, maxSize = 900) {
@@ -38,8 +39,25 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
   const [popups, setPopups] = useState(getAllPopups());
   const [activeTab, setActiveTab] = useState('home');
   const [savedFlash, setSavedFlash] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [dirty, setDirty] = useState({});
   const [pwdInput, setPwdInput] = useState('');
   const fileInputRef = useRef(null);
+
+  // Sync da Firestore — riallinea solo le tab non in editing locale
+  useEffect(() => {
+    const off = onPopupsChange(() => {
+      const fresh = getAllPopups();
+      setPopups(prev => {
+        const merged = { ...fresh };
+        for (const k of Object.keys(dirty)) {
+          if (dirty[k]) merged[k] = prev[k];
+        }
+        return merged;
+      });
+    });
+    return off;
+  }, [dirty]);
 
   const current = popups[activeTab] || { ...DEFAULT_POPUP };
 
@@ -48,12 +66,21 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
       ...prev,
       [activeTab]: { ...prev[activeTab], [field]: value },
     }));
+    setDirty(prev => ({ ...prev, [activeTab]: true }));
   }
 
-  function handleSave() {
-    setPopup(activeTab, popups[activeTab]);
-    setSavedFlash(true);
-    setTimeout(() => setSavedFlash(false), 1500);
+  async function handleSave() {
+    setSaving(true);
+    try {
+      await setPopup(activeTab, popups[activeTab]);
+      setDirty(prev => ({ ...prev, [activeTab]: false }));
+      setSavedFlash(true);
+      setTimeout(() => setSavedFlash(false), 1500);
+    } catch (err) {
+      alert('Errore salvataggio: ' + err.message);
+    } finally {
+      setSaving(false);
+    }
   }
 
   async function handleImageUpload(e) {
@@ -67,11 +94,18 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
     }
   }
 
-  function handleTestNow() {
-    // Salva implicitamente lo stato corrente prima del test
-    setPopup(activeTab, popups[activeTab]);
-    resetCooldown(activeTab);
-    onTestPopup?.(activeTab);
+  async function handleTestNow() {
+    setSaving(true);
+    try {
+      await setPopup(activeTab, popups[activeTab]);
+      setDirty(prev => ({ ...prev, [activeTab]: false }));
+      resetCooldown(activeTab);
+      onTestPopup?.(activeTab);
+    } catch (err) {
+      alert('Errore salvataggio: ' + err.message);
+    } finally {
+      setSaving(false);
+    }
   }
 
   function handlePasswordChange() {
@@ -238,10 +272,10 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
           </div>
 
           <div className="sa-actions">
-            <button className="sa-btn sa-btn-primary" onClick={handleSave}>
-              {savedFlash ? '✓ Salvato' : '💾 Salva'}
+            <button className="sa-btn sa-btn-primary" onClick={handleSave} disabled={saving}>
+              {saving ? '⏳ Salvo…' : savedFlash ? '✓ Salvato' : '💾 Salva'}
             </button>
-            <button className="sa-btn" onClick={handleTestNow}>🧪 Testa ora</button>
+            <button className="sa-btn" onClick={handleTestNow} disabled={saving}>🧪 Testa ora</button>
           </div>
 
           <div className="sa-divider" />
@@ -260,7 +294,7 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
           </div>
 
           <p className="sa-hint">
-            Storage: localStorage. Quando attiveremo Firebase, le modifiche saranno visibili a tutti gli utenti.
+            Storage: Firestore — le modifiche sono sincronizzate in tempo reale su tutti i dispositivi.
           </p>
         </div>
       </div>

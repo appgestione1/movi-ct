@@ -1,7 +1,10 @@
-// Storage popup pubblicitari per sezione: home | metro | bus | treni | pullman | scooter
-// Versione attuale: localStorage (no backend). Swap futuro a Firestore mantenendo questa API.
+// Storage popup pubblicitari: Firestore real-time + localStorage cache offline.
+// Cooldown e password admin restano locali (per-device).
 
-const STORAGE_KEY = 'movi-popups-v1';
+import { doc, setDoc, onSnapshot, collection } from 'firebase/firestore';
+import { db } from '../firebase';
+
+const CACHE_KEY = 'movi-popups-v2';
 const COOLDOWN_PREFIX = 'movi-popup-shown-';
 
 export const POPUP_SECTIONS = [
@@ -15,47 +18,83 @@ export const POPUP_SECTIONS = [
 
 export const DEFAULT_POPUP = {
   enabled: false,
-  type: 'image',         // 'image' | 'video'
-  imageUrl: '',          // base64 o URL
-  videoUrl: '',          // URL diretto o YouTube
+  type: 'image',
+  imageUrl: '',
+  videoUrl: '',
   title: '',
   slogan: '',
   ctaText: '',
   ctaUrl: '',
-  expireAt: '',          // YYYY-MM-DD
-  cooldownHours: 6,      // ore minime fra due visualizzazioni
+  expireAt: '',
+  cooldownHours: 6,
   updatedAt: 0,
 };
 
-function readAll() {
+// In-memory cache, hydrated from localStorage and kept in sync by onSnapshot
+let cache = {};
+const listeners = new Set();
+
+function loadCacheFromStorage() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : {};
-  } catch { return {}; }
+    const raw = localStorage.getItem(CACHE_KEY);
+    cache = raw ? JSON.parse(raw) : {};
+  } catch { cache = {}; }
+}
+loadCacheFromStorage();
+
+function saveCacheToStorage() {
+  try { localStorage.setItem(CACHE_KEY, JSON.stringify(cache)); } catch {}
 }
 
-function writeAll(data) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+function notifyListeners() {
+  for (const fn of listeners) fn();
 }
 
+// Subscribe in real-time to the popups collection
+let unsub = null;
+export function startSync() {
+  if (unsub) return;
+  unsub = onSnapshot(collection(db, 'popups'), (snap) => {
+    const next = {};
+    snap.forEach(d => { next[d.id] = d.data(); });
+    cache = next;
+    saveCacheToStorage();
+    notifyListeners();
+  }, (err) => {
+    console.warn('[popups] Firestore sync error:', err.message);
+  });
+}
+
+export function stopSync() {
+  if (unsub) { unsub(); unsub = null; }
+}
+
+export function onPopupsChange(fn) {
+  listeners.add(fn);
+  return () => listeners.delete(fn);
+}
+
+// ── API (synchronous reads, async writes) ───────────────────────────
 export function getPopup(section) {
-  const all = readAll();
-  return { ...DEFAULT_POPUP, ...(all[section] || {}) };
+  return { ...DEFAULT_POPUP, ...(cache[section] || {}) };
 }
 
 export function getAllPopups() {
-  const all = readAll();
   const out = {};
   for (const s of POPUP_SECTIONS) {
-    out[s.id] = { ...DEFAULT_POPUP, ...(all[s.id] || {}) };
+    out[s.id] = { ...DEFAULT_POPUP, ...(cache[s.id] || {}) };
   }
   return out;
 }
 
-export function setPopup(section, config) {
-  const all = readAll();
-  all[section] = { ...DEFAULT_POPUP, ...config, updatedAt: Date.now() };
-  writeAll(all);
+export async function setPopup(section, config) {
+  const payload = { ...DEFAULT_POPUP, ...config, updatedAt: Date.now() };
+  // Optimistic local update
+  cache[section] = payload;
+  saveCacheToStorage();
+  notifyListeners();
+  // Write to Firestore (the snapshot listener will re-sync)
+  await setDoc(doc(db, 'popups', section), payload);
 }
 
 export function shouldShowPopup(section) {
@@ -86,7 +125,7 @@ export function resetCooldown(section) {
   }
 }
 
-// Password admin (default; modificabile dal pannello segreto)
+// ── Admin password (locale per-device) ──────────────────────────────
 const ADMIN_PWD_KEY = 'movi-admin-pwd';
 const DEFAULT_ADMIN_PWD = 'movict2026';
 
