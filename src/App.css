@@ -625,9 +625,11 @@ html, body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 40px 24px;
+  /* Spaziatura fluida: si comprime su schermi bassi così tutto entra senza
+     tagli; overflow verticale lasciato scrollabile come fallback di sicurezza. */
+  padding: clamp(20px, 4vh, 40px) 24px;
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .landing::before {
@@ -642,17 +644,17 @@ html, body {
 
 .landing-header {
   text-align: center;
-  margin-bottom: 48px;
+  margin-bottom: clamp(20px, 5vh, 48px);
   position: relative;
   z-index: 1;
 }
 
 .landing-logo {
-  width: 56px;
-  height: 56px;
+  width: clamp(48px, 13vw, 56px);
+  height: clamp(48px, 13vw, 56px);
   font-size: 32px;
   border-radius: 14px;
-  margin: 0 auto 16px;
+  margin: 0 auto clamp(10px, 2vh, 16px);
   box-shadow: 0 0 30px rgba(230,57,70,0.4);
 }
 .movi-logo {
@@ -663,7 +665,7 @@ html, body {
 }
 
 .landing-title {
-  font-size: 38px;
+  font-size: clamp(30px, 9vw, 38px);
   font-weight: 900;
   letter-spacing: -1px;
   margin-bottom: 6px;
@@ -677,7 +679,7 @@ html, body {
 .landing-buttons {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: clamp(10px, 1.8vh, 16px);
   width: 100%;
   max-width: 340px;
   position: relative;
@@ -688,7 +690,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 22px 24px;
+  padding: clamp(14px, 2.4vh, 22px) 24px;
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.08);
   cursor: pointer;
@@ -793,10 +795,10 @@ html, body {
 
 .scooter-btn:hover { box-shadow: 0 8px 40px rgba(200,241,53,0.25); }
 
-.landing-btn-icon { font-size: 36px; line-height: 1; }
+.landing-btn-icon { font-size: clamp(28px, 8vw, 36px); line-height: 1; }
 
 .landing-btn-label {
-  font-size: 24px;
+  font-size: clamp(19px, 5.6vw, 24px);
   font-weight: 800;
   color: var(--text);
   display: block;
@@ -815,9 +817,9 @@ html, body {
   justify-content: center;
   gap: 10px;
   width: 100%;
-  max-width: 420px;
-  margin: 24px auto 0;
-  padding: 16px 24px;
+  max-width: 340px;
+  margin: clamp(14px, 2.5vh, 24px) auto 0;
+  padding: clamp(12px, 2vh, 16px) 24px;
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.1);
   background: rgba(255,255,255,0.06);
@@ -833,11 +835,67 @@ html, body {
 .landing-share-icon { font-size: 18px; }
 
 .landing-footer {
-  margin-top: 40px;
+  margin-top: clamp(18px, 3.5vh, 40px);
   font-size: 11px;
   color: rgba(92,138,170,0.4);
   position: relative;
   z-index: 1;
+}
+
+/* ── Banner "Installa Movì CT" (PWA) ──────────────────────────────── */
+.install-banner {
+  position: fixed;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 24px);
+  max-width: 456px;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  background: rgba(20,23,32,0.96);
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: bannerUp 0.35s ease-out;
+}
+@keyframes bannerUp {
+  from { opacity: 0; transform: translate(-50%, 16px); }
+  to   { opacity: 1; transform: translate(-50%, 0); }
+}
+.install-banner-icon {
+  width: 42px; height: 42px;
+  border-radius: 11px;
+  flex-shrink: 0;
+  display: block;
+}
+.install-banner-text { flex: 1; min-width: 0; }
+.install-banner-title {
+  margin: 0;
+  font-size: 14px; font-weight: 800; color: var(--text);
+}
+.install-banner-sub {
+  margin: 2px 0 0;
+  font-size: 11px; color: var(--muted); line-height: 1.35;
+}
+.install-banner-btn {
+  flex-shrink: 0;
+  padding: 9px 16px;
+  border-radius: 999px; border: 0;
+  background: var(--red); color: #fff;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+}
+.install-banner-btn:active { transform: scale(0.96); }
+.install-banner-close {
+  flex-shrink: 0;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08); color: var(--muted);
+  border: 0; font-size: 18px; line-height: 1; cursor: pointer;
 }
 
 /* ── Back button (legacy, kept for onboarding) ─── */

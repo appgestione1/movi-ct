@@ -9,6 +9,7 @@ import IntercityBus from './components/IntercityBus';
 import ScooterApp from './components/ScooterApp';
 import TreniApp from './components/TreniApp';
 import PopupAd from './components/PopupAd';
+import InstallBanner from './components/InstallBanner';
 import SecretLogin from './components/SecretLogin';
 import SecretAdminPanel from './components/SecretAdminPanel';
 import { shouldShowPopup, startSync, onPopupsChange } from './utils/popupStorage';
@@ -261,5 +262,5 @@ export default function App() {
   else if (mode === 'scooter') view = <ScooterApp onBack={() => setMode(null)} />;
   else view = <Landing onSelect={setMode} onSecretTrigger={handleSecretTrigger} />;
 
-  return <>{view}{overlays}</>;
+  return <>{view}{overlays}{mode === null && <InstallBanner />}</>;
 }
