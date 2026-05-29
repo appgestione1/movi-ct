@@ -68,7 +68,13 @@ export default function PopupAd({ section, onClose }) {
         )}
 
         {popup.type === 'video' && !ytEmbed && directVideoSrc && (
-          <video className="popup-ad-media" src={directVideoSrc} autoPlay muted playsInline loop />
+          <video
+            className="popup-ad-media popup-ad-video"
+            src={directVideoSrc}
+            autoPlay
+            playsInline
+            loop
+          />
         )}
 
         {(popup.title || popup.slogan) && (

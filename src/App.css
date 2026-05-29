@@ -3339,6 +3339,11 @@ html, body {
   max-height: 60vh; object-fit: contain;
   background: #000;
 }
+/* Video caricato dalla galleria: come in Event, mostrato a piena larghezza
+   senza cap a 60vh (la card scrolla se il video è verticale/alto). */
+.popup-ad-video {
+  max-height: 80vh;
+}
 .popup-ad-video-wrap {
   position: relative;
   width: 100%; padding-top: 56.25%;
