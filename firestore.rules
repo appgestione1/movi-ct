@@ -8,6 +8,12 @@ service cloud.firestore {
       allow read: if true;
       allow write: if true;
     }
+    // Video popup salvati a chunk base64 (popup_videos/{section}_meta,
+    // popup_videos/{section}_chunk_N) — stesso modello di sicurezza dei popup.
+    match /popup_videos/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
     // Default deny
     match /{document=**} {
       allow read, write: if false;

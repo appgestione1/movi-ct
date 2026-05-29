@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getPopup, markPopupShown, shouldShowPopup } from '../utils/popupStorage';
+import {
+  getPopup,
+  markPopupShown,
+  shouldShowPopup,
+  loadPopupVideoBlobUrl,
+  VIDEO_SENTINEL,
+} from '../utils/popupStorage';
 
 function getYoutubeEmbed(url) {
   if (!url) return null;
@@ -9,19 +15,30 @@ function getYoutubeEmbed(url) {
 
 export default function PopupAd({ section, onClose }) {
   const [popup, setPopup] = useState(null);
+  const [videoSrc, setVideoSrc] = useState(null); // blob URL per video da galleria
 
   useEffect(() => {
+    let blobUrl = null;
     if (shouldShowPopup(section)) {
-      setPopup(getPopup(section));
+      const p = getPopup(section);
+      setPopup(p);
       markPopupShown(section);
+      if (p.type === 'video' && p.videoUrl === VIDEO_SENTINEL) {
+        loadPopupVideoBlobUrl(section)
+          .then(url => { blobUrl = url; setVideoSrc(url); })
+          .catch(() => {});
+      }
     } else {
       onClose?.();
     }
+    return () => { if (blobUrl) URL.revokeObjectURL(blobUrl); };
   }, [section, onClose]);
 
   if (!popup) return null;
 
-  const ytEmbed = popup.type === 'video' ? getYoutubeEmbed(popup.videoUrl) : null;
+  const isFirestoreVideo = popup.type === 'video' && popup.videoUrl === VIDEO_SENTINEL;
+  const ytEmbed = popup.type === 'video' && !isFirestoreVideo ? getYoutubeEmbed(popup.videoUrl) : null;
+  const directVideoSrc = isFirestoreVideo ? videoSrc : popup.videoUrl;
 
   function handleCtaClick() {
     if (popup.ctaUrl) {
@@ -50,8 +67,8 @@ export default function PopupAd({ section, onClose }) {
           </div>
         )}
 
-        {popup.type === 'video' && !ytEmbed && popup.videoUrl && (
-          <video className="popup-ad-media" src={popup.videoUrl} autoPlay muted playsInline loop />
+        {popup.type === 'video' && !ytEmbed && directVideoSrc && (
+          <video className="popup-ad-media" src={directVideoSrc} autoPlay muted playsInline loop />
         )}
 
         {(popup.title || popup.slogan) && (

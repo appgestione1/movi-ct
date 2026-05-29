@@ -380,7 +380,16 @@ admin protegge l'accesso al pannello lato client. Migrazione futura → Firebase
 **Immagini:** caricate da file → resize max 900px → base64 JPEG q=0.85 → salvato in Firestore
 (limite 1 MB/doc, ampiamente sotto). Alternativa: URL diretto.
 
-**Video:** YouTube (auto-detect, embed con autoplay+muted) o URL MP4 diretto.
+**Video:** tre modalità —
+1. **YouTube** (auto-detect dall'URL, embed con autoplay+muted)
+2. **URL MP4 diretto**
+3. **Upload dalla galleria** (come disco-app/Event): niente Firebase Storage — il video
+   viene letto come base64 e spezzato in chunk da ~800 KB su Firestore nella collezione
+   `popup_videos` (`{section}_chunk_N` + `{section}_meta {chunks, type}`, namespacati per
+   sezione). In `popups/{section}.videoUrl` si salva il sentinel `firestore://popup_video`.
+   In playback `PopupAd.jsx` riassembla i chunk in un blob URL (`loadPopupVideoBlobUrl`).
+   Helper in `popupStorage.js`: `uploadPopupVideo` / `loadPopupVideoBlobUrl` / `deletePopupVideo`.
+   **Le security rules `popup_videos/{docId}` vanno deployate** (`firebase deploy --only firestore:rules`).
 
 ## Fine sessione
 Aggiorna questo file con le modifiche significative e committa.

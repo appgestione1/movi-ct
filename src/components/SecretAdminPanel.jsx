@@ -2,11 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import {
   POPUP_SECTIONS,
   DEFAULT_POPUP,
+  VIDEO_SENTINEL,
   getAllPopups,
   setPopup,
   resetCooldown,
   setAdminPassword,
   onPopupsChange,
+  uploadPopupVideo,
+  deletePopupVideo,
 } from '../utils/popupStorage';
 
 function resizeImageToBase64(file, maxSize = 900) {
@@ -42,7 +45,9 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState({});
   const [pwdInput, setPwdInput] = useState('');
+  const [videoProgress, setVideoProgress] = useState(null); // null | 0-100 | 'done'
   const fileInputRef = useRef(null);
+  const videoInputRef = useRef(null);
 
   // Sync da Firestore — riallinea solo le tab non in editing locale
   useEffect(() => {
@@ -92,6 +97,29 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
     } catch (err) {
       alert('Errore upload immagine: ' + err.message);
     }
+  }
+
+  async function handleVideoUpload(e) {
+    const file = e.target.files?.[0];
+    e.target.value = ''; // permette di ricaricare lo stesso file
+    if (!file) return;
+    const section = activeTab;
+    setVideoProgress(0);
+    try {
+      await uploadPopupVideo(section, file, setVideoProgress);
+      updateField('videoUrl', VIDEO_SENTINEL);
+      setVideoProgress('done');
+      setTimeout(() => setVideoProgress(null), 1200);
+    } catch (err) {
+      alert('Errore upload video: ' + err.message);
+      setVideoProgress(null);
+    }
+  }
+
+  function handleRemoveVideo() {
+    const section = activeTab;
+    updateField('videoUrl', '');
+    deletePopupVideo(section).catch(() => {});
   }
 
   async function handleTestNow() {
@@ -201,15 +229,47 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
           )}
 
           {current.type === 'video' && (
-            <label className="sa-row">
-              <span>URL video (YouTube o MP4)</span>
-              <input
-                type="text"
-                placeholder="https://youtu.be/... o https://...mp4"
-                value={current.videoUrl}
-                onChange={e => updateField('videoUrl', e.target.value)}
-              />
-            </label>
+            <>
+              <div className="sa-row">
+                <button
+                  className="sa-btn"
+                  onClick={() => videoInputRef.current?.click()}
+                  disabled={videoProgress !== null && videoProgress !== 'done'}
+                >
+                  🎬 Carica video dalla galleria
+                </button>
+                <input
+                  ref={videoInputRef}
+                  type="file"
+                  accept="video/*"
+                  style={{ display: 'none' }}
+                  onChange={handleVideoUpload}
+                />
+              </div>
+              {videoProgress !== null && videoProgress !== 'done' && (
+                <div className="sa-row sa-upload-progress">
+                  <span>⏳ Caricamento video… {videoProgress}%</span>
+                </div>
+              )}
+              {videoProgress === 'done' && (
+                <div className="sa-row sa-upload-progress"><span>✓ Video caricato</span></div>
+              )}
+              {current.videoUrl === VIDEO_SENTINEL && (
+                <div className="sa-preview">
+                  <span className="sa-video-badge">🎬 Video dalla galleria</span>
+                  <button className="sa-remove" onClick={handleRemoveVideo}>Rimuovi</button>
+                </div>
+              )}
+              <label className="sa-row">
+                <span>URL video (YouTube o MP4) — alternativo</span>
+                <input
+                  type="text"
+                  placeholder="https://youtu.be/... o https://...mp4"
+                  value={current.videoUrl === VIDEO_SENTINEL ? '' : current.videoUrl}
+                  onChange={e => updateField('videoUrl', e.target.value)}
+                />
+              </label>
+            </>
           )}
 
           <label className="sa-row">

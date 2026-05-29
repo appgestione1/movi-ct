@@ -3550,6 +3550,16 @@ html, body {
   background: rgba(230,57,70,0.9); color: white; border: 0;
   border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer;
 }
+.sa-video-badge {
+  display: block;
+  padding: 14px 16px; padding-right: 90px;
+  font-size: 13px; font-weight: 600; color: var(--text, #fff);
+  background: rgba(79,195,247,0.12);
+}
+.sa-upload-progress {
+  font-size: 13px; font-weight: 600; color: #4fc3f7;
+  padding: 4px 2px;
+}
 .sa-btn {
   padding: 12px 18px;
   border-radius: 12px;
