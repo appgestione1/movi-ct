@@ -23,6 +23,15 @@ export default function Landing({ onSelect, onSecretTrigger }) {
     }
   }
 
+  function handleExit() {
+    // Chiude la finestra/PWA; se il browser non lo permette (finestra non
+    // aperta da script) si va su una pagina vuota come fallback.
+    try { window.close(); } catch { /* ignorato */ }
+    setTimeout(() => {
+      try { window.location.href = 'about:blank'; } catch { /* ignorato */ }
+    }, 200);
+  }
+
   return (
     <div className="landing">
       <div className="landing-header">
@@ -72,12 +81,22 @@ export default function Landing({ onSelect, onSecretTrigger }) {
         </button>
       </div>
 
-      <button className="landing-share-btn" onClick={handleShare}>
-        <span className="landing-share-icon">📤</span>
-        <span>{shared ? 'Link copiato!' : 'Condividi app'}</span>
-      </button>
+      <div className="landing-actions">
+        <button className="landing-share-btn" onClick={handleShare}>
+          <span className="landing-share-icon">📤</span>
+          <span>{shared ? 'Link copiato!' : 'Condividi app'}</span>
+        </button>
+        <button className="landing-exit-btn" onClick={handleExit}>
+          <span className="landing-share-icon">⏻</span>
+          <span>Esci</span>
+        </button>
+      </div>
 
-      <p className="landing-footer">Dati non ufficiali — FCE, AMTS &amp; Lime Catania</p>
+      <p className="landing-footer">
+        Verifica eventuali modifiche nei dati ufficiali
+        <br />
+        <span className="landing-credit">Product 2026 · Stefano Di Bella</span>
+      </p>
     </div>
   );
 }

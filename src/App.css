@@ -811,35 +811,53 @@ html, body {
   margin-top: 2px;
 }
 
-.landing-share-btn {
+.landing-actions {
   display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 10px;
-  width: 100%;
-  max-width: 340px;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
   margin: clamp(14px, 2.5vh, 24px) auto 0;
-  padding: clamp(12px, 2vh, 16px) 24px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.1);
-  background: rgba(255,255,255,0.06);
-  color: var(--text, #fff);
-  font-size: 14px; font-weight: 700;
-  text-transform: uppercase; letter-spacing: 0.06em;
-  cursor: pointer;
-  transition: all 0.2s ease;
   position: relative;
   z-index: 1;
 }
-.landing-share-btn:active { transform: scale(0.97); }
-.landing-share-icon { font-size: 18px; }
+.landing-share-btn,
+.landing-exit-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: clamp(11px, 1.8vh, 14px) 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.06);
+  color: var(--text, #fff);
+  font-size: 13px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.landing-share-btn:active,
+.landing-exit-btn:active { transform: scale(0.96); }
+.landing-exit-btn {
+  background: rgba(230,57,70,0.12);
+  border-color: rgba(230,57,70,0.3);
+}
+.landing-share-icon { font-size: 16px; }
 
 .landing-footer {
   margin-top: clamp(18px, 3.5vh, 40px);
   font-size: 11px;
-  color: rgba(92,138,170,0.4);
+  line-height: 1.6;
+  text-align: center;
+  color: rgba(92,138,170,0.5);
   position: relative;
   z-index: 1;
+}
+.landing-credit {
+  color: rgba(92,138,170,0.35);
+  font-size: 10px;
+  letter-spacing: 0.04em;
 }
 
 /* ── Banner "Installa Movì CT" (PWA) ──────────────────────────────── */
