@@ -320,13 +320,13 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
               />
             </label>
             <label>
-              <span>Cooldown (ore)</span>
+              <span>Cooldown (minuti)</span>
               <input
                 type="number"
                 min="0"
                 step="1"
-                value={current.cooldownHours}
-                onChange={e => updateField('cooldownHours', parseInt(e.target.value || '0', 10))}
+                value={current.cooldownMinutes}
+                onChange={e => updateField('cooldownMinutes', parseInt(e.target.value || '0', 10))}
               />
             </label>
           </div>

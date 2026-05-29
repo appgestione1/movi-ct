@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   getPopup,
   markPopupShown,
@@ -17,22 +17,30 @@ export default function PopupAd({ section, onClose }) {
   const [popup, setPopup] = useState(null);
   const [videoSrc, setVideoSrc] = useState(null); // blob URL per video da galleria
 
+  // onClose può cambiare identità a ogni render del parent: lo teniamo in un
+  // ref così la decisione mostra/chiudi (sotto) dipende SOLO da `section` e non
+  // si ri-esegue — evitando auto-chiusure quando l'App si ri-renderizza.
+  const onCloseRef = useRef(onClose);
+  useEffect(() => { onCloseRef.current = onClose; });
+
   useEffect(() => {
     let blobUrl = null;
+    let cancelled = false;
     if (shouldShowPopup(section)) {
       const p = getPopup(section);
       setPopup(p);
       markPopupShown(section);
       if (p.type === 'video' && p.videoUrl === VIDEO_SENTINEL) {
         loadPopupVideoBlobUrl(section)
-          .then(url => { blobUrl = url; setVideoSrc(url); })
+          .then(url => { if (!cancelled) { blobUrl = url; setVideoSrc(url); } })
           .catch(() => {});
       }
     } else {
-      onClose?.();
+      onCloseRef.current?.();
     }
-    return () => { if (blobUrl) URL.revokeObjectURL(blobUrl); };
-  }, [section, onClose]);
+    return () => { cancelled = true; if (blobUrl) URL.revokeObjectURL(blobUrl); };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [section]);
 
   if (!popup) return null;
 

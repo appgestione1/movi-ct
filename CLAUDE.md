@@ -359,7 +359,9 @@ orari Trenitalia regionali Sicilia (Catania-Siracusa/Messina/Palermo).
 **Schema doc:**
 ```
 { enabled, type: 'image'|'video', imageUrl, videoUrl, title, slogan,
-  ctaText, ctaUrl, expireAt: 'YYYY-MM-DD', cooldownHours, updatedAt }
+  ctaText, ctaUrl, expireAt: 'YYYY-MM-DD', cooldownMinutes, updatedAt }
+// cooldownMinutes: minuti prima che il popup riappaia (default 15, per-device).
+// Fallback retro-compat: i doc vecchi con cooldownHours vengono letti come ore.
 ```
 
 **Comportamento:**

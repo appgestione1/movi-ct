@@ -31,7 +31,7 @@ export const DEFAULT_POPUP = {
   ctaText: '',
   ctaUrl: '',
   expireAt: '',
-  cooldownHours: 6,
+  cooldownMinutes: 15,
   updatedAt: 0,
 };
 
@@ -185,7 +185,11 @@ export function shouldShowPopup(section) {
     if (Date.now() > exp.getTime()) return false;
   }
   const lastShown = parseInt(localStorage.getItem(COOLDOWN_PREFIX + section) || '0', 10);
-  const cooldownMs = (p.cooldownHours || 0) * 3600_000;
+  // Cooldown in minuti; fallback per i doc vecchi che usavano le ore.
+  const cooldownMin = p.cooldownMinutes != null
+    ? p.cooldownMinutes
+    : (p.cooldownHours || 0) * 60;
+  const cooldownMs = cooldownMin * 60_000;
   if (lastShown && Date.now() - lastShown < cooldownMs) return false;
   return true;
 }
