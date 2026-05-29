@@ -64,7 +64,7 @@ export default function InstallBanner() {
         <p className="install-banner-title">Installa Movì CT</p>
         <p className="install-banner-sub">
           {isIOS
-            ? 'Tocca Condividi ⬆ → "Aggiungi a Home"'
+            ? 'In Safari: tocca ⬆️ Condividi in basso, poi "Aggiungi alla schermata Home"'
             : 'Aggiungila alla schermata Home per usarla a tutto schermo'}
         </p>
       </div>
