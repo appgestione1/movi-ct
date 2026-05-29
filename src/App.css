@@ -726,6 +726,65 @@ html, body {
 
 .bus-btn:hover { box-shadow: 0 8px 40px rgba(79,195,247,0.2); }
 
+.treni-btn {
+  background: linear-gradient(135deg, rgba(34,197,94,0.18), rgba(16,140,70,0.08));
+  border-color: rgba(34,197,94,0.3);
+  box-shadow: 0 8px 32px rgba(34,197,94,0.1);
+}
+
+.treni-btn:hover { box-shadow: 0 8px 40px rgba(34,197,94,0.25); }
+
+.treni-coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+  min-height: 70vh;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.treni-coming-icon {
+  font-size: 80px;
+  margin-bottom: 24px;
+  filter: drop-shadow(0 8px 24px rgba(34,197,94,0.4));
+}
+
+.treni-coming-soon h2 {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  margin: 0 0 16px;
+}
+
+.treni-coming-soon p {
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 8px 0;
+}
+
+.treni-coming-sub {
+  font-size: 13px;
+  opacity: 0.7;
+}
+
+.treni-cta {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, rgba(34,197,94,0.3), rgba(16,140,70,0.2));
+  border: 1px solid rgba(34,197,94,0.4);
+  border-radius: 999px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.treni-cta:active { transform: scale(0.97); }
+
 .scooter-btn {
   background: linear-gradient(135deg, rgba(200,241,53,0.15), rgba(140,180,20,0.08));
   border-color: rgba(200,241,53,0.3);
@@ -3235,4 +3294,289 @@ html, body {
 @keyframes toast-in {
   from { opacity: 0; transform: translateX(-50%) translateY(12px); }
   to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* ── Popup pubblicitari ───────────────────────────────────────────── */
+.popup-ad-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  animation: fadeIn 0.25s ease-out;
+}
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+.popup-ad-card {
+  background: linear-gradient(160deg, #1a1d28, #0f1118);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  max-width: 460px;
+  width: 100%;
+  max-height: 92vh;
+  overflow: auto;
+  position: relative;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+  animation: popIn 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+@keyframes popIn { from { transform: scale(0.92); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+.popup-ad-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.6);
+  color: white; border: 1px solid rgba(255,255,255,0.15);
+  font-size: 22px; line-height: 1;
+  cursor: pointer; z-index: 2;
+  display: flex; align-items: center; justify-content: center;
+}
+.popup-ad-close:active { transform: scale(0.92); }
+.popup-ad-media {
+  display: block;
+  width: 100%; height: auto;
+  border-radius: 24px 24px 0 0;
+  max-height: 60vh; object-fit: contain;
+  background: #000;
+}
+.popup-ad-video-wrap {
+  position: relative;
+  width: 100%; padding-top: 56.25%;
+  background: #000;
+  border-radius: 24px 24px 0 0;
+  overflow: hidden;
+}
+.popup-ad-video-wrap iframe {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; border: 0;
+}
+.popup-ad-body { padding: 20px 22px 24px; }
+.popup-ad-title {
+  margin: 0 0 8px;
+  font-size: 20px; font-weight: 800; color: var(--text);
+}
+.popup-ad-slogan {
+  margin: 0 0 16px;
+  color: var(--muted); line-height: 1.5; font-size: 14px;
+}
+.popup-ad-cta {
+  display: inline-block;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #e63946, #c1121f);
+  color: white; border: 0;
+  border-radius: 999px;
+  font-weight: 700; font-size: 14px;
+  cursor: pointer;
+}
+.popup-ad-cta:active { transform: scale(0.96); }
+
+/* ── Secret Login ──────────────────────────────────────────────────── */
+.secret-login-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 1100;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+.secret-login-card {
+  background: #15171f;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  padding: 32px 28px;
+  width: 100%; max-width: 380px;
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+}
+.secret-login-lock { font-size: 48px; }
+.secret-login-card h3 {
+  margin: 0; font-size: 18px; font-weight: 700; color: var(--text);
+}
+.secret-login-card input[type="password"] {
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: #0a0c12; color: var(--text);
+  font-size: 16px; text-align: center;
+  letter-spacing: 0.2em;
+  outline: none;
+}
+.secret-login-card input[type="password"]:focus { border-color: rgba(79,195,247,0.5); }
+.secret-login-card input.shake { animation: shake 0.4s; border-color: #e63946; }
+@keyframes shake {
+  0%,100% { transform: translateX(0) }
+  20%,60% { transform: translateX(-6px) }
+  40%,80% { transform: translateX(6px) }
+}
+.secret-login-err {
+  margin: 0; color: #e63946; font-size: 13px; font-weight: 600;
+}
+.secret-login-actions {
+  display: flex; gap: 10px; width: 100%; margin-top: 4px;
+}
+.secret-login-actions .sa-btn { flex: 1; }
+
+/* ── Secret Admin Panel ────────────────────────────────────────────── */
+.secret-admin-overlay {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 1100;
+  overflow-y: auto;
+  padding: 16px;
+}
+.secret-admin-panel {
+  background: #0f1118;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  max-width: 640px; margin: 0 auto;
+  padding: 0 0 24px;
+}
+.secret-admin-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px 22px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  position: sticky; top: 0;
+  background: #0f1118; z-index: 2;
+  border-radius: 24px 24px 0 0;
+}
+.secret-admin-header h2 {
+  margin: 0; font-size: 18px; font-weight: 800; color: var(--text);
+}
+.secret-admin-close {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  color: white; border: 0;
+  font-size: 22px; cursor: pointer;
+}
+.secret-admin-tabs {
+  display: flex; gap: 6px;
+  padding: 12px 16px;
+  overflow-x: auto;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.secret-admin-tab {
+  flex-shrink: 0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-size: 13px; font-weight: 600;
+  cursor: pointer; white-space: nowrap;
+  position: relative;
+}
+.secret-admin-tab.active {
+  background: rgba(79,195,247,0.18);
+  border-color: rgba(79,195,247,0.4);
+  color: var(--text);
+}
+.tab-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  margin-left: 6px;
+}
+.secret-admin-form {
+  padding: 16px 22px;
+  display: flex; flex-direction: column; gap: 14px;
+}
+.sa-row {
+  display: flex; flex-direction: column; gap: 6px;
+}
+.sa-row > span {
+  font-size: 12px; font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.sa-row input[type="text"],
+.sa-row input[type="number"],
+.sa-row input[type="date"],
+.sa-row input[type="password"],
+.sa-row textarea {
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #1a1d28;
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  font-family: inherit;
+}
+.sa-row input:focus, .sa-row textarea:focus { border-color: rgba(79,195,247,0.5); }
+.sa-toggle {
+  flex-direction: row !important; align-items: center; justify-content: space-between;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.04);
+}
+.sa-toggle > span { font-size: 14px !important; color: var(--text) !important; text-transform: none !important; letter-spacing: 0 !important; }
+.sa-toggle input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+.sa-type { flex-direction: row !important; gap: 8px; }
+.sa-pill {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+}
+.sa-pill.active {
+  background: rgba(79,195,247,0.15);
+  border-color: rgba(79,195,247,0.4);
+  color: var(--text);
+}
+.sa-pill input { display: none; }
+.sa-grid2 {
+  flex-direction: row !important; gap: 12px;
+}
+.sa-grid2 > label { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+.sa-grid2 > label > span { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.sa-grid2 > button { align-self: end; }
+.sa-preview {
+  position: relative;
+  border-radius: 12px; overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.sa-preview img { width: 100%; height: auto; display: block; max-height: 200px; object-fit: contain; background: #000; }
+.sa-remove {
+  position: absolute; top: 8px; right: 8px;
+  padding: 6px 12px;
+  background: rgba(230,57,70,0.9); color: white; border: 0;
+  border-radius: 999px; font-size: 12px; font-weight: 600; cursor: pointer;
+}
+.sa-btn {
+  padding: 12px 18px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  color: var(--text); border: 1px solid rgba(255,255,255,0.1);
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  font-family: inherit;
+}
+.sa-btn:active { transform: scale(0.97); }
+.sa-btn-primary {
+  background: linear-gradient(135deg, #4fc3f7, #1e88e5);
+  border-color: transparent;
+  color: white;
+}
+.sa-actions {
+  display: flex; gap: 10px; margin-top: 4px;
+}
+.sa-actions .sa-btn { flex: 1; }
+.sa-divider {
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 8px 0;
+}
+.sa-hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+  opacity: 0.7;
 }

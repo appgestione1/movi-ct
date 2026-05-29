@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Landing from './components/Landing';
 import Onboarding from './components/Onboarding';
 import MetroMapVertical from './components/MetroMapVertical';
@@ -7,6 +7,11 @@ import BusPlanner from './components/BusPlanner';
 import BusView from './components/BusView';
 import IntercityBus from './components/IntercityBus';
 import ScooterApp from './components/ScooterApp';
+import TreniApp from './components/TreniApp';
+import PopupAd from './components/PopupAd';
+import SecretLogin from './components/SecretLogin';
+import SecretAdminPanel from './components/SecretAdminPanel';
+import { shouldShowPopup } from './utils/popupStorage';
 import { STATIONS, STATION_TIMES } from './data/schedule';
 import { getNextTrains } from './utils/calculator';
 import './App.css';
@@ -180,11 +185,65 @@ function BusApp({ onBack }) {
 
 // ── Root ───────────────────────────────────────────────────────
 export default function App() {
-  const [mode, setMode] = useState(null); // null | 'metro' | 'bus' | 'pullman' | 'scooter'
+  const [mode, setMode] = useState(null); // null | 'metro' | 'bus' | 'treni' | 'pullman' | 'scooter'
+  const [popupSection, setPopupSection] = useState(null);
+  const [clickCount, setClickCount] = useState(0);
+  const [showSecretLogin, setShowSecretLogin] = useState(false);
+  const [showAdminPanel, setShowAdminPanel] = useState(false);
+  const clickResetRef = useRef(null);
 
-  if (mode === 'metro')   return <MetroApp onBack={() => setMode(null)} />;
-  if (mode === 'bus')     return <BusApp   onBack={() => setMode(null)} />;
-  if (mode === 'pullman') return <IntercityBus onBack={() => setMode(null)} />;
-  if (mode === 'scooter') return <ScooterApp onBack={() => setMode(null)} />;
-  return <Landing onSelect={setMode} />;
+  // Popup all'apertura dell'app (mode === null al primo render)
+  useEffect(() => {
+    if (shouldShowPopup('home')) setPopupSection('home');
+  }, []);
+
+  // Popup al cambio sezione
+  useEffect(() => {
+    if (mode && shouldShowPopup(mode)) setPopupSection(mode);
+  }, [mode]);
+
+  function handleSecretTrigger() {
+    if (clickResetRef.current) clearTimeout(clickResetRef.current);
+    const next = clickCount + 1;
+    if (next >= 7) {
+      setClickCount(0);
+      setShowSecretLogin(true);
+    } else {
+      setClickCount(next);
+      clickResetRef.current = setTimeout(() => setClickCount(0), 2000);
+    }
+  }
+
+  const overlays = (
+    <>
+      {popupSection && (
+        <PopupAd section={popupSection} onClose={() => setPopupSection(null)} />
+      )}
+      {showSecretLogin && (
+        <SecretLogin
+          onSuccess={() => { setShowSecretLogin(false); setShowAdminPanel(true); }}
+          onClose={() => setShowSecretLogin(false)}
+        />
+      )}
+      {showAdminPanel && (
+        <SecretAdminPanel
+          onClose={() => setShowAdminPanel(false)}
+          onTestPopup={(section) => {
+            setShowAdminPanel(false);
+            setTimeout(() => setPopupSection(section), 200);
+          }}
+        />
+      )}
+    </>
+  );
+
+  let view;
+  if (mode === 'metro')        view = <MetroApp onBack={() => setMode(null)} />;
+  else if (mode === 'bus')     view = <BusApp   onBack={() => setMode(null)} />;
+  else if (mode === 'treni')   view = <TreniApp onBack={() => setMode(null)} />;
+  else if (mode === 'pullman') view = <IntercityBus onBack={() => setMode(null)} />;
+  else if (mode === 'scooter') view = <ScooterApp onBack={() => setMode(null)} />;
+  else view = <Landing onSelect={setMode} onSecretTrigger={handleSecretTrigger} />;
+
+  return <>{view}{overlays}</>;
 }

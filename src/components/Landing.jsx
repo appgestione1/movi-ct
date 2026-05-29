@@ -1,8 +1,12 @@
-export default function Landing({ onSelect }) {
+export default function Landing({ onSelect, onSecretTrigger }) {
   return (
     <div className="landing">
       <div className="landing-header">
-        <div className="logo-badge landing-logo movi-logo">
+        <div
+          className="logo-badge landing-logo movi-logo"
+          onClick={onSecretTrigger}
+          style={{ cursor: 'pointer' }}
+        >
           <svg viewBox="0 0 48 48" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
             <circle cx="12" cy="24" r="7" fill="white"/>
             <rect x="19" y="22" width="10" height="4" rx="2" fill="white"/>
@@ -25,6 +29,12 @@ export default function Landing({ onSelect }) {
           <span className="landing-btn-icon">🚌</span>
           <span className="landing-btn-label">Bus</span>
           <span className="landing-btn-desc">AMTS · 46 linee</span>
+        </button>
+
+        <button className="landing-btn treni-btn" onClick={() => onSelect('treni')}>
+          <span className="landing-btn-icon">🚆</span>
+          <span className="landing-btn-label">Treni</span>
+          <span className="landing-btn-desc">Trenitalia regionali</span>
         </button>
 
         <button className="landing-btn pullman-btn" onClick={() => onSelect('pullman')}>
