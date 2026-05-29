@@ -49,20 +49,29 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
   const fileInputRef = useRef(null);
   const videoInputRef = useRef(null);
 
+  // `dirty` letto via ref: il listener qui sotto si sottoscrive UNA volta sola,
+  // ma deve sempre vedere lo stato dirty corrente. Senza ref, mettere `dirty`
+  // tra le dipendenze creava una closure stale: uno snapshot Firestore in arrivo
+  // durante l'editing reimpostava il tab ai dati del server, cancellando le
+  // modifiche non ancora salvate.
+  const dirtyRef = useRef(dirty);
+  useEffect(() => { dirtyRef.current = dirty; }, [dirty]);
+
   // Sync da Firestore — riallinea solo le tab non in editing locale
   useEffect(() => {
     const off = onPopupsChange(() => {
       const fresh = getAllPopups();
       setPopups(prev => {
         const merged = { ...fresh };
-        for (const k of Object.keys(dirty)) {
-          if (dirty[k]) merged[k] = prev[k];
+        const d = dirtyRef.current;
+        for (const k of Object.keys(d)) {
+          if (d[k]) merged[k] = prev[k];
         }
         return merged;
       });
     });
     return off;
-  }, [dirty]);
+  }, []);
 
   const current = popups[activeTab] || { ...DEFAULT_POPUP };
 
