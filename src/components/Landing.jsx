@@ -1,4 +1,28 @@
+import { useState } from 'react';
+
 export default function Landing({ onSelect, onSecretTrigger }) {
+  const [shared, setShared] = useState(false);
+
+  async function handleShare() {
+    const url = window.location.origin;
+    const shareData = {
+      title: 'Movì CT',
+      text: 'Trasporti pubblici di Catania: metro, bus, treni, pullman e monopattini — tutto in un\'app.',
+      url,
+    };
+    try {
+      if (navigator.share) {
+        await navigator.share(shareData);
+      } else {
+        await navigator.clipboard.writeText(url);
+        setShared(true);
+        setTimeout(() => setShared(false), 2000);
+      }
+    } catch {
+      // Condivisione annullata dall'utente: nessuna azione.
+    }
+  }
+
   return (
     <div className="landing">
       <div className="landing-header">
@@ -47,6 +71,11 @@ export default function Landing({ onSelect, onSecretTrigger }) {
           <span className="landing-btn-label">Monopattini</span>
         </button>
       </div>
+
+      <button className="landing-share-btn" onClick={handleShare}>
+        <span className="landing-share-icon">📤</span>
+        <span>{shared ? 'Link copiato!' : 'Condividi app'}</span>
+      </button>
 
       <p className="landing-footer">Dati non ufficiali — FCE, AMTS &amp; Lime Catania</p>
     </div>
