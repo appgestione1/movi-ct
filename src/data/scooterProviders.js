@@ -30,14 +30,17 @@ export const SCOOTER_PROVIDERS = [
     // La promo "PASS MOVÌ CT" vive dentro l'app Elérent → il CTA la apre.
     //
     // subscriptionUrl: link Branch.io di Elérent (dominio elerent.app.link).
-    // Un link Branch apre l'app se installata e fa fallback allo store da solo,
-    // quindi il CTA "Sblocca con Elérent" lo usa per primo.
-    // ⚠️ Quello sotto è un tentativo (deeplink_path=subscriptions): apre l'app
-    // ma potrebbe atterrare sulla home invece che su "Sottoscrizioni". Il link
-    // DEFINITIVO che porta diritto al PASS MOVÌ CT (€1,99) va chiesto a Elérent
-    // (è una loro Quick Link Branch della promo) e incollato qui.
+    // Un link Branch apre l'app se installata e fa fallback allo store da solo.
+    //
+    // Ricavato analizzando l'APK (com.elerent.elerent v10.21): l'app instrada i
+    // deep link via enum DeepLinkScreen (token lowercase: home, vehicle, wallet,
+    // payment, profile, ride, subscription) letto da un campo "deepLinkScreen";
+    // chiave parametro più probabile "screen". Mando valori ridondanti così
+    // qualunque chiave il parser legga riceve "subscription", + fallback store.
+    // ⚠️ Da confermare con un test sul telefono; in alternativa il link Branch
+    // ufficiale della promo PASS MOVÌ CT (da Elérent) è il più sicuro.
     subscriptionUrl:
-      'https://elerent.app.link/?$deeplink_path=subscriptions&$fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.elerent.elerent',
+      'https://elerent.app.link/?screen=subscription&$deeplink_path=subscription&$android_deeplink_path=subscription&$fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.elerent.elerent',
     // Promemoria mostrato prima di aprire l'app/store (CTA "Sblocca con Elérent").
     promoNote:
       'Una volta nell\'app, vai in "Abbonamenti" e scegli il PASS MOVÌ CT a 1,99 € ' +
