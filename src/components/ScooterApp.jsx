@@ -147,6 +147,7 @@ export default function ScooterApp({ onBack }) {
   const [selected,   setSelected]   = useState(null); // scooter object | null
   const [address,    setAddress]    = useState(null); // reverse geocode
   const [showModal,  setShowModal]  = useState(false); // popup "servizio non attivo"
+  const [promoUrl,   setPromoUrl]   = useState(null);  // URL da aprire dopo il promemoria promo
 
   selectedRef.current = selected;
 
@@ -335,6 +336,15 @@ export default function ScooterApp({ onBack }) {
   // URL sblocco per il bottone fisso in basso (usa il primo scooter come riferimento).
   const bottomScanUrl = unlockUrl(scooters[0]);
 
+  // Provider con promemoria promo (Elérent): il CTA non apre subito app/store,
+  // ma prima mostra il popup che ricorda l'offerta PASS MOVÌ CT a 1,99 €.
+  function handleUnlockClick(e, url) {
+    if (provider?.promoNote) {
+      e.preventDefault();
+      setPromoUrl(url || null);
+    }
+  }
+
   return (
     <div className="scooter-app">
       <div className="ambient-red" />
@@ -437,6 +447,7 @@ export default function ScooterApp({ onBack }) {
               rel="noopener noreferrer"
               className="scooter-open-btn"
               style={{ '--pc': provider?.color ?? '#888' }}
+              onClick={(e) => handleUnlockClick(e, unlockUrl(selected))}
             >
               Sblocca con {provider?.name} →
             </a>
@@ -472,6 +483,7 @@ export default function ScooterApp({ onBack }) {
               rel="noreferrer"
               className="scooter-open-btn"
               style={{ '--pc': provider?.color ?? '#888' }}
+              onClick={(e) => handleUnlockClick(e, bottomScanUrl)}
             >
               Sblocca con {provider?.name} →
             </a>
@@ -484,6 +496,30 @@ export default function ScooterApp({ onBack }) {
               Sblocca con {provider?.name} →
             </button>
           )}
+        </div>
+      )}
+
+      {/* Promemoria promo PASS MOVÌ CT prima di aprire Elérent (app o store) */}
+      {promoUrl && (
+        <div className="scooter-modal-overlay" onClick={() => setPromoUrl(null)}>
+          <div className="scooter-modal" onClick={e => e.stopPropagation()}>
+            <div className="scooter-modal-icon">🎟️</div>
+            <div className="scooter-modal-title">PASS MOVÌ CT · 1,99 €</div>
+            <div className="scooter-modal-msg">{provider?.promoNote}</div>
+            <a
+              href={promoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="scooter-modal-btn"
+              style={{ background: provider?.color ?? '#111' }}
+              onClick={() => setTimeout(() => setPromoUrl(null), 0)}
+            >
+              Ho capito, apri {provider?.name} →
+            </a>
+            <button className="scooter-modal-cancel" onClick={() => setPromoUrl(null)}>
+              Annulla
+            </button>
+          </div>
         </div>
       )}
 

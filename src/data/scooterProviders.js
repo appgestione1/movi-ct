@@ -38,6 +38,11 @@ export const SCOOTER_PROVIDERS = [
     // (è una loro Quick Link Branch della promo) e incollato qui.
     subscriptionUrl:
       'https://elerent.app.link/?$deeplink_path=subscriptions&$fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.elerent.elerent',
+    // Promemoria mostrato prima di aprire l'app/store (CTA "Sblocca con Elérent").
+    promoNote:
+      'Una volta nell\'app, vai in "Abbonamenti" e scegli il PASS MOVÌ CT a 1,99 € ' +
+      '(1 sblocco + 15 minuti): è l\'offerta dedicata a Movì CT. ' +
+      'Nessun costo nascosto, nessuno sblocco o minuto extra a pagamento.',
     scanUrl: 'https://elerent.com/',
     appStoreUrl: 'https://apps.apple.com/app/id1518090808',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.elerent.elerent',

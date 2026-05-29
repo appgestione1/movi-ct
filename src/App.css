@@ -1435,6 +1435,8 @@ html, body {
   margin-bottom: 24px;
 }
 .scooter-modal-btn {
+  display: inline-block;
+  text-decoration: none;
   background: #111;
   color: #fff;
   border: none;
@@ -1444,7 +1446,17 @@ html, body {
   font-weight: 700;
   cursor: pointer;
 }
-.scooter-modal-btn:active { background: #333; }
+.scooter-modal-btn:active { filter: brightness(1.15); }
+.scooter-modal-cancel {
+  display: block;
+  margin: 12px auto 0;
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
 
 /* ── Bus view ───────────────────────────────────── */
 .bus-badge {
