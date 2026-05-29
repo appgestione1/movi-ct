@@ -323,6 +323,9 @@ export default function ScooterApp({ onBack }) {
     if (ru) {
       return IS_IOS ? (ru.ios || ru.android) : (ru.android || ru.ios);
     }
+    // Link diretto all'abbonamento (Branch link Elérent → PASS MOVÌ CT): apre
+    // l'app se installata, altrimenti store — gestito dal link Branch stesso.
+    if (provider?.subscriptionUrl) return provider.subscriptionUrl;
     const store = IS_IOS
       ? (provider?.appStoreUrl || provider?.playStoreUrl)
       : (provider?.playStoreUrl || provider?.appStoreUrl);

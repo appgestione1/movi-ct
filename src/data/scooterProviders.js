@@ -28,6 +28,16 @@ export const SCOOTER_PROVIDERS = [
     gbfsUrl: '/api/elerent-gbfs',
     // Dati live via ATOM Mobility (vedi api/elerent-gbfs.js).
     // La promo "PASS MOVÌ CT" vive dentro l'app Elérent → il CTA la apre.
+    //
+    // subscriptionUrl: link Branch.io di Elérent (dominio elerent.app.link).
+    // Un link Branch apre l'app se installata e fa fallback allo store da solo,
+    // quindi il CTA "Sblocca con Elérent" lo usa per primo.
+    // ⚠️ Quello sotto è un tentativo (deeplink_path=subscriptions): apre l'app
+    // ma potrebbe atterrare sulla home invece che su "Sottoscrizioni". Il link
+    // DEFINITIVO che porta diritto al PASS MOVÌ CT (€1,99) va chiesto a Elérent
+    // (è una loro Quick Link Branch della promo) e incollato qui.
+    subscriptionUrl:
+      'https://elerent.app.link/?$deeplink_path=subscriptions&$fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.elerent.elerent',
     scanUrl: 'https://elerent.com/',
     appStoreUrl: 'https://apps.apple.com/app/id1518090808',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.elerent.elerent',
