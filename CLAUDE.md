@@ -25,7 +25,8 @@ src/
   App.jsx              # Root + MetroApp + BusApp + LimeLive (mode: null|metro|bus|scooter)
   App.css              # Tutti gli stili (incl. .scooter-btn verde Lime #C8F135)
   components/
-    Landing.jsx         # Home "Movì CT" con logo ●—◎ — 5 bottoni: Metro, Bus, Treni, Pullman Sicilia, Monopattini (logo è trigger menu segreto)
+    Landing.jsx         # Home "Movì CT" con logo ●—◎ — 5 bottoni: Metro, Bus, Treni, Pullman Sicilia, Monopattini (logo è trigger menu segreto) + pulsanti "Condividi app" (navigator.share) ed "Esci" (window.close + fallback about:blank). Layout fluido (clamp legato al viewport) per adattarsi allo schermo del telefono.
+    InstallBanner.jsx   # Banner "Installa Movì CT" (PWA) mostrato solo sulla home se non installata — vedi sezione PWA
     Onboarding.jsx      # Selezione percorso metro (2 step)
     TrainCard.jsx       # Card treno: countdown flip + tempo percorrenza
     MetroMapVertical.jsx # Barra SVG stazioni (88px, sticky, lato destro)
@@ -109,9 +110,38 @@ Body:   { user_latitude, user_longitude, radius_in_km }
   `nr`→`vehicle_nr`. Esclusi `is_active_ride`/`is_paused`. Autonomia non disponibile in get-vehicles
   (solo lato admin) → `current_range_meters: null`, il dettaglio mostra "Disponibile".
 - **CTA "Sblocca con Elérent":** la promo **PASS MOVÌ CT** (Catania, €1,99 — 1 sblocco + 15 min)
-  è un abbonamento IN-APP. Il bottone apre lo store giusto per piattaforma
-  (`appStoreUrl`/`playStoreUrl` in `scooterProviders.js`, scelta via `IS_IOS` in `ScooterApp.jsx`).
+  è un abbonamento IN-APP. Cliccando il bottone compare prima un **popup promemoria**
+  (campo `promoNote` in `scooterProviders.js`) che ricorda di scegliere il PASS MOVÌ CT a
+  1,99 € nella sezione Abbonamenti, nessun costo nascosto; il bottone del popup apre poi
+  l'app/store.
 - Doc API: https://app.rideatom.com/api/docs
+
+#### Deep link Elérent → schermata Abbonamenti (analisi APK 10.21, 2026-05-29)
+Obiettivo: se l'app è installata, "Sblocca con Elérent" deve aprire la pagina **Sottoscrizioni**.
+Estratto dall'APK (`com.elerent.elerent` 10.21, Kotlin nativo + **Branch SDK 5.21.1**):
+- Dominio Branch **`elerent.app.link`**; `rideatom.app.DeepLinkActivity` intercetta **tutti**
+  gli `https://elerent.app.link/*` (App Links verificati). Nessun filtro per-path → la schermata
+  la decide il **dato Branch** (`$deeplink_path` / param custom).
+- Routing via enum **`DeepLinkScreen`** (token lowercase: `home, vehicle, wallet, payment,
+  profile, ride, subscription`), campo modello `deepLinkScreen`, chiave param probabile **`screen`**.
+- Campo `subscriptionUrl` in `scooterProviders.js` (usato per primo da `unlockUrl`): link Branch
+  con `screen=subscription` + `$deeplink_path` ridondante + `$fallback_url` store. Un link Branch
+  apre l'app se installata, altrimenti store (gestito dal link).
+- **DA CONFERMARE on-device** (atterra su Sottoscrizioni o home?). Soluzione 100% sicura: link
+  Branch ufficiale della promo PASS MOVÌ CT da Elérent → incollarlo in `subscriptionUrl`.
+
+## PWA / installazione
+
+- `index.html`: meta `apple-mobile-web-app-capable`, `apple-mobile-web-app-title`, theme-color,
+  **`apple-touch-icon` → `/apple-touch-icon.png` (180px)** (iOS ignora gli SVG per l'icona Home).
+- `public/manifest.json`: icone **PNG** `icon-192.png` / `icon-512.png` (any + maskable) + `movi-icon.svg`.
+  PNG generati da `movi-icon.svg` (logo bianco su rosso, sharp, una tantum).
+- **Service worker** `public/sw.js` registrato in `main.jsx`: network-first sulle navigazioni
+  (mai app stantia dopo i deploy), stale-while-revalidate sugli asset. Necessario per
+  l'installabilità Android/Chrome (`beforeinstallprompt`).
+- `components/InstallBanner.jsx` (solo sulla home): Android → bottone "Installa" (prompt nativo);
+  iOS Safari → istruzioni "Condividi → Aggiungi a Home" (Apple non consente install programmatico).
+  Nascosto se già in standalone o chiuso nella sessione.
 
 ## Sezione Pullman Sicilia (`src/components/IntercityBus.jsx`)
 
