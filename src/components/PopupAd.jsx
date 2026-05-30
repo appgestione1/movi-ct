@@ -80,8 +80,10 @@ export default function PopupAd({ section, onClose }) {
             className="popup-ad-media popup-ad-video"
             src={directVideoSrc}
             autoPlay
+            muted
             playsInline
             loop
+            preload="auto"
           />
         )}
 

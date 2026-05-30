@@ -59,15 +59,28 @@ function notifyListeners() {
 let unsub = null;
 export function startSync() {
   if (unsub) return;
+  // Preload dei video già noti dalla cache locale, prima ancora del primo snapshot
+  preloadVideosFromMap(cache);
   unsub = onSnapshot(collection(db, 'popups'), (snap) => {
     const next = {};
     snap.forEach(d => { next[d.id] = d.data(); });
     cache = next;
     saveCacheToStorage();
     notifyListeners();
+    // Scarica/decodifica in background i video da galleria così, quando il
+    // popup si apre, il blob è già pronto (o servito dalla cache persistente).
+    preloadVideosFromMap(next);
   }, (err) => {
     console.warn('[popups] Firestore sync error:', err.message);
   });
+}
+
+function preloadVideosFromMap(map) {
+  for (const [sec, p] of Object.entries(map || {})) {
+    if (p?.enabled && p?.type === 'video' && p?.videoUrl === VIDEO_SENTINEL) {
+      preloadPopupVideo(sec);
+    }
+  }
 }
 
 export function stopSync() {
@@ -140,28 +153,79 @@ export async function uploadPopupVideo(section, file, onProgress) {
     await setDoc(doc(db, 'popup_videos', `${section}_chunk_${i}`), { data: chunks[i] });
     onProgress?.(Math.round(((i + 1) / chunks.length) * 95));
   }
-  await setDoc(metaRef, { chunks: chunks.length, type: file.type || 'video/mp4' });
+  // `updatedAt` fa da versione: cambia ad ogni upload → invalida la cache locale.
+  await setDoc(metaRef, { chunks: chunks.length, type: file.type || 'video/mp4', updatedAt: Date.now() });
   onProgress?.(100);
   return VIDEO_SENTINEL;
 }
 
-// Riassembla i chunk in un blob URL riproducibile da <video src>. null se assente.
-export async function loadPopupVideoBlobUrl(section) {
+// ── Cache persistente del video assemblato (Cache Storage API) ───────
+// Dopo il primo download/decodifica il video resta sul dispositivo: le
+// aperture successive del popup sono immediate, senza ri-scaricare i chunk.
+const VIDEO_CACHE_NAME = 'movi-popup-videos-v1';
+const videoBlobMem = {}; // section -> { sig, blob }: cache in-memory per la sessione
+
+async function readCachedVideo(section, sig) {
+  try {
+    if (!('caches' in window)) return null;
+    const cache = await caches.open(VIDEO_CACHE_NAME);
+    const res = await cache.match(`/popup-video/${section}?sig=${sig}`);
+    return res ? await res.blob() : null;
+  } catch { return null; }
+}
+
+async function writeCachedVideo(section, sig, blob) {
+  try {
+    if (!('caches' in window)) return;
+    const cache = await caches.open(VIDEO_CACHE_NAME);
+    // Elimina le versioni vecchie della stessa sezione per non accumularle
+    for (const req of await cache.keys()) {
+      if (req.url.includes(`/popup-video/${section}?`) && !req.url.endsWith(`sig=${sig}`)) {
+        await cache.delete(req);
+      }
+    }
+    await cache.put(`/popup-video/${section}?sig=${sig}`, new Response(blob));
+  } catch {}
+}
+
+// Ottiene il Blob del video (mem cache → cache persistente → download chunk).
+async function fetchPopupVideoBlob(section) {
   const metaSnap = await getDoc(doc(db, 'popup_videos', `${section}_meta`));
   if (!metaSnap.exists()) return null;
-  const { chunks, type } = metaSnap.data();
+  const { chunks, type, updatedAt } = metaSnap.data();
+  const sig = String(updatedAt || chunks || '0');
+
+  const mem = videoBlobMem[section];
+  if (mem && mem.sig === sig) return mem.blob;
+
+  const cached = await readCachedVideo(section, sig);
+  if (cached) { videoBlobMem[section] = { sig, blob: cached }; return cached; }
+
   const parts = await Promise.all(
     Array.from({ length: chunks }, (_, i) =>
       getDoc(doc(db, 'popup_videos', `${section}_chunk_${i}`))
     )
   );
-  const base64 = parts.map(p => p.data()?.data || '').join('');
-  if (!base64) return null;
-  const payload = base64.split(',')[1] || base64;
-  const byteStr = atob(payload);
-  const arr = new Uint8Array(byteStr.length);
-  for (let i = 0; i < byteStr.length; i++) arr[i] = byteStr.charCodeAt(i);
-  return URL.createObjectURL(new Blob([arr], { type: type || 'video/mp4' }));
+  // I chunk ricompongono l'intero data URL (`data:video/...;base64,...`):
+  // lasciamo decodificare il base64 nativamente al browser → molto più veloce
+  // del loop atob() carattere per carattere sui MB.
+  const dataUrl = parts.map(p => p.data()?.data || '').join('');
+  if (!dataUrl) return null;
+  const blob = await (await fetch(dataUrl)).blob();
+  videoBlobMem[section] = { sig, blob };
+  writeCachedVideo(section, sig, blob); // fire-and-forget
+  return blob;
+}
+
+// Avvia in background download+decodifica del video (chiamato allo startup).
+export function preloadPopupVideo(section) {
+  fetchPopupVideoBlob(section).catch(() => {});
+}
+
+// Riassembla i chunk in un blob URL riproducibile da <video src>. null se assente.
+export async function loadPopupVideoBlobUrl(section) {
+  const blob = await fetchPopupVideoBlob(section);
+  return blob ? URL.createObjectURL(blob) : null;
 }
 
 // Elimina meta + tutti i chunk del video di una sezione.
