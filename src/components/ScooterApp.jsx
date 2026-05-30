@@ -504,7 +504,15 @@ export default function ScooterApp({ onBack }) {
         <div className="scooter-modal-overlay" onClick={() => setPromoUrl(null)}>
           <div className="scooter-modal" onClick={e => e.stopPropagation()}>
             <div className="scooter-modal-icon">🎟️</div>
-            <div className="scooter-modal-title">PASS MOVÌ CT · 1,99 €</div>
+            {provider?.promoHeadline ? (
+              <div className="scooter-modal-headline">
+                {provider.promoHeadline.map((line, i) => (
+                  <span key={i} className={`promo-h promo-h-${i + 1}`}>{line}</span>
+                ))}
+              </div>
+            ) : (
+              <div className="scooter-modal-title">PASS MOVÌ CT · 1,99 €</div>
+            )}
             <div className="scooter-modal-msg">{provider?.promoNote}</div>
             <a
               href={promoUrl}
@@ -514,7 +522,7 @@ export default function ScooterApp({ onBack }) {
               style={{ background: provider?.color ?? '#111' }}
               onClick={() => setTimeout(() => setPromoUrl(null), 0)}
             >
-              Ho capito, apri {provider?.name} →
+              Ho capito,<br />apri {provider?.name} →
             </a>
             <button className="scooter-modal-cancel" onClick={() => setPromoUrl(null)}>
               Annulla
