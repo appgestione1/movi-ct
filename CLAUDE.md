@@ -417,11 +417,43 @@ admin protegge l'accesso al pannello lato client. Migrazione futura → Firebase
 2. **URL MP4 diretto**
 3. **Upload dalla galleria** (come disco-app/Event): niente Firebase Storage — il video
    viene letto come base64 e spezzato in chunk da ~800 KB su Firestore nella collezione
-   `popup_videos` (`{section}_chunk_N` + `{section}_meta {chunks, type}`, namespacati per
-   sezione). In `popups/{section}.videoUrl` si salva il sentinel `firestore://popup_video`.
+   `popup_videos` (`{section}_chunk_N` + `{section}_meta {chunks, type, updatedAt}`, namespacati
+   per sezione). In `popups/{section}.videoUrl` si salva il sentinel `firestore://popup_video`.
    In playback `PopupAd.jsx` riassembla i chunk in un blob URL (`loadPopupVideoBlobUrl`).
    Helper in `popupStorage.js`: `uploadPopupVideo` / `loadPopupVideoBlobUrl` / `deletePopupVideo`.
    **Le security rules `popup_videos/{docId}` vanno deployate** (`firebase deploy --only firestore:rules`).
+
+   **Performance avvio video (sessione 2026-05-30):**
+   - **Cache persistente** (Cache Storage `movi-popup-videos-v1`): dopo il primo download il
+     blob assemblato resta sul dispositivo → aperture successive immediate, niente ri-download
+     dei chunk. Versione = `meta.updatedAt` (un nuovo upload invalida la cache, con pulizia
+     delle versioni vecchie). Helper interni `readCachedVideo`/`writeCachedVideo`/`fetchPopupVideoBlob`.
+   - **Preload allo startup**: `startSync()` chiama `preloadPopupVideo(section)` per le sezioni
+     con video da galleria → il blob è pronto prima che il popup si apra.
+   - **Decodifica nativa**: `fetch(dataUrl).blob()` invece del loop `atob()` carattere per carattere.
+
+   **Audio + render (sessione 2026-05-30):**
+   - Avvio guidato da un `useEffect` async in `PopupAd.jsx` (NIENTE attributo `autoPlay`: entrava
+     in conflitto interrompendo `play()`). Prova a partire CON audio (il popup si apre dopo un
+     tap utente → gesto che autorizza l'audio); se il browser blocca → riparte muto e mostra il
+     pulsante `.popup-ad-unmute` ("🔊 Tocca per l'audio"), stato `mutedFallback`.
+   - Il video diretto/da galleria sta in `.popup-ad-video-box` (non più `.popup-ad-video-wrap`):
+     si dimensiona sull'aspect ratio reale del video (altezza intrinseca, cap `65dvh`). Il caso
+     YouTube/iframe resta su `.popup-ad-video-wrap`. Senza questo il video assoluto collassava il
+     contenitore a 0 (audio sì, immagine no).
+
+## Popup promemoria PASS MOVÌ CT (Elérent)
+
+Modale in `ScooterApp.jsx` (stato `promoUrl`) mostrato prima di aprire l'app/store quando si
+clicca "Sblocca con Elérent". Testi in `scooterProviders.js` (provider Elérent):
+- `promoHeadline`: array di 3 righe titolo (`['PASS MOVÌ CT','VAI IN MONOPATTINO','1,99 € ALL INCLUDED']`),
+  stili `.scooter-modal-headline .promo-h-{1,2,3}` (marchio / claim grigio / prezzo verde).
+- `promoNote`: corpo con `\n` per gli a capo, reso con `.scooter-modal-msg { white-space: pre-line }`.
+- Pulsante CTA "Ho capito, / apri Elérent →" su due righe (`<br/>`).
+
+**IN SOSPESO — da chiedere a Fabrizio (Elérent):**
+1. `ELERENT_APP_PUBLIC_KEY` (App-Public-Key ATOM Mobility) → env var su Vercel + redeploy, per i dati live.
+2. Link Branch ufficiale promo PASS MOVÌ CT che apra l'app direttamente su Abbonamenti (per `subscriptionUrl`).
 
 ## Fine sessione
 Aggiorna questo file con le modifiche significative e committa.
