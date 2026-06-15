@@ -15,7 +15,7 @@ export const SCOOTER_PROVIDERS = [
     // altrimenti store. ⚠️ Da confermare on-device; il link ufficiale della promo
     // PASS MOVÌ CT (da Fabrizio/Elérent) è il più sicuro.
     subscriptionUrl:
-      'https://elerent.app.link/?screen=subscription&$deeplink_path=subscription&$android_deeplink_path=subscription&$fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.elerent.elerent',
+      'https://elerent.app.link/?deepLinkScreen=subscription&$fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.elerent.elerent',
     promoHeadline: ['PASS MOVÌ CT', 'VAI IN MONOPATTINO', '1,99 € ALL INCLUDED'],
     promoNote:
       'Una volta nell\'app\n' +
