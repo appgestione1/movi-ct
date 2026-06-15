@@ -138,7 +138,7 @@ export default function ScooterApp({ onBack }) {
   const selectedRef = useRef(null);      // stable ref, evita stale closure nel listener zoom
   const colorRef    = useRef('#888');    // colore provider corrente, aggiornato ad ogni render
 
-  const [activeId,   setActiveId]   = useState('dott');
+  const [activeId,   setActiveId]   = useState('elerent');
   const [scooters,   setScooters]   = useState([]);
   const [loading,    setLoading]    = useState(false);
   const [error,      setError]      = useState(null);
@@ -341,7 +341,8 @@ export default function ScooterApp({ onBack }) {
   function handleUnlockClick(e, url) {
     if (provider?.promoNote) {
       e.preventDefault();
-      setPromoUrl(url || null);
+      // Apre sempre la pagina Abbonamenti (non il link al mezzo singolo)
+      setPromoUrl(provider.subscriptionUrl || url || null);
     }
   }
 

@@ -5,6 +5,31 @@
 
 export const SCOOTER_PROVIDERS = [
   {
+    id: 'elerent',
+    name: 'Elérent',
+    color: '#8BC53F', // verde Elérent
+    gbfsUrl: '/api/elerent-gbfs',
+    // subscriptionUrl: link Branch.io verso la schermata Abbonamenti di Elérent.
+    // Ricavato analizzando l'APK (com.elerent.elerent v10.21): routing via enum
+    // DeepLinkScreen, token "subscription". Link Branch apre l'app se installata,
+    // altrimenti store. ⚠️ Da confermare on-device; il link ufficiale della promo
+    // PASS MOVÌ CT (da Fabrizio/Elérent) è il più sicuro.
+    subscriptionUrl:
+      'https://elerent.app.link/?screen=subscription&$deeplink_path=subscription&$android_deeplink_path=subscription&$fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.elerent.elerent',
+    promoHeadline: ['PASS MOVÌ CT', 'VAI IN MONOPATTINO', '1,99 € ALL INCLUDED'],
+    promoNote:
+      'Una volta nell\'app\n' +
+      'vai in "Abbonamenti"\n' +
+      'e scegli il PASS MOVÌ CT a 1,99 €\n' +
+      '(1 sblocco + 15 minuti)\n' +
+      'l\'offerta dedicata a Movì CT\n' +
+      'senza costi nascosti, nessun sblocco o minuto extra a pagamento.',
+    scanUrl: 'https://elerent.com/',
+    appStoreUrl: 'https://apps.apple.com/app/id1518090808',
+    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.elerent.elerent',
+    comingSoon: false,
+  },
+  {
     id: 'dott',
     name: 'Dott',
     color: '#EF4D23',
@@ -17,43 +42,7 @@ export const SCOOTER_PROVIDERS = [
     name: 'Lime',
     color: '#C8F135',
     gbfsUrl: '/api/lime-gbfs?feed=free_bike_status',
-    // Universal link Lime — apre l'app direttamente alla schermata di sblocco
     scanUrl: 'https://limebike.app.link/TviIBQCOGB',
-    comingSoon: false,
-  },
-  {
-    id: 'elerent',
-    name: 'Elérent',
-    color: '#8BC53F', // verde Elérent
-    gbfsUrl: '/api/elerent-gbfs',
-    // Dati live via ATOM Mobility (vedi api/elerent-gbfs.js).
-    // La promo "PASS MOVÌ CT" vive dentro l'app Elérent → il CTA la apre.
-    //
-    // subscriptionUrl: link Branch.io di Elérent (dominio elerent.app.link).
-    // Un link Branch apre l'app se installata e fa fallback allo store da solo.
-    //
-    // Ricavato analizzando l'APK (com.elerent.elerent v10.21): l'app instrada i
-    // deep link via enum DeepLinkScreen (token lowercase: home, vehicle, wallet,
-    // payment, profile, ride, subscription) letto da un campo "deepLinkScreen";
-    // chiave parametro più probabile "screen". Mando valori ridondanti così
-    // qualunque chiave il parser legga riceve "subscription", + fallback store.
-    // ⚠️ Da confermare con un test sul telefono; in alternativa il link Branch
-    // ufficiale della promo PASS MOVÌ CT (da Elérent) è il più sicuro.
-    subscriptionUrl:
-      'https://elerent.app.link/?screen=subscription&$deeplink_path=subscription&$android_deeplink_path=subscription&$fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.elerent.elerent',
-    // Promemoria mostrato prima di aprire l'app/store (CTA "Sblocca con Elérent").
-    // promoHeadline: righe del titolo; promoNote: corpo (i \n = a capo).
-    promoHeadline: ['PASS MOVÌ CT', 'VAI IN MONOPATTINO', '1,99 € ALL INCLUDED'],
-    promoNote:
-      'Una volta nell\'app\n' +
-      'vai in "Abbonamenti"\n' +
-      'e scegli il PASS MOVÌ CT a 1,99 €\n' +
-      '(1 sblocco + 15 minuti)\n' +
-      'l\'offerta dedicata a Movì CT\n' +
-      'senza costi nascosti, nessun sblocco o minuto extra a pagamento.',
-    scanUrl: 'https://elerent.com/',
-    appStoreUrl: 'https://apps.apple.com/app/id1518090808',
-    playStoreUrl: 'https://play.google.com/store/apps/details?id=com.elerent.elerent',
     comingSoon: false,
   },
   {
