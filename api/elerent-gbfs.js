@@ -1,24 +1,16 @@
 // api/elerent-gbfs.js
-// Vercel Serverless Function — proxy per Elérent (piattaforma ATOM Mobility) Catania.
+// Vercel Serverless Function — proxy CORS per il feed GBFS v3 pubblico di Elérent Catania.
 //
-// Elérent gira su ATOM Mobility (rideatom.com). L'endpoint pubblico documentato
-//   POST https://app.rideatom.com/openapi/v1.0/sharing/get-vehicles
-// restituisce i mezzi con posizione GPS + livello batteria usando la SOLA
-// App-Public-Key dell'operatore (nessun token utente/login necessario — verificato).
-//
-// Doc: https://app.rideatom.com/api/docs
-//
-// CONFIGURAZIONE (obbligatoria per i dati live):
-//   Imposta la variabile d'ambiente  ELERENT_APP_PUBLIC_KEY  su Vercel
-//   (Project Settings → Environment Variables) con la App-Public-Key dell'app
-//   Elérent. Senza di essa il proxy risponde `needs_auth` e l'app mostra il
-//   fallback "servizio non disponibile".
+// Fonte: https://elerent.rideatom.com/gbfs/v3_0/en/vehicle_status?id=2166
+// Feed pubblico, nessuna API key richiesta.
+// Mappa i veicoli GBFS v3 nella forma attesa da ScooterApp.jsx.
 
-const ATOM_ENDPOINT = "https://app.rideatom.com/openapi/v1.0/sharing/get-vehicles";
+const GBFS_URL =
+  "https://elerent.rideatom.com/gbfs/v3_0/en/vehicle_status?id=2166";
 
-// Centro Catania + raggio ampio per coprire l'intera area urbana.
-const CATANIA = { lat: 37.5022, lon: 15.0872 };
-const DEFAULT_RADIUS_KM = 20;
+// max_range_meters dichiarato da vehicle_types (id 3866) — usato per calcolare
+// la percentuale di batteria come current_range_meters / MAX_RANGE.
+const MAX_RANGE = 1_000_000;
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -27,48 +19,14 @@ export default async function handler(req, res) {
 
   if (req.method === "OPTIONS") return res.status(200).end();
 
-  const appKey = process.env.ELERENT_APP_PUBLIC_KEY;
-  if (!appKey) {
-    // Chiave non configurata: l'app mostra il messaggio di fallback.
-    return res.status(200).json({
-      data: { bikes: [] },
-      _source: "elerent",
-      _status: "needs_auth",
-    });
-  }
-
-  // Centro ricerca: usa lat/lon dal client se passati, altrimenti Catania.
-  const lat = clampNum(req.query?.lat, CATANIA.lat);
-  const lon = clampNum(req.query?.lon, CATANIA.lon);
-  const radius = Math.round(clampNum(req.query?.radius_km, DEFAULT_RADIUS_KM));
-
   try {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 9000);
 
-    const response = await fetch(ATOM_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "App-Public-Key": appKey,
-        "User-Agent": "MoviCT/1.0 (app mobilità Catania)",
-      },
-      body: JSON.stringify({
-        user_latitude: lat,
-        user_longitude: lon,
-        radius_in_km: radius,
-      }),
+    const response = await fetch(GBFS_URL, {
+      headers: { "User-Agent": "MoviCT/1.0 (app mobilità Catania)" },
       signal: controller.signal,
     }).finally(() => clearTimeout(timer));
-
-    if (response.status === 401 || response.status === 403) {
-      // Chiave presente ma rifiutata.
-      return res.status(200).json({
-        data: { bikes: [] },
-        _source: "elerent",
-        _status: "needs_auth",
-      });
-    }
 
     if (!response.ok) {
       return res.status(200).json({
@@ -80,9 +38,10 @@ export default async function handler(req, res) {
     }
 
     const json = await response.json();
-    const bikes = (json?.vehicles ?? [])
-      .filter((v) => v?.coordinates && !v.is_active_ride && !v.is_paused)
-      .filter((v) => !v.type || v.type === "SCOOTER")
+    const vehicles = json?.data?.vehicles ?? [];
+
+    const bikes = vehicles
+      .filter((v) => !v.is_reserved && !v.is_disabled)
       .map(toGbfsBike);
 
     res.setHeader("Cache-Control", "s-maxage=30, stale-while-revalidate=60");
@@ -99,26 +58,17 @@ export default async function handler(req, res) {
   }
 }
 
-// Mappa un veicolo ATOM nella forma GBFS-like attesa dal frontend.
 function toGbfsBike(v) {
+  const range = typeof v.current_range_meters === "number" ? v.current_range_meters : null;
   return {
-    bike_id: String(v.id),
-    lat: v.coordinates.latitude,
-    lon: v.coordinates.longitude,
-    is_disabled: false,
-    is_reserved: false,
-    // battery_level ATOM è 0-100 → GBFS usa 0..1
-    current_fuel_percent:
-      typeof v.battery_level === "number" ? v.battery_level / 100 : null,
-    // get-vehicles non espone l'autonomia in metri (solo lato admin)
-    current_range_meters: null,
-    // numero mezzo (es. "0001"), utile per il deep link di sblocco
-    vehicle_nr: v.nr ?? null,
-    vehicle_type_id: v.type ?? "SCOOTER",
+    bike_id: String(v.vehicle_id),
+    lat: v.lat,
+    lon: v.lon,
+    is_disabled: v.is_disabled ?? false,
+    is_reserved: v.is_reserved ?? false,
+    current_fuel_percent: range != null ? Math.min(range / MAX_RANGE, 1) : null,
+    current_range_meters: null, // non mostriamo km (max_range dichiarato non è realistico)
+    rental_uris: v.rental_uris ?? null, // { android, ios, web } — deep link diretto al mezzo
+    vehicle_type_id: v.vehicle_type_id ?? null,
   };
-}
-
-function clampNum(v, fallback) {
-  const n = parseFloat(v);
-  return Number.isFinite(n) ? n : fallback;
 }

@@ -81,7 +81,7 @@ Provider configurati in `src/data/scooterProviders.js`:
 |---|---|---|
 | **Dott** | ✅ Live diretto | `https://gbfs.api.ridedott.com/public/v2/catania/free_bike_status.json` — CORS aperto, fetch browser |
 | **Lime** | ⚡ Via proxy | `/api/lime-gbfs?feed=free_bike_status` → `api/lime-gbfs.js` Vercel. Se 404, fallback mock 40 scooter |
-| **Elérent** | ⚡ Via proxy (ATOM) | `/api/elerent-gbfs` → `api/elerent-gbfs.js` Vercel. Usa **ATOM Mobility** `get-vehicles`. Richiede env `ELERENT_APP_PUBLIC_KEY` (vedi sotto). Senza chiave → fallback. |
+| **Elérent** | ⚡ Via proxy (GBFS) | `/api/elerent-gbfs` → `api/elerent-gbfs.js` Vercel. Usa **GBFS v3 pubblico** `vehicle_status?id=2166`. Nessuna API key. |
 | Bird, Tier, Voi, Bolt | 🔜 `comingSoon: true` | Pill visibili ma disabilitati |
 
 - **Mappa**: Leaflet + CartoDB dark tiles — mappa stradale reale
@@ -90,31 +90,24 @@ Provider configurati in `src/data/scooterProviders.js`:
 - **Scooter selezionato**: icona ingrandita e evidenziata; tap su mappa deseleziona
 - Refresh automatico ogni 60 s per provider attivi
 
-### Elérent — integrazione ATOM Mobility (GPS + batteria reali)
+### Elérent — integrazione GBFS v3 pubblico (sessione 2026-06-15)
 
-Elérent gira sulla piattaforma **ATOM Mobility** (`rideatom.com`), non più su Helbiz.
-Proxy `api/elerent-gbfs.js`:
+Elérent espone un feed **GBFS v3** pubblico, nessuna API key richiesta.
+Proxy `api/elerent-gbfs.js` chiama:
 ```
-POST https://app.rideatom.com/openapi/v1.0/sharing/get-vehicles
-Header: App-Public-Key: <ELERENT_APP_PUBLIC_KEY>
-Body:   { user_latitude, user_longitude, radius_in_km }
+GET https://elerent.rideatom.com/gbfs/v3_0/en/vehicle_status?id=2166
 ```
-- **Auth:** basta la sola `App-Public-Key` dell'operatore Elérent (NESSUN token utente/login —
-  verificato: senza key → "Missing app public key"; con key → mezzi). Va messa nell'env var
-  **`ELERENT_APP_PUBLIC_KEY`** su Vercel (Project Settings → Environment Variables).
-  La chiave NON è estraibile staticamente dall'APK (`com.elerent.elerent`): l'app la recupera a
-  runtime (Branch.io + endpoint interni `/api/v1/` offuscati). Va ottenuta da Elérent (partner
-  della promo "PASS MOVÌ CT") o sniffando il traffico dell'app.
-- **Mapping risposta** (`OpenAPIVehicle` → forma GBFS-like del frontend): `id`→`bike_id`,
-  `coordinates.latitude/longitude`→`lat/lon`, `battery_level` (0-100)→`current_fuel_percent` (0..1),
-  `nr`→`vehicle_nr`. Esclusi `is_active_ride`/`is_paused`. Autonomia non disponibile in get-vehicles
-  (solo lato admin) → `current_range_meters: null`, il dettaglio mostra "Disponibile".
-- **CTA "Sblocca con Elérent":** la promo **PASS MOVÌ CT** (Catania, €1,99 — 1 sblocco + 15 min)
-  è un abbonamento IN-APP. Cliccando il bottone compare prima un **popup promemoria**
-  (campo `promoNote` in `scooterProviders.js`) che ricorda di scegliere il PASS MOVÌ CT a
-  1,99 € nella sezione Abbonamenti, nessun costo nascosto; il bottone del popup apre poi
-  l'app/store.
-- Doc API: https://app.rideatom.com/api/docs
+- **Campi GBFS v3:** `vehicle_id`, `lat`, `lon`, `is_reserved`, `is_disabled`,
+  `current_range_meters`, `rental_uris` (`{ android, ios, web }`).
+- **Batteria:** `current_fuel_percent = current_range_meters / 1_000_000`
+  (`max_range_meters` dal feed `vehicle_types` è 1 000 000 per tutti i mezzi).
+  `current_range_meters` in km non viene esposto al frontend (valore non realistico
+  come distanza assoluta ma utile come ratio).
+- **Deep link per mezzo:** `rental_uris.android/ios` = Branch link `elerent.app.link/CATxxxx`
+  — apre l'app direttamente sul mezzo specifico. Il promo popup PASS MOVÌ CT
+  (campo `promoNote` in `scooterProviders.js`) si mostra comunque prima dell'apertura.
+- **Nessuna env var necessaria.** La variabile `ELERENT_APP_PUBLIC_KEY` su Vercel
+  può essere rimossa (non più usata).
 
 #### Deep link Elérent → schermata Abbonamenti (analisi APK 10.21, 2026-05-29)
 Obiettivo: se l'app è installata, "Sblocca con Elérent" deve aprire la pagina **Sottoscrizioni**.
@@ -452,8 +445,15 @@ clicca "Sblocca con Elérent". Testi in `scooterProviders.js` (provider Elérent
 - Pulsante CTA "Ho capito, / apri Elérent →" su due righe (`<br/>`).
 
 **IN SOSPESO — da chiedere a Fabrizio (Elérent):**
-1. `ELERENT_APP_PUBLIC_KEY` (App-Public-Key ATOM Mobility) → env var su Vercel + redeploy, per i dati live.
-2. Link Branch ufficiale promo PASS MOVÌ CT che apra l'app direttamente su Abbonamenti (per `subscriptionUrl`).
+- Link Branch ufficiale promo PASS MOVÌ CT che apra l'app direttamente su Abbonamenti
+  (per `subscriptionUrl` in `scooterProviders.js`). Il deep link costruito via APK è best-effort
+  (vedi sezione deep link Elérent). Ora che ogni veicolo ha `rental_uris` questo è solo il
+  fallback del bottom bar quando nessuno scooter è selezionato.
 
 ## Fine sessione
 Aggiorna questo file con le modifiche significative e committa.
+
+**Sessione 2026-06-15:** integrazione Elérent GBFS v3 pubblico — riscritta `api/elerent-gbfs.js`
+(da ATOM Mobility con API key a GBFS v3 senza chiave). Dati live GPS + batteria finalmente
+disponibili. Ogni scooter ha `rental_uris` con Branch link specifico per quel mezzo.
+Ultimo commit: vedi git log.
