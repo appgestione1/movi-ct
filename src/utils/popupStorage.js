@@ -272,15 +272,14 @@ export function resetCooldown(section) {
   }
 }
 
-// ── Admin password (locale per-device) ──────────────────────────────
-const ADMIN_PWD_KEY = 'movi-admin-pwd';
-const DEFAULT_ADMIN_PWD = 'movict2026';
+// ── Admin password: unica, uguale su tutti i dispositivi ─────────────
+const ADMIN_PWD = 'admin';
 
 export function verifyAdminPassword(input) {
-  const saved = localStorage.getItem(ADMIN_PWD_KEY) || DEFAULT_ADMIN_PWD;
-  return input === saved;
-}
-
-export function setAdminPassword(newPwd) {
-  localStorage.setItem(ADMIN_PWD_KEY, newPwd);
+  try {
+    localStorage.removeItem('movi-admin-pwd'); // vecchie password cambiate in locale: non valgono più
+  } catch {
+    /* storage bloccato */
+  }
+  return input === ADMIN_PWD;
 }
