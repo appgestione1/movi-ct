@@ -391,11 +391,11 @@ orari Trenitalia regionali Sicilia (Catania-Siracusa/Messina/Palermo).
 - All'avvio app: `startSync()` apre onSnapshot su collezione `popups`
 - Popup `home` mostrato all'apertura (mode=null); altri popup mostrati all'ingresso nella sezione
 - Cache localStorage (`movi-popups-v2`) per quick boot offline
-- Cooldown **per-device** (localStorage, non sincronizzato)
+- Cooldown e password admin sono **per-device** (localStorage, non sincronizzati)
 
 **Menu segreto:**
 - 7 click sul logo `●—◎` della Landing entro 2 s → `SecretLogin`
-- Password: **`admin`** — unica, uguale su tutti i dispositivi, NON modificabile dal pannello (03/10/2026: l'utente aveva perso una password cambiata in locale; le vecchie password locali vengono cancellate al login)
+- Password default: `movict2026` (modificabile dal pannello, salvata in localStorage per-device)
 - `SecretAdminPanel`: 6 tab (una per sezione), salva async su Firestore con optimistic update
 - Bottone "Testa ora" salva + azzera cooldown + apre subito il popup per anteprima
 

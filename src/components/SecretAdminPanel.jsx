@@ -6,6 +6,7 @@ import {
   getAllPopups,
   setPopup,
   resetCooldown,
+  setAdminPassword,
   onPopupsChange,
   uploadPopupVideo,
   deletePopupVideo,
@@ -43,6 +44,7 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
   const [savedFlash, setSavedFlash] = useState(false);
   const [saving, setSaving] = useState(false);
   const [dirty, setDirty] = useState({});
+  const [pwdInput, setPwdInput] = useState('');
   const [videoProgress, setVideoProgress] = useState(null); // null | 0-100 | 'done'
   const fileInputRef = useRef(null);
   const videoInputRef = useRef(null);
@@ -141,6 +143,16 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
     } finally {
       setSaving(false);
     }
+  }
+
+  function handlePasswordChange() {
+    if (!pwdInput || pwdInput.length < 4) {
+      alert('Min. 4 caratteri');
+      return;
+    }
+    setAdminPassword(pwdInput);
+    setPwdInput('');
+    alert('Password aggiornata');
   }
 
   return (
@@ -336,6 +348,19 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
           </div>
 
           <div className="sa-divider" />
+
+          <div className="sa-row sa-grid2">
+            <label>
+              <span>Nuova password admin</span>
+              <input
+                type="password"
+                value={pwdInput}
+                onChange={e => setPwdInput(e.target.value)}
+                placeholder="min 4 caratteri"
+              />
+            </label>
+            <button className="sa-btn" onClick={handlePasswordChange}>Cambia</button>
+          </div>
 
           <p className="sa-hint">
             Storage: Firestore — le modifiche sono sincronizzate in tempo reale su tutti i dispositivi.
