@@ -395,7 +395,7 @@ orari Trenitalia regionali Sicilia (Catania-Siracusa/Messina/Palermo).
 
 **Menu segreto:**
 - 7 click sul logo `●—◎` della Landing entro 2 s → `SecretLogin`
-- Password default: `movict2026` (modificabile dal pannello, salvata in localStorage per-device)
+- Password default: `admin` (era `movict2026` fino al 03/10/2026; modificabile dal pannello, salvata in localStorage per-device; al primo login dopo il 03/10 le vecchie password locali vengono azzerate una volta sola)
 - `SecretAdminPanel`: 6 tab (una per sezione), salva async su Firestore con optimistic update
 - Bottone "Testa ora" salva + azzera cooldown + apre subito il popup per anteprima
 

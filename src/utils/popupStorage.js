@@ -274,9 +274,22 @@ export function resetCooldown(section) {
 
 // ── Admin password (locale per-device) ──────────────────────────────
 const ADMIN_PWD_KEY = 'movi-admin-pwd';
-const DEFAULT_ADMIN_PWD = 'movict2026';
+const DEFAULT_ADMIN_PWD = 'admin';
+const ADMIN_PWD_RESET_KEY = 'movi-admin-pwd-reset-2026-10';
+
+// Una sola volta per browser: azzera le password cambiate in passato (si torna ad "admin").
+function resetOldAdminPasswordOnce() {
+  try {
+    if (localStorage.getItem(ADMIN_PWD_RESET_KEY)) return;
+    localStorage.removeItem(ADMIN_PWD_KEY);
+    localStorage.setItem(ADMIN_PWD_RESET_KEY, '1');
+  } catch {
+    /* storage bloccato */
+  }
+}
 
 export function verifyAdminPassword(input) {
+  resetOldAdminPasswordOnce();
   const saved = localStorage.getItem(ADMIN_PWD_KEY) || DEFAULT_ADMIN_PWD;
   return input === saved;
 }
