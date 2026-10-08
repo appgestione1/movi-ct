@@ -414,6 +414,10 @@ admin protegge l'accesso al pannello lato client. Migrazione futura → Firebase
    per sezione). In `popups/{section}.videoUrl` si salva il sentinel `firestore://popup_video`.
    In playback `PopupAd.jsx` riassembla i chunk in un blob URL (`loadPopupVideoBlobUrl`).
    Helper in `popupStorage.js`: `uploadPopupVideo` / `loadPopupVideoBlobUrl` / `deletePopupVideo`.
+   **Collegamento immediato (08/10/2026):** "Carica video" e "Rimuovi" nel pannello salvano SUBITO
+   `popups/{section}` (videoUrl + type) per la sezione della tab, senza aspettare "Salva" (prima il
+   collegamento restava solo nello stato locale e si perdeva cambiando tab → sezione senza video).
+   Ogni tab ha il suo video: video diversi o lo stesso caricato in più tab.
    **Le security rules `popup_videos/{docId}` vanno deployate** (`firebase deploy --only firestore:rules`).
 
    **Performance avvio video (sessione 2026-05-30):**
