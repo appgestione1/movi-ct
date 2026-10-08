@@ -5,6 +5,21 @@
 
 import { CITIES, CARRIERS, CONNECTIONS, HUBS, FEEDBACK_EMAIL } from '../data/intercityNetwork';
 import DOCS_MANIFEST from '../data/intercityDocs.json';
+import { t, getLocale } from '../i18n';
+
+// Testo tradotto con fallback al valore dei dati (italiano) se manca la chiave.
+function tOr(key, fallback) {
+  const v = t(key);
+  return v === key ? fallback : v;
+}
+
+// ── Testi localizzati di vettori / hub / tratte / categorie ──────────────
+export const carrierNote = carrier => tOr(`intercity.carrierNote.${carrier.id}`, carrier.note);
+export const connectionNote = conn => (conn.note ? tOr(`intercity.connNote.${conn.id}`, conn.note) : null);
+export const hubShort = hub => tOr(`intercity.hub.${hub.id}.short`, hub.short);
+export const hubDesc = hub => tOr(`intercity.hub.${hub.id}.desc`, hub.desc);
+export const categoryLabel = cat => tOr(`intercity.category.${cat}`, cat);
+export const areaLabel = area => tOr(`intercity.area.${area}`, area);
 
 // ── Lookup di base ───────────────────────────────────────────────────────
 const CITY_BY_ID    = Object.fromEntries(CITIES.map(c => [c.id, c]));
@@ -282,8 +297,8 @@ export function generateTicketLink(carrierId, fromId, toId, date) {
   if (!carrier) {
     return {
       url: 'https://www.google.com/search?q=' +
-        encodeURIComponent(`pullman ${query.from} ${query.to} orari`),
-      label: 'Cerca orari online',
+        encodeURIComponent(t('intercity.link.searchQuery', { from: query.from, to: query.to })),
+      label: t('intercity.link.search'),
       type: 'search',
       query,
     };
@@ -297,7 +312,7 @@ export function generateTicketLink(carrierId, fromId, toId, date) {
         url: carrier.id === 'sais'
           ? 'https://booking.saisautolinee.it/it/'
           : carrier.website,
-        label: 'Apri portale ' + carrier.name,
+        label: t('intercity.link.portal', { name: carrier.name }),
         type: 'booking',
         query,
       };
@@ -305,7 +320,7 @@ export function generateTicketLink(carrierId, fromId, toId, date) {
       // Gruppo Interbus / Etna Trasporti / Segesta: motore di ricerca interno.
       return {
         url: carrier.website,
-        label: 'Apri motore di ricerca ' + carrier.name,
+        label: t('intercity.link.engine', { name: carrier.name }),
         type: 'booking',
         query,
       };
@@ -315,7 +330,7 @@ export function generateTicketLink(carrierId, fromId, toId, date) {
       // d'acquisto dietro login) → si apre la home del portale biglietti.
       return {
         url: 'https://ast-pp.4cloud.it/',
-        label: 'Acquista biglietto AST',
+        label: t('intercity.link.buyAst'),
         type: 'booking',
         query,
       };
@@ -325,14 +340,14 @@ export function generateTicketLink(carrierId, fromId, toId, date) {
       // Niente deep-link con tratta precompilata → si apre la home del portale.
       return {
         url: 'https://eticketing.circumetnea.it/',
-        label: 'Acquista biglietto FCE',
+        label: t('intercity.link.buyFce'),
         type: 'booking',
         query,
       };
     default:
       return {
         url: carrier.website,
-        label: 'Sito ufficiale ' + carrier.name,
+        label: t('intercity.link.site', { name: carrier.name }),
         type: 'website',
         query,
       };
@@ -344,18 +359,15 @@ export function generateTicketLink(carrierId, fromId, toId, date) {
 export function clipboardText(fromId, toId, date) {
   const parts = [`${cityName(fromId)} → ${cityName(toId)}`];
   if (date instanceof Date) {
-    const d = date;
-    const dd = String(d.getDate()).padStart(2, '0');
-    const mm = String(d.getMonth() + 1).padStart(2, '0');
-    parts.push(`${dd}/${mm}/${d.getFullYear()}`);
+    parts.push(date.toLocaleDateString(getLocale(), { day: '2-digit', month: '2-digit', year: 'numeric' }));
   }
   return parts.join(' · ');
 }
 
 // Costruisce un mailto: per segnalare un errore su una tratta.
 export function reportErrorMailto(carrierName, fromId, toId) {
-  const subject = `[Movì CT] Segnalazione orari — ${cityName(fromId)} → ${cityName(toId)} (${carrierName})`;
-  const body = `Tratta: ${cityName(fromId)} → ${cityName(toId)}\nVettore: ${carrierName}\n\nDescrivi cosa hai trovato di sbagliato o mancante:\n\n`;
+  const subject = `[Movì CT] ${t('intercity.mail.subject')} — ${cityName(fromId)} → ${cityName(toId)} (${carrierName})`;
+  const body = `${t('intercity.mail.route')}: ${cityName(fromId)} → ${cityName(toId)}\n${t('intercity.mail.carrier')}: ${carrierName}\n\n${t('intercity.mail.body')}\n\n`;
   return `mailto:${FEEDBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 }
 
@@ -390,10 +402,4 @@ export function docUrl(doc) {
 }
 
 // Etichetta umana del tipo documento.
-export const DOC_TYPE_LABELS = {
-  orari:    '🕓 Orari',
-  tariffe:  '💶 Tariffe',
-  brochure: '📘 Brochure',
-  avviso:   '⚠️ Avviso',
-  info:     'ℹ️ Info',
-};
+export const docTypeLabel = type => tOr(`intercity.docType.${type}`, type);

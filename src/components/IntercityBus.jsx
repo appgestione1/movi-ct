@@ -1,8 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import {
-  QUICK_TAPS,
-  CATEGORY_LABELS,
-} from '../data/intercityNetwork';
+import { QUICK_TAPS } from '../data/intercityNetwork';
 import {
   searchCities,
   buildResults,
@@ -13,7 +10,14 @@ import {
   generateTicketLink,
   mapsUrl,
   reportErrorMailto,
+  carrierNote,
+  connectionNote,
+  hubShort,
+  hubDesc,
+  categoryLabel,
+  areaLabel,
 } from '../utils/intercity';
+import { useI18n } from '../i18n';
 
 // Carriers e città coperti da serviziinformazioni.it (dati live)
 const LIVE_CARRIERS = new Set(['interbus', 'etna', 'segesta']);
@@ -35,10 +39,7 @@ const SAIS_CARRIERS = new Set(['sais', 'saist']);
 // sulla validità del titolo. Non c'è prenotazione posto: AST e FCE vendono
 // titoli validi per la tratta/fascia, non per la singola corsa.
 const PORTAL_CARRIERS = new Set(['ast', 'fce']);
-const PORTAL_TICKET_NOTE = {
-  ast: 'Biglietto valido per la tratta · acquisto sul portale AST, in app, a bordo o in rivendita',
-  fce: 'Biglietto a fasce chilometriche, validità giornaliera · acquisto sul portale FCE, in app, a bordo o in rivendita',
-};
+// Nota di validità del titolo: t('intercity.ticketNote.<carrierId>')
 
 // Topic ntfy.sh per notifica errore proxy SAIS.
 // Configura VITE_NTFY_TOPIC in .env.local (o Vercel env) con il tuo topic.
@@ -161,6 +162,7 @@ function IntercitySearch({
   searchAt, onSearchAtChange,
   onSubmit, onQuickTap, onHome,
 }) {
+  const { t } = useI18n();
   const canSearch = fromId && toId && fromId !== toId;
 
   function swap() {
@@ -177,39 +179,39 @@ function IntercitySearch({
       <div className="ob-header">
         <div className="bus-title-row">
           <div className="logo-badge ic-logo">🚍</div>
-          <h1 className="ob-title" style={{ margin: 0 }}>Pullman Sicilia</h1>
+          <h1 className="ob-title" style={{ margin: 0 }}>{t('intercity.title')}</h1>
         </div>
-        <p className="ob-sub">Collegamenti extraurbani · da e per Catania</p>
+        <p className="ob-sub">{t('intercity.subtitle')}</p>
       </div>
 
       <div className="ic-search-card">
         <CityField
-          label="Da"
+          label={t('intercity.from')}
           accent="green"
           selectedId={fromId}
           excludeId={toId}
           onChange={onFromChange}
-          placeholder="Punto di partenza…"
+          placeholder={t('intercity.fromPlaceholder')}
         />
 
         <button
           className="ic-swap"
           onClick={swap}
-          aria-label="Inverti origine e destinazione"
+          aria-label={t('intercity.swapAria')}
           disabled={!fromId && !toId}
         >⇅</button>
 
         <CityField
-          label="A"
+          label={t('intercity.to')}
           accent="red"
           selectedId={toId}
           excludeId={fromId}
           onChange={onToChange}
-          placeholder="Destinazione…"
+          placeholder={t('intercity.toPlaceholder')}
         />
 
         <div className="ic-when">
-          <label className="planner-label">🕓 Quando</label>
+          <label className="planner-label">{t('intercity.when')}</label>
           <div className="ic-when-row">
             <input
               type="datetime-local"
@@ -217,7 +219,7 @@ function IntercitySearch({
               value={searchAt}
               onChange={e => onSearchAtChange(e.target.value)}
             />
-            <button className="ic-when-now" onClick={setNow}>Adesso</button>
+            <button className="ic-when-now" onClick={setNow}>{t('intercity.now')}</button>
           </div>
         </div>
 
@@ -226,36 +228,36 @@ function IntercitySearch({
           onClick={() => canSearch && onSubmit()}
           disabled={!canSearch}
         >
-          Cerca pullman
+          {t('intercity.search')}
         </button>
       </div>
 
-      <p className="ic-section-label">Mete rapide</p>
+      <p className="ic-section-label">{t('intercity.quickTitle')}</p>
       <div className="ic-quicktaps">
-        {QUICK_TAPS.map((t, i) => (
+        {QUICK_TAPS.map((tap, i) => (
           <button
             key={i}
             className="ic-quicktap"
-            onClick={() => onQuickTap(t)}
+            onClick={() => onQuickTap(tap)}
           >
-            <span className="ic-quicktap-icon">{t.icon}</span>
-            <span className="ic-quicktap-label">{t.label}</span>
+            <span className="ic-quicktap-icon">{tap.icon}</span>
+            <span className="ic-quicktap-label">
+              {tap.kind === 'hub' ? t(`intercity.quick.${tap.hubMode}`) : tap.label}
+            </span>
           </button>
         ))}
       </div>
 
-      <p className="ic-disclaimer">
-        Movì CT centralizza i collegamenti dei vettori siciliani. Gli orari
-        ufficiali e l'acquisto dei biglietti restano sui siti delle compagnie.
-      </p>
+      <p className="ic-disclaimer">{t('intercity.disclaimer')}</p>
 
-      <button className="home-btn" onClick={onHome}>⌂ Home</button>
+      <button className="home-btn" onClick={onHome}>{t('intercity.home')}</button>
     </div>
   );
 }
 
 // ── Input città con autocompletamento ───────────────────────────────────
 function CityField({ label, accent, selectedId, excludeId, onChange, placeholder }) {
+  const { t } = useI18n();
   const [text, setText] = useState('');
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
@@ -301,7 +303,7 @@ function CityField({ label, accent, selectedId, excludeId, onChange, placeholder
         {selected ? (
           <div className="ic-selected">
             <span className="ic-selected-name">{selected.name}</span>
-            <button className="planner-clear" onClick={clear} aria-label="Cancella">×</button>
+            <button className="planner-clear" onClick={clear} aria-label={t('intercity.clearAria')}>×</button>
           </div>
         ) : (
           <input
@@ -323,7 +325,7 @@ function CityField({ label, accent, selectedId, excludeId, onChange, placeholder
                 onClick={() => pick(city)}
               >
                 <span>{city.name}</span>
-                {city.area && <span className="ic-area-tag">{city.area}</span>}
+                {city.area && <span className="ic-area-tag">{areaLabel(city.area)}</span>}
               </button>
             ))}
           </div>
@@ -337,6 +339,7 @@ function CityField({ label, accent, selectedId, excludeId, onChange, placeholder
 // View 2 — Risultati
 // ─────────────────────────────────────────────────────────────────────────
 function IntercityResults({ fromId, toId, hubMode, onPick, onEdit, onHome }) {
+  const { t } = useI18n();
   const [carrierFilter, setCarrierFilter] = useState(null); // carrierId | null
   const [onlyDirect, setOnlyDirect] = useState(false);
 
@@ -365,18 +368,18 @@ function IntercityResults({ fromId, toId, hubMode, onPick, onEdit, onHome }) {
   }, [allRows, carrierFilter, onlyDirect]);
 
   const title = hubMode === 'aeroporto'
-    ? 'Linee dall\'Aeroporto'
+    ? t('intercity.airportLines')
     : `${cityName(fromId)} → ${cityName(toId)}`;
 
   return (
     <div className="ic-page">
       <div className="ic-results-header">
-        <button className="ic-back" onClick={onEdit}>← Modifica</button>
+        <button className="ic-back" onClick={onEdit}>{t('intercity.edit')}</button>
         <h2 className="ic-results-title">{title}</h2>
         <p className="ic-results-sub">
           {rows.length === 0
-            ? 'Nessuna tratta diretta trovata'
-            : `${rows.length} collegament${rows.length === 1 ? 'o' : 'i'}`}
+            ? t('intercity.noDirect')
+            : t(rows.length === 1 ? 'intercity.linksOne' : 'intercity.linksMany', { n: rows.length })}
         </p>
       </div>
 
@@ -385,7 +388,7 @@ function IntercityResults({ fromId, toId, hubMode, onPick, onEdit, onHome }) {
           <button
             className={`ic-chip ${carrierFilter === null ? 'is-on' : ''}`}
             onClick={() => setCarrierFilter(null)}
-          >Tutte</button>
+          >{t('intercity.all')}</button>
           {carrierChips.map(c => (
             <button
               key={c.id}
@@ -399,7 +402,7 @@ function IntercityResults({ fromId, toId, hubMode, onPick, onEdit, onHome }) {
           <button
             className={`ic-chip ${onlyDirect ? 'is-on' : ''}`}
             onClick={() => setOnlyDirect(v => !v)}
-          >Solo dirette</button>
+          >{t('intercity.onlyDirect')}</button>
         </div>
       )}
 
@@ -425,46 +428,46 @@ function IntercityResults({ fromId, toId, hubMode, onPick, onEdit, onHome }) {
                 {r.carrier.name}
               </span>
               {r.isDirect
-                ? <span className="ic-card-pill ic-pill-direct">Diretta</span>
-                : <span className="ic-card-pill">{r.viaCities.length} ferm.</span>}
-              <span className="ic-card-category">{CATEGORY_LABELS[r.category] || r.category}</span>
+                ? <span className="ic-card-pill ic-pill-direct">{t('intercity.direct')}</span>
+                : <span className="ic-card-pill">{t('intercity.stopsShort', { n: r.viaCities.length })}</span>}
+              <span className="ic-card-category">{categoryLabel(r.category)}</span>
             </div>
             <div className="ic-card-hub">
               {r.departureHubId
-                ? <>📍 {getHub(r.departureHubId).short}</>
-                : <>📍 Fermata di {cityName(r.originId)}</>}
+                ? <>📍 {hubShort(getHub(r.departureHubId))}</>
+                : <>📍 {t('intercity.stopOf', { city: cityName(r.originId) })}</>}
             </div>
             {!r.isDirect && (
               <div className="ic-card-via">
-                via {r.viaCities.map(cityName).join(' · ')}
+                {t('intercity.via', { cities: r.viaCities.map(cityName).join(' · ') })}
               </div>
             )}
           </button>
         ))}
       </div>
 
-      <button className="home-btn" onClick={onHome}>⌂ Home</button>
+      <button className="home-btn" onClick={onHome}>{t('intercity.home')}</button>
     </div>
   );
 }
 
 function EmptyResults({ fromId, toId, hubMode }) {
+  const { t } = useI18n();
   // Caso speciale: collegamento città → aeroporto interno alla città di Catania.
   if (!hubMode && (
       (fromId === 'catania' && toId === 'aeroporto') ||
       (fromId === 'aeroporto' && toId === 'catania'))) {
     return (
       <div className="ic-empty">
-        <p><strong>Per il collegamento Città ↔ Aeroporto usa la sezione Bus.</strong></p>
-        <p>Il servizio Alibus di AMTS collega la Stazione Centrale con Fontanarossa
-           ogni 25 min circa. Non si tratta di una tratta extraurbana.</p>
+        <p><strong>{t('intercity.emptyAirport1')}</strong></p>
+        <p>{t('intercity.emptyAirport2')}</p>
       </div>
     );
   }
   return (
     <div className="ic-empty">
-      <p><strong>Nessun pullman extraurbano collega direttamente queste due località.</strong></p>
-      <p>Prova a cercare con una città intermedia o cambia la destinazione.</p>
+      <p><strong>{t('intercity.emptyNone1')}</strong></p>
+      <p>{t('intercity.emptyNone2')}</p>
     </div>
   );
 }
@@ -473,13 +476,12 @@ function EmptyResults({ fromId, toId, hubMode }) {
 // View 3 — Dettaglio tratta
 // ─────────────────────────────────────────────────────────────────────────
 function IntercityDetail({ result, searchAt, onBack, onHome }) {
+  const { t, locale } = useI18n();
   const { connection, carrier, originId, destId, departureHubId, viaCities, isDirect } = result;
   const hub = departureHubId ? getHub(departureHubId) : null;
 
-  const link = useMemo(
-    () => generateTicketLink(carrier.id, originId, destId, searchAt),
-    [carrier.id, originId, destId, searchAt],
-  );
+  // Non memoizzato: le label dipendono dalla lingua corrente.
+  const link = generateTicketLink(carrier.id, originId, destId, searchAt);
 
   // Eventuali corse reali per il giorno scelto (vuoto finché non ci sono orari ufficiali).
   const trips = useMemo(
@@ -514,7 +516,7 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
   return (
     <div className="ic-page">
       <div className="ic-detail-header">
-        <button className="ic-back" onClick={onBack}>← Risultati</button>
+        <button className="ic-back" onClick={onBack}>{t('intercity.back')}</button>
         <div className="ic-detail-route">
           <span className="ic-carrier-badge ic-detail-badge" style={{ background: carrier.color }}>
             {carrier.mono}
@@ -527,7 +529,7 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
         </div>
         <p className="ic-detail-carrier" style={{ color: carrier.color }}>
           {carrier.name}
-          {isDirect ? ' · Tratta diretta' : ` · ${viaCities.length} ferm. intermedie`}
+          {isDirect ? t('intercity.directRoute') : t('intercity.intermediate', { n: viaCities.length })}
         </p>
       </div>
 
@@ -536,15 +538,15 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
           <div className="ic-hub-head">
             <span className="ic-hub-pin">📍</span>
             <div>
-              <strong>Partenza: {hub.short}</strong>
-              <p>{hub.desc}</p>
+              <strong>{t('intercity.departure', { hub: hubShort(hub) })}</strong>
+              <p>{hubDesc(hub)}</p>
             </div>
           </div>
-          <button className="ic-hub-maps" onClick={openMaps}>Apri in Mappe</button>
+          <button className="ic-hub-maps" onClick={openMaps}>{t('intercity.openMaps')}</button>
         </div>
       )}
 
-      <p className="ic-section-label">Tappe</p>
+      <p className="ic-section-label">{t('intercity.stops')}</p>
       <ol className="ic-stops">
         {stops.map((sid, i) => (
           <li
@@ -564,27 +566,27 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
       {connection.note && (
         <div className="ic-alert ic-alert-info">
           <span className="ic-alert-icon">ℹ️</span>
-          <p>{connection.note}</p>
+          <p>{connectionNote(connection)}</p>
         </div>
       )}
 
       <div className="ic-alert ic-alert-warn">
         <span className="ic-alert-icon">⚠️</span>
-        <p>{carrier.note}</p>
+        <p>{carrierNote(carrier)}</p>
       </div>
 
-      <p className="ic-section-label">Orari per {formatDay(searchAt)}</p>
+      <p className="ic-section-label">{t('intercity.timesFor', { day: formatDay(searchAt, locale) })}</p>
       {trips.length > 0 ? (
         <>
           <ul className="ic-trips-detailed">
-            {trips.map((t, i) => (
+            {trips.map((trip, i) => (
               <li key={i} className="ic-trip-row">
                 <div className="ic-trip-times">
-                  <span className="ic-trip-time">{t.orario_partenza}</span>
+                  <span className="ic-trip-time">{trip.orario_partenza}</span>
                   <span className="ic-trip-arrow">→</span>
-                  <span className="ic-trip-time">{t.orario_arrivo || '—'}</span>
+                  <span className="ic-trip-time">{trip.orario_arrivo || '—'}</span>
                 </div>
-                {t.note && <span className="ic-trip-note">{t.note}</span>}
+                {trip.note && <span className="ic-trip-note">{trip.note}</span>}
                 {PORTAL_CARRIERS.has(carrier.id) && (
                   <a
                     href={link.url}
@@ -592,14 +594,14 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
                     rel="noopener noreferrer"
                     className="ic-trip-book"
                   >
-                    🎟️ Acquista ↗
+                    {t('intercity.buy')}
                   </a>
                 )}
               </li>
             ))}
           </ul>
           {PORTAL_CARRIERS.has(carrier.id) && (
-            <p className="ic-live-note">{PORTAL_TICKET_NOTE[carrier.id]}</p>
+            <p className="ic-live-note">{t(`intercity.ticketNote.${carrier.id}`)}</p>
           )}
           {meta && <SchedulesProvenance meta={meta} />}
         </>
@@ -607,8 +609,8 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
         <div className="ic-no-schedules-block">
           <p className="ic-no-schedules">
             {meta && meta.sourceUrl
-              ? 'Per questa tratta Movì CT non ha ancora orari ufficiali estratti. Apri il quadro orari completo sul sito del vettore:'
-              : "Movì CT non pubblica orari non verificati. Consulta il quadro orari aggiornato sul sito ufficiale del vettore."}
+              ? t('intercity.noSchedSrc')
+              : t('intercity.noSchedNoSrc')}
           </p>
           {meta && meta.sourceUrl && (
             <a
@@ -616,7 +618,7 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
               target="_blank"
               rel="noopener noreferrer"
               className="ic-pdf-btn"
-            >📄 Apri PDF orari ufficiali ↗</a>
+            >{t('intercity.openPdf')}</a>
           )}
           {meta && <SchedulesProvenance meta={meta} />}
           {PORTAL_CARRIERS.has(carrier.id) && (
@@ -629,7 +631,7 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
               >
                 🎟️ {link.label} ↗
               </a>
-              <p className="ic-live-note">{PORTAL_TICKET_NOTE[carrier.id]}</p>
+              <p className="ic-live-note">{t(`intercity.ticketNote.${carrier.id}`)}</p>
             </>
           )}
         </div>
@@ -665,15 +667,15 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
         </button>
 {carrier.phone && (
           <button className="ic-cta-secondary" onClick={openPhone}>
-            📞 Contatta {carrier.name.split(' ')[0]}
+            {t('intercity.contact', { name: carrier.name.split(' ')[0] })}
           </button>
         )}
         <button className="ic-report" onClick={reportError}>
-          ⚠︎ Segnala un errore o invia un orario in questa tratta
+          {t('intercity.report')}
         </button>
       </div>
 
-      <button className="home-btn" onClick={onHome}>⌂ Home</button>
+      <button className="home-btn" onClick={onHome}>{t('intercity.home')}</button>
     </div>
   );
 }
@@ -683,6 +685,7 @@ function IntercityDetail({ result, searchAt, onBack, onHome }) {
 // Si attiva solo quando il manifest ha `connection.routes[]` popolato dal
 // parser Regione Sicilia. Non sostituisce le "tappe" sintetiche, le integra.
 function OfficialRouteStops({ connection, originId, destId }) {
+  const { t } = useI18n();
   const routes = connection.routes;
   if (!Array.isArray(routes) || routes.length === 0) return null;
 
@@ -707,11 +710,11 @@ function OfficialRouteStops({ connection, originId, destId }) {
 
   return (
     <div className="ic-official-routes">
-      <p className="ic-section-label">🚏 Fermate ufficiali della linea</p>
+      <p className="ic-section-label">{t('intercity.officialStops')}</p>
       {segments.map((s, i) => (
         <div key={s.route.code + '-' + i} className="ic-official-route">
           <div className="ic-official-route-head">
-            <strong>Linea {s.route.code}</strong>
+            <strong>{t('intercity.line', { code: s.route.code })}</strong>
             {s.route.label && <span> · {s.route.label}</span>}
             {s.km != null && <span className="ic-official-km"> · {s.km.toFixed(1)} km</span>}
           </div>
@@ -732,6 +735,7 @@ function OfficialRouteStops({ connection, originId, destId }) {
 // Tariffe chilometriche pubblicate dalla Regione (quando disponibili nel PDF).
 // Calcola la fascia applicabile alla distanza tra origine e destinazione.
 function FareTable({ meta, originId, destId, routes }) {
+  const { t } = useI18n();
   const fareTable = meta && Array.isArray(meta.fareTable) ? meta.fareTable : null;
   if (!fareTable || fareTable.length === 0) return null;
 
@@ -755,45 +759,43 @@ function FareTable({ meta, originId, destId, routes }) {
 
   return (
     <div className="ic-fares">
-      <p className="ic-section-label">💶 Tariffe ufficiali (Regione Sicilia)</p>
+      <p className="ic-section-label">{t('intercity.faresTitle')}</p>
       {applicable && estKm != null && (
         <p className="ic-fare-est">
-          Tratta stimata <strong>{estKm.toFixed(1)} km</strong> · fascia
-          fino a {applicable.kmMax} km: <strong>€ {applicable.euro.toFixed(2)}</strong>
+          {t('intercity.estRoute')} <strong>{estKm.toFixed(1)} km</strong> · {t('intercity.bandUpTo')} {applicable.kmMax} km: <strong>€ {applicable.euro.toFixed(2)}</strong>
         </p>
       )}
       <ul className="ic-fare-list">
         {fareTable.map((f, i) => (
           <li key={i} className={applicable && f.kmMax === applicable.kmMax ? 'is-active' : ''}>
-            fino a <strong>{f.kmMax} km</strong> — € {f.euro.toFixed(2)}
+            {t('intercity.upTo')} <strong>{f.kmMax} km</strong> — € {f.euro.toFixed(2)}
           </li>
         ))}
       </ul>
-      <p className="ic-fare-note">
-        Tariffario ufficiale del concedente regionale. Verifica sempre a bordo o in biglietteria.
-      </p>
+      <p className="ic-fare-note">{t('intercity.fareNote')}</p>
     </div>
   );
 }
 
 // Mostra fonte ufficiale + data ultimo refresh + periodo di validità.
 function SchedulesProvenance({ meta }) {
+  const { t, locale } = useI18n();
   const fmt = iso => {
     if (!iso) return null;
-    const [Y, M, D] = iso.split('-');
-    return `${D}/${M}/${Y}`;
+    const [Y, M, D] = iso.split('-').map(Number);
+    return new Date(Y, M - 1, D).toLocaleDateString(locale, { day: '2-digit', month: '2-digit', year: 'numeric' });
   };
   return (
     <div className="ic-provenance">
       <p>
-        Aggiornato il <strong>{fmt(meta.lastUpdatedAt)}</strong>
-        {meta.source && <> · fonte: <strong>{meta.source}</strong></>}
+        {t('intercity.updatedOn')} <strong>{fmt(meta.lastUpdatedAt)}</strong>
+        {meta.source && <> · {t('intercity.sourceLabel')} <strong>{meta.source}</strong></>}
       </p>
       {(meta.validFrom || meta.validTo) && (
         <p className="ic-provenance-sub">
-          Quadro orari in vigore
-          {meta.validFrom && <> dal {fmt(meta.validFrom)}</>}
-          {meta.validTo && <> fino al {fmt(meta.validTo)}</>}.
+          {t('intercity.validity')}
+          {meta.validFrom && <> {t('intercity.validFrom')} {fmt(meta.validFrom)}</>}
+          {meta.validTo && <> {t('intercity.validTo')} {fmt(meta.validTo)}</>}.
         </p>
       )}
       {meta.sourceUrl && (
@@ -802,17 +804,16 @@ function SchedulesProvenance({ meta }) {
           target="_blank"
           rel="noopener noreferrer"
           className="ic-provenance-link"
-        >Vedi fonte ufficiale ↗</a>
+        >{t('intercity.seeSource')}</a>
       )}
     </div>
   );
 }
 
-function formatDay(date) {
-  const giorni = ['Domenica', 'Lunedì', 'Martedì', 'Mercoledì', 'Giovedì', 'Venerdì', 'Sabato'];
-  const mesi = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno',
-                'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
-  return `${giorni[date.getDay()]} ${date.getDate()} ${mesi[date.getMonth()]}`;
+// "Domenica 8 ottobre" (it) / "Sunday 8 October" (en) …
+function formatDay(date, locale) {
+  const s = date.toLocaleDateString(locale, { weekday: 'long', day: 'numeric', month: 'long' });
+  return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
 // ─────────────────────────────────────────────────────────────────────────
@@ -824,6 +825,7 @@ function formatDay(date) {
 //   'error'          → proxy/API rotto: toast + notifica ntfy + fallback statico
 // ─────────────────────────────────────────────────────────────────────────
 function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier, bookingUrl }) {
+  const { t } = useI18n();
   const [state, setState] = useState('loading');
   const [corse, setCorse] = useState([]);
   const [toast, setToast] = useState(false);
@@ -869,11 +871,11 @@ function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier,
     return (
       <div className="ic-live-block">
         <p className="ic-section-label">
-          ⚡ Orari in tempo reale
+          {t('intercity.realtimeTimes')}
           <span className="ic-live-badge">LIVE</span>
         </p>
         {corse.length === 0 ? (
-          <div className="ic-live-empty">Nessuna corsa SAIS per questa data.</div>
+          <div className="ic-live-empty">{t('intercity.noSaisRuns')}</div>
         ) : (
           <ul className="ic-live-list">
             {corse.map((c, i) => (
@@ -889,20 +891,20 @@ function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier,
                   )}
                   {c.changes > 0 && (
                     <span className="ic-live-code">
-                      {c.changes} {c.changes === 1 ? 'cambio' : 'cambi'}
+                      {c.changes} {c.changes === 1 ? t('intercity.changeOne') : t('intercity.changeMany')}
                     </span>
                   )}
                 </div>
                 {c.bookUrl && (
                   <a href={c.bookUrl} target="_blank" rel="noopener noreferrer" className="ic-live-book">
-                    Acquista ↗
+                    {t('intercity.buyShort')}
                   </a>
                 )}
               </li>
             ))}
           </ul>
         )}
-        <p className="ic-live-note">Orari e tariffe in tempo reale · fonte: SAIS Autolinee</p>
+        <p className="ic-live-note">{t('intercity.saisLiveNote')}</p>
       </div>
     );
   }
@@ -917,46 +919,44 @@ function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier,
     <>
       {toast && (
         <div className="ic-update-toast">
-          <span>🔧 Dati live temporaneamente non disponibili — sito in aggiornamento</span>
+          <span>{t('intercity.toast')}</span>
           <button className="ic-toast-close" onClick={() => setToast(false)}>×</button>
         </div>
       )}
 
       {state === 'loading' && (
         <div className="ic-live-block">
-          <div className="ic-live-loading">Carico disponibilità…</div>
+          <div className="ic-live-loading">{t('intercity.loading')}</div>
         </div>
       )}
 
       {(state === 'not_configured' || showFallback) && (
         <div className="ic-live-block ic-sais-block">
           <p className="ic-section-label">
-            🎟️ Disponibilità e biglietti
+            {t('intercity.availTickets')}
             {showFallback
-              ? <span className="ic-sais-badge ic-sais-badge-warn">IN AGGIORNAMENTO</span>
-              : <span className="ic-sais-badge">ONLINE</span>
+              ? <span className="ic-sais-badge ic-sais-badge-warn">{t('intercity.badgeUpdating')}</span>
+              : <span className="ic-sais-badge">{t('intercity.badgeOnline')}</span>
             }
           </p>
 
           {/* Orari programmati dal manifest (fallback Option A) */}
           {hasTrips && showFallback && (
             <>
-              <p className="ic-sais-fallback-note">
-                Orari programmati verificati (dati live temporaneamente non disponibili):
-              </p>
+              <p className="ic-sais-fallback-note">{t('intercity.scheduledNote')}</p>
               <ul className="ic-live-list">
-                {trips.map((t, i) => (
+                {trips.map((trip, i) => (
                   <li key={i} className="ic-live-row">
                     <div className="ic-live-times">
-                      <span className="ic-live-dep">{t.orario_partenza}</span>
+                      <span className="ic-live-dep">{trip.orario_partenza}</span>
                       <span className="ic-live-arr-sep">→</span>
-                      <span className="ic-live-arr">{t.orario_arrivo || '—'}</span>
+                      <span className="ic-live-arr">{trip.orario_arrivo || '—'}</span>
                     </div>
-                    {t.note && <span className="ic-live-code">{t.note}</span>}
+                    {trip.note && <span className="ic-live-code">{trip.note}</span>}
                   </li>
                 ))}
               </ul>
-              <p className="ic-live-note">Orari verificati · non in tempo reale</p>
+              <p className="ic-live-note">{t('intercity.verifiedNote')}</p>
             </>
           )}
 
@@ -968,11 +968,11 @@ function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier,
               rel="noopener noreferrer"
               className="ic-sais-book-btn"
             >
-              Verifica disponibilità e acquista su {carrier.name} ↗
+              {t('intercity.bookOn', { name: carrier.name })}
             </a>
           )}
           {!bookingUrl && (
-            <p className="ic-live-empty">Verifica disponibilità sul sito ufficiale del vettore.</p>
+            <p className="ic-live-empty">{t('intercity.checkSite')}</p>
           )}
         </div>
       )}
@@ -985,6 +985,7 @@ function SaisLiveDepartures({ originId, destId, carrierId, date, trips, carrier,
 // Visibile solo per Interbus / Etna Trasporti / Segesta e città coperte.
 // ─────────────────────────────────────────────────────────────────────────
 function LiveDepartures({ originId, destId, carrierId, date }) {
+  const { t } = useI18n();
   const [state, setState] = useState('idle'); // 'idle'|'loading'|'ok'|'error'
   const [corse, setCorse] = useState([]);
 
@@ -1021,23 +1022,23 @@ function LiveDepartures({ originId, destId, carrierId, date }) {
   return (
     <div className="ic-live-block">
       <p className="ic-section-label">
-        ⚡ Partenze in tempo reale
+        {t('intercity.liveDepartures')}
         <span className="ic-live-badge">LIVE</span>
       </p>
 
       {state === 'loading' && (
-        <div className="ic-live-loading">Carico disponibilità…</div>
+        <div className="ic-live-loading">{t('intercity.loading')}</div>
       )}
 
       {state === 'error' && (
         <div className="ic-live-error">
-          Dati live non disponibili al momento.
+          {t('intercity.liveUnavailable')}
         </div>
       )}
 
       {state === 'ok' && corse.length === 0 && (
         <div className="ic-live-empty">
-          Nessuna corsa disponibile per questa data su questo vettore.
+          {t('intercity.noRunsCarrier')}
         </div>
       )}
 
@@ -1056,7 +1057,7 @@ function LiveDepartures({ originId, destId, carrierId, date }) {
                     c.seats === 0 ? 'is-full' : c.seats <= 5 ? 'is-scarce' : ''
                   }`}
                 >
-                  {c.seats === 0 ? 'Esaurito' : `${c.seats} posti`}
+                  {c.seats === 0 ? t('intercity.soldOut') : t('intercity.seats', { n: c.seats })}
                 </span>
                 {c.code && <span className="ic-live-code">{c.code}</span>}
               </div>
@@ -1067,14 +1068,14 @@ function LiveDepartures({ originId, destId, carrierId, date }) {
                   rel="noopener noreferrer"
                   className="ic-live-book"
                 >
-                  Acquista ↗
+                  {t('intercity.buyShort')}
                 </a>
               )}
             </li>
           ))}
         </ul>
       )}
-      <p className="ic-live-note">Posti disponibili in tempo reale · fonte: vettore</p>
+      <p className="ic-live-note">{t('intercity.seatsNote')}</p>
     </div>
   );
 }
