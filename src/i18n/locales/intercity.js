@@ -578,7 +578,7 @@ export default {
     quickTitle: 'Schnellziele',
     quick: { aeroporto: 'Flughafen' },
     disclaimer: 'Movì CT bündelt die Verbindungen der sizilianischen Busunternehmen. Offizielle Fahrpläne und Ticketkauf bleiben auf den Websites der Unternehmen.',
-    home: '⌂ Startseite',
+    home: '⌂ Start',
     area: { capoluogo: 'Hauptstadt', provincia: 'Provinz', regione: 'Region', nazionale: 'national' },
     category: {
       'lunga-percorrenza': 'Fernverkehr',
