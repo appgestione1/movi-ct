@@ -3794,3 +3794,88 @@ html, body {
   line-height: 1.5;
   opacity: 0.7;
 }
+
+/* ── Home a griglia 2 colonne (08/10/2026) ─────────────────────────── */
+.landing-header { margin-bottom: clamp(18px, 3.5vh, 32px); }
+.landing-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  max-width: 380px;
+}
+.landing-btn {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  gap: 0;
+  min-height: clamp(118px, 17vh, 150px);
+  padding: 16px;
+  border-radius: 22px;
+}
+.landing-btn::after { content: none; }
+.landing-btn-icon {
+  font-size: 26px;
+  width: 46px; height: 46px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  margin-bottom: auto;
+}
+.landing-btn-label { font-size: clamp(17px, 4.8vw, 20px); margin-top: 12px; line-height: 1.15; }
+.landing-btn-desc { font-size: 12px; margin-top: 3px; }
+.parking-btn {
+  background: linear-gradient(135deg, rgba(59,130,246,0.18), rgba(30,64,175,0.08));
+  border-color: rgba(59,130,246,0.3);
+}
+.landing-btn.is-soon { cursor: default; opacity: 0.6; }
+.landing-btn.is-soon:active { transform: none; }
+.landing-btn-soon {
+  position: absolute; top: 14px; right: 14px;
+  font-size: 10px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 4px 8px; border-radius: 999px;
+  background: rgba(255,255,255,0.1); color: var(--text);
+}
+.landing-btn:last-child:nth-child(odd) { grid-column: 1 / -1; min-height: clamp(96px, 13vh, 120px); }
+.taxi-btn {
+  background: linear-gradient(135deg, rgba(250,204,21,0.18), rgba(161,98,7,0.08));
+  border-color: rgba(250,204,21,0.3);
+}
+/* compatta: tutta la home in uno schermo */
+.landing { justify-content: flex-start; padding-top: clamp(16px, 3vh, 32px); }
+.landing-logo { width: 48px; height: 48px; margin-bottom: 8px; }
+.landing-title { font-size: clamp(28px, 8vw, 34px); margin-bottom: 2px; }
+.landing-sub { font-size: 14px; }
+.landing-header { margin-bottom: clamp(14px, 2.5vh, 24px); }
+.landing-buttons { gap: 10px; }
+.landing-btn { min-height: clamp(96px, 13vh, 124px); padding: 14px; }
+.landing-btn-icon { width: 40px; height: 40px; font-size: 22px; border-radius: 12px; }
+.landing-btn-label { margin-top: 8px; }
+.landing-btn:last-child:nth-child(odd) {
+  min-height: 0; flex-direction: row; align-items: center; justify-content: flex-start; gap: 12px;
+}
+.landing-btn:last-child:nth-child(odd) .landing-btn-icon { margin-bottom: 0; }
+.landing-btn:last-child:nth-child(odd) .landing-btn-label { margin-top: 0; }
+.landing-btn:last-child:nth-child(odd) .landing-btn-desc { margin-top: 0; }
+.landing-btn-soon { top: 10px; right: 10px; font-size: 9px; padding: 3px 7px; }
+.landing-btn:last-child:nth-child(odd) .landing-btn-soon { top: 50%; transform: translateY(-50%); right: 14px; }
+.landing-footer { margin-top: clamp(12px, 2vh, 24px); }
+.landing-btn-text { display: block; }
+
+/* ── Lingua (08/10/2026) ───────────────────────────────────────────── */
+.landing-lang-btn {
+  position: absolute; top: clamp(14px, 2.5vh, 24px); right: 16px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06);
+  color: var(--text); font-size: 13px; font-weight: 800; letter-spacing: 0.04em; cursor: pointer;
+}
+.lang-picker { justify-content: center; }
+.lang-picker-list { display: flex; flex-direction: column; gap: 10px; width: 100%; max-width: 320px; position: relative; z-index: 1; }
+.lang-picker-btn {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px; border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05);
+  color: var(--text); font-size: 18px; font-weight: 700; cursor: pointer; text-align: left;
+}
+.lang-picker-btn.active { border-color: rgba(230,57,70,0.6); background: rgba(230,57,70,0.12); }
+.lang-picker-flag { font-size: 26px; line-height: 1; }

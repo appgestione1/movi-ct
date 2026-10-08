@@ -30,14 +30,6 @@ export const SCOOTER_PROVIDERS = [
     comingSoon: false,
   },
   {
-    id: 'dott',
-    name: 'Dott',
-    color: '#EF4D23',
-    gbfsUrl: 'https://gbfs.api.ridedott.com/public/v2/catania/free_bike_status.json',
-    scanUrl: 'https://ridedott.com/scan',
-    comingSoon: false,
-  },
-  {
     id: 'lime',
     name: 'Lime',
     color: '#C8F135',

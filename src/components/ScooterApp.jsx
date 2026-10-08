@@ -164,8 +164,9 @@ export default function ScooterApp({ onBack }) {
       zoomControl: false,
     });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '© <a href="https://www.openstreetmap.org/copyright">OSM</a> © <a href="https://carto.com/attributions">CARTO</a>',
+    // CARTO (ott 2026) risponde "API KEY REQUIRED" su tutte le basemap → tile OSM standard.
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19,
     }).addTo(map);
 
@@ -317,7 +318,7 @@ export default function ScooterApp({ onBack }) {
   const batt  = selected?.current_fuel_percent;
   const range = selected?.current_range_meters;
 
-  // URL di sblocco: preferisce i rental_uris del mezzo (Dott/Lime), poi lo store
+  // URL di sblocco: preferisce i rental_uris del mezzo (Elérent/Lime), poi lo store
   // giusto per piattaforma (Elérent → app con la promo PASS MOVÌ CT), poi scanUrl.
   const unlockUrl = (scooter) => {
     const ru = scooter?.rental_uris;

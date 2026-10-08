@@ -10,6 +10,8 @@ import ScooterApp from './components/ScooterApp';
 import TreniApp from './components/TreniApp';
 import PopupAd from './components/PopupAd';
 import InstallBanner from './components/InstallBanner';
+import LanguagePicker from './components/LanguagePicker';
+import { isExplicit } from './i18n';
 import SecretLogin from './components/SecretLogin';
 import SecretAdminPanel from './components/SecretAdminPanel';
 import { shouldShowPopup, startSync, onPopupsChange } from './utils/popupStorage';
@@ -191,6 +193,9 @@ export default function App() {
   const [clickCount, setClickCount] = useState(0);
   const [showSecretLogin, setShowSecretLogin] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
+  // Lingua: al primo avvio si sceglie prima di tutto; poi dal pulsante in home.
+  const [showLangPicker, setShowLangPicker] = useState(() => !isExplicit());
+  const langReady = !showLangPicker || isExplicit();
   const clickResetRef = useRef(null);
 
   // Avvia sync Firestore real-time
@@ -198,7 +203,9 @@ export default function App() {
 
   // Popup all'apertura dell'app: aspetta che arrivino i dati da Firestore
   // (lo snapshot scatta anche se il doc esiste già in cache localStorage)
+  // Al primo avvio aspetta che sia stata scelta la lingua.
   useEffect(() => {
+    if (!langReady) return;
     let shown = false;
     function tryShow() {
       if (shown) return;
@@ -212,7 +219,7 @@ export default function App() {
     // Smetti di ascoltare dopo 5s (sync ormai arrivato)
     const tid = setTimeout(off, 5000);
     return () => { off(); clearTimeout(tid); };
-  }, []);
+  }, [langReady]);
 
   // Popup al cambio sezione
   useEffect(() => {
@@ -260,7 +267,8 @@ export default function App() {
   else if (mode === 'treni')   view = <TreniApp onBack={() => setMode(null)} />;
   else if (mode === 'pullman') view = <IntercityBus onBack={() => setMode(null)} />;
   else if (mode === 'scooter') view = <ScooterApp onBack={() => setMode(null)} />;
-  else view = <Landing onSelect={setMode} onSecretTrigger={handleSecretTrigger} />;
+  else if (showLangPicker) view = <LanguagePicker onDone={() => setShowLangPicker(false)} />;
+  else view = <Landing onSelect={setMode} onSecretTrigger={handleSecretTrigger} onLanguage={() => setShowLangPicker(true)} />;
 
   return <>{view}{overlays}{mode === null && <InstallBanner />}</>;
 }
