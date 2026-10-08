@@ -48,6 +48,8 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
   const [videoProgress, setVideoProgress] = useState(null); // null | 0-100 | 'done'
   const fileInputRef = useRef(null);
   const videoInputRef = useRef(null);
+  const popupsRef = useRef(popups);
+  useEffect(() => { popupsRef.current = popups; }, [popups]);
 
   // `dirty` letto via ref: il listener qui sotto si sottoscrive UNA volta sola,
   // ma deve sempre vedere lo stato dirty corrente. Senza ref, mettere `dirty`
@@ -108,6 +110,16 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
     }
   }
 
+  // Il video da galleria è legato alla sua sezione: appena caricato (o rimosso)
+  // salviamo subito popups/{section}, senza aspettare "Salva". Prima il
+  // collegamento restava solo nello stato locale e si perdeva cambiando tab o
+  // chiudendo il pannello → chunk e popup della sezione disallineati.
+  async function persistVideoField(section, videoUrl) {
+    const next = { ...popupsRef.current[section], type: 'video', videoUrl };
+    setPopups(prev => ({ ...prev, [section]: { ...prev[section], type: 'video', videoUrl } }));
+    await setPopup(section, next);
+  }
+
   async function handleVideoUpload(e) {
     const file = e.target.files?.[0];
     e.target.value = ''; // permette di ricaricare lo stesso file
@@ -116,7 +128,7 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
     setVideoProgress(0);
     try {
       await uploadPopupVideo(section, file, setVideoProgress);
-      updateField('videoUrl', VIDEO_SENTINEL);
+      await persistVideoField(section, VIDEO_SENTINEL);
       setVideoProgress('done');
       setTimeout(() => setVideoProgress(null), 1200);
     } catch (err) {
@@ -125,10 +137,14 @@ export default function SecretAdminPanel({ onClose, onTestPopup }) {
     }
   }
 
-  function handleRemoveVideo() {
+  async function handleRemoveVideo() {
     const section = activeTab;
-    updateField('videoUrl', '');
-    deletePopupVideo(section).catch(() => {});
+    try {
+      await deletePopupVideo(section);
+      await persistVideoField(section, '');
+    } catch (err) {
+      alert('Errore rimozione video: ' + err.message);
+    }
   }
 
   async function handleTestNow() {
