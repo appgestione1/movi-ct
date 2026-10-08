@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { SCOOTER_PROVIDERS } from '../data/scooterProviders';
+import { useI18n } from '../i18n';
 
 const CATANIA_CENTER = [37.5022, 15.0872];
 const NEARBY_METERS = 500;
@@ -130,6 +131,7 @@ function BattBar({ pct }) {
 }
 
 export default function ScooterApp({ onBack }) {
+  const { t, lang, locale } = useI18n();
   const mapDivRef   = useRef(null);
   const mapRef      = useRef(null);
   const layerRef    = useRef(null);
@@ -236,7 +238,7 @@ export default function ScooterApp({ onBack }) {
       setScooters(all.filter(b => !b.is_disabled && !b.is_reserved));
       setLastUpdate(new Date());
     } catch (e) {
-      setError(e.message.includes('auth') ? 'Servizio non disponibile (API privata)' : 'Dati non disponibili');
+      setError(e.message.includes('auth') ? 'scooter.errPrivate' : 'scooter.errData');
       setScooters([]);
     } finally {
       setLoading(false);
@@ -296,7 +298,7 @@ export default function ScooterApp({ onBack }) {
   useEffect(() => {
     if (!selected) { setAddress(null); return; }
     let cancelled = false;
-    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${selected.lat}&lon=${selected.lon}&format=json&accept-language=it`)
+    fetch(`https://nominatim.openstreetmap.org/reverse?lat=${selected.lat}&lon=${selected.lon}&format=json&accept-language=${lang}`)
       .then(r => r.json())
       .then(d => {
         if (cancelled) return;
@@ -305,7 +307,7 @@ export default function ScooterApp({ onBack }) {
       })
       .catch(() => { if (!cancelled) setAddress(null); });
     return () => { cancelled = true; };
-  }, [selected]);
+  }, [selected, lang]);
 
   const centerOnUser = () => {
     if (userPos && mapRef.current) mapRef.current.setView(userPos, 16);
@@ -356,9 +358,9 @@ export default function ScooterApp({ onBack }) {
       <header className="header">
         <div className="header-logo">
           <span style={{ fontSize: 22, lineHeight: 1 }}>🛴</span>
-          <span className="logo-text">Monopattini</span>
+          <span className="logo-text">{t('scooter.title')}</span>
         </div>
-        <button className="scooter-back-btn" onClick={onBack}>⌂ Home</button>
+        <button className="scooter-back-btn" onClick={onBack}>{t('scooter.home')}</button>
       </header>
 
       {/* Provider pills */}
@@ -373,7 +375,7 @@ export default function ScooterApp({ onBack }) {
           >
             <span className="scooter-pill-dot" style={{ background: p.color }} />
             {p.name}
-            {p.comingSoon && <span className="scooter-pill-tag">presto</span>}
+            {p.comingSoon && <span className="scooter-pill-tag">{t('scooter.soon')}</span>}
           </button>
         ))}
       </div>
@@ -383,25 +385,25 @@ export default function ScooterApp({ onBack }) {
         <div ref={mapDivRef} className="scooter-map" />
 
         {error && !loading && (
-          <div className="scooter-map-overlay error">⚠ {error}</div>
+          <div className="scooter-map-overlay error">⚠ {t(error)}</div>
         )}
         {!provider?.gbfsUrl && !loading && (
           <div className="scooter-map-overlay info">
-            Posizioni live non disponibili per {provider?.name}
+            {t('scooter.noLivePositions', { name: provider?.name })}
           </div>
         )}
         {loading && (
-          <div className="scooter-map-overlay loading">Caricamento…</div>
+          <div className="scooter-map-overlay loading">{t('scooter.loading')}</div>
         )}
 
         {userPos && (
-          <button className="scooter-locate" onClick={centerOnUser} title="La mia posizione">
+          <button className="scooter-locate" onClick={centerOnUser} title={t('scooter.myPosition')}>
             ◎
           </button>
         )}
         {lastUpdate && (
           <div className="scooter-timestamp">
-            {lastUpdate.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })}
+            {lastUpdate.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' })}
           </div>
         )}
       </div>
@@ -424,20 +426,20 @@ export default function ScooterApp({ onBack }) {
           <div className="scooter-detail-stats">
             {batt != null && (
               <div className="scooter-detail-stat">
-                <div className="scooter-detail-label">Batteria</div>
+                <div className="scooter-detail-label">{t('scooter.battery')}</div>
                 <BattBar pct={batt} />
               </div>
             )}
             {range != null && (
               <div className="scooter-detail-stat">
-                <div className="scooter-detail-label">Autonomia</div>
+                <div className="scooter-detail-label">{t('scooter.range')}</div>
                 <div className="scooter-detail-value">~{Math.round(range / 1000)} km</div>
               </div>
             )}
             {batt == null && range == null && (
               <div className="scooter-detail-stat">
-                <div className="scooter-detail-label">Stato</div>
-                <div className="scooter-detail-value" style={{ color: '#C8F135' }}>Disponibile</div>
+                <div className="scooter-detail-label">{t('scooter.status')}</div>
+                <div className="scooter-detail-value" style={{ color: '#C8F135' }}>{t('scooter.available')}</div>
               </div>
             )}
           </div>
@@ -451,7 +453,7 @@ export default function ScooterApp({ onBack }) {
               style={{ '--pc': provider?.color ?? '#888' }}
               onClick={(e) => handleUnlockClick(e, unlockUrl(selected))}
             >
-              Sblocca con {provider?.name} →
+              {t('scooter.unlock', { name: provider?.name })}
             </a>
           )}
         </div>
@@ -464,12 +466,12 @@ export default function ScooterApp({ onBack }) {
                 <span style={{ color: 'var(--muted)' }}>—</span>
               ) : (
                 <>
-                  <strong>{scooters.length}</strong> disponibili
-                  {nearbyCount !== null && <> · <strong>{nearbyCount}</strong> a 500&nbsp;m</>}
+                  <strong>{scooters.length}</strong> {t('scooter.availableCount')}
+                  {nearbyCount !== null && <> · <strong>{nearbyCount}</strong> {t('scooter.nearby')}</>}
                 </>
               )
             ) : (
-              <span style={{ color: 'var(--muted)' }}>Nessun dato live</span>
+              <span style={{ color: 'var(--muted)' }}>{t('scooter.noLiveData')}</span>
             )}
             <button
               className="scooter-refresh"
@@ -487,7 +489,7 @@ export default function ScooterApp({ onBack }) {
               style={{ '--pc': provider?.color ?? '#888' }}
               onClick={(e) => handleUnlockClick(e, bottomScanUrl)}
             >
-              Sblocca con {provider?.name} →
+              {t('scooter.unlock', { name: provider?.name })}
             </a>
           ) : !provider?.comingSoon && (
             <button
@@ -495,7 +497,7 @@ export default function ScooterApp({ onBack }) {
               style={{ '--pc': provider?.color ?? '#888' }}
               onClick={() => setShowModal(true)}
             >
-              Sblocca con {provider?.name} →
+              {t('scooter.unlock', { name: provider?.name })}
             </button>
           )}
         </div>
@@ -508,14 +510,14 @@ export default function ScooterApp({ onBack }) {
             <div className="scooter-modal-icon">🎟️</div>
             {provider?.promoHeadline ? (
               <div className="scooter-modal-headline">
-                {provider.promoHeadline.map((line, i) => (
+                {t(provider.promoHeadline).map((line, i) => (
                   <span key={i} className={`promo-h promo-h-${i + 1}`}>{line}</span>
                 ))}
               </div>
             ) : (
               <div className="scooter-modal-title">PASS MOVÌ CT · 1,99 €</div>
             )}
-            <div className="scooter-modal-msg">{provider?.promoNote}</div>
+            <div className="scooter-modal-msg">{provider?.promoNote && t(provider.promoNote)}</div>
             <a
               href={promoUrl}
               target="_blank"
@@ -524,10 +526,10 @@ export default function ScooterApp({ onBack }) {
               style={{ background: provider?.color ?? '#111' }}
               onClick={() => setTimeout(() => setPromoUrl(null), 0)}
             >
-              Ho capito,<br />apri {provider?.name} →
+              {t('scooter.gotIt')}<br />{t('scooter.openApp', { name: provider?.name })}
             </a>
             <button className="scooter-modal-cancel" onClick={() => setPromoUrl(null)}>
-              Annulla
+              {t('scooter.cancel')}
             </button>
           </div>
         </div>
@@ -539,7 +541,7 @@ export default function ScooterApp({ onBack }) {
           <div className="scooter-modal" onClick={e => e.stopPropagation()}>
             <div className="scooter-modal-icon">🛴</div>
             <div className="scooter-modal-title">{provider?.name}</div>
-            <div className="scooter-modal-msg">Servizio ancora non attivo a Catania</div>
+            <div className="scooter-modal-msg">{t('scooter.notActive')}</div>
             <button className="scooter-modal-btn" onClick={() => setShowModal(false)}>OK</button>
           </div>
         </div>

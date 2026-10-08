@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { useI18n } from "../i18n";
 
 // In produzione usa il proxy Vercel; in locale usa il mock integrato
 const USE_MOCK = import.meta.env.DEV;
@@ -96,6 +97,7 @@ function ScooterPin({ x, y, scooter, selected, onClick }) {
 
 // ─── MAIN ────────────────────────────────────────────────────────────────────
 export default function LimeLive({ onBack }) {
+  const { t, locale } = useI18n();
   const [scooters, setScooters] = useState([]);
   const [selected, setSelected] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -137,8 +139,8 @@ export default function LimeLive({ onBack }) {
   }, [fetchData]);
 
   useEffect(() => {
-    const t = setInterval(() => setCountdown(c => Math.max(0, c - 1)), 1000);
-    return () => clearInterval(t);
+    const timer = setInterval(() => setCountdown(c => Math.max(0, c - 1)), 1000);
+    return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -191,13 +193,13 @@ export default function LimeLive({ onBack }) {
           }}>🛴</div>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 16, fontWeight: 700, color: "#fff" }}>
-              Lime · Catania Live
+              {t('scooter.live.title')}
             </div>
             <div style={{ fontSize: 10, color: "#6b8aaa" }}>
               {lastUpdate
-                ? `Aggiornato: ${lastUpdate.toLocaleTimeString("it-IT")}`
-                : "Caricamento…"}
-              {" · "}fonte: <span style={{ color: source === "live" ? "#C8F135" : "#FFB347" }}>
+                ? t('scooter.live.updated', { time: lastUpdate.toLocaleTimeString(locale) })
+                : t('scooter.live.loading')}
+              {" · "}{t('scooter.live.source')} <span style={{ color: source === "live" ? "#C8F135" : "#FFB347" }}>
                 {source}
               </span>
             </div>
@@ -216,10 +218,10 @@ export default function LimeLive({ onBack }) {
         {/* STATS BAR */}
         <div style={{ display: "flex", gap: 6 }}>
           {[
-            { label: "Totale", val: stats.total, color: "#e8e4dc" },
-            { label: "Alta 🟢", val: stats.high, color: "#C8F135" },
-            { label: "Media 🟡", val: stats.mid, color: "#FFB347" },
-            { label: "Bassa 🔴", val: stats.low, color: "#FF6B6B" },
+            { label: t('scooter.live.total'), val: stats.total, color: "#e8e4dc" },
+            { label: t('scooter.live.high'), val: stats.high, color: "#C8F135" },
+            { label: t('scooter.live.mid'), val: stats.mid, color: "#FFB347" },
+            { label: t('scooter.live.low'), val: stats.low, color: "#FF6B6B" },
           ].map(s => (
             <div key={s.label} style={{
               flex: 1, background: "#070d16", borderRadius: 8,
@@ -235,9 +237,9 @@ export default function LimeLive({ onBack }) {
       {/* FILTRI */}
       <div style={{ display: "flex", gap: 6, padding: "10px 16px 0" }}>
         {[
-          { id: "all", label: "Tutti" },
-          { id: "high", label: "🟢 Alta batteria" },
-          { id: "low", label: "🔴 Bassa batteria" },
+          { id: "all", label: t('scooter.live.all') },
+          { id: "high", label: t('scooter.live.highBatt') },
+          { id: "low", label: t('scooter.live.lowBatt') },
         ].map(f => (
           <button key={f.id} onClick={() => setFilter(f.id)} style={{
             flex: 1, padding: "6px 4px", border: "none", borderRadius: 8,
@@ -279,7 +281,7 @@ export default function LimeLive({ onBack }) {
             <rect x={W * 0.94} y={0} width={W * 0.06} height={H}
               fill="#0a1e3a" opacity={0.7} />
             <text x={W * 0.96} y={H * 0.5} fill="#1e4080" fontSize={9}
-              fontFamily="monospace" writingMode="tb">MAR IONIO</text>
+              fontFamily="monospace" writingMode="tb">{t('scooter.live.sea')}</text>
 
             {/* Etna (nord-ovest) */}
             <polygon
@@ -332,7 +334,7 @@ export default function LimeLive({ onBack }) {
         }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 10 }}>
             <div>
-              <div style={{ fontSize: 10, color: "#6b8aaa", marginBottom: 2 }}>SCOOTER SELEZIONATO</div>
+              <div style={{ fontSize: 10, color: "#6b8aaa", marginBottom: 2 }}>{t('scooter.live.selected')}</div>
               <div style={{ fontSize: 13, fontWeight: 700, color: "#fff" }}>
                 {selectedScooter.bike_id}
               </div>
@@ -351,11 +353,11 @@ export default function LimeLive({ onBack }) {
 
           <div style={{ display: "flex", gap: 8, marginBottom: 10 }}>
             <div style={{ flex: 1, background: "#070d16", borderRadius: 8, padding: "10px" }}>
-              <div style={{ fontSize: 10, color: "#6b8aaa", marginBottom: 4 }}>Batteria</div>
+              <div style={{ fontSize: 10, color: "#6b8aaa", marginBottom: 4 }}>{t('scooter.battery')}</div>
               <BattBar pct={selectedScooter.current_fuel_percent} />
             </div>
             <div style={{ flex: 1, background: "#070d16", borderRadius: 8, padding: "10px" }}>
-              <div style={{ fontSize: 10, color: "#6b8aaa", marginBottom: 4 }}>Autonomia</div>
+              <div style={{ fontSize: 10, color: "#6b8aaa", marginBottom: 4 }}>{t('scooter.range')}</div>
               <div style={{ fontSize: 14, fontWeight: 700, color: "#fff" }}>
                 ~{Math.round(selectedScooter.current_range_meters / 1000)} km
               </div>
@@ -374,7 +376,7 @@ export default function LimeLive({ onBack }) {
               textDecoration: "none",
             }}
           >
-            🛴 Apri in Lime App
+            {t('scooter.live.openLime')}
           </a>
         </div>
       ) : (
@@ -385,14 +387,14 @@ export default function LimeLive({ onBack }) {
           borderRadius: 12, padding: "12px 16px",
           textAlign: "center", color: "#6b8aaa", fontSize: 12,
         }}>
-          Tocca uno scooter sulla mappa per i dettagli
+          {t('scooter.live.tapHint')}
         </div>
       )}
 
       {/* LISTA SCOOTER */}
       <div style={{ padding: "12px 16px 0" }}>
         <div style={{ fontSize: 10, color: "#6b8aaa", letterSpacing: 1, marginBottom: 8 }}>
-          SCOOTER DISPONIBILI ({filtered.length})
+          {t('scooter.live.list', { n: filtered.length })}
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 6, maxHeight: 280, overflowY: "auto" }}>
           {[...filtered]
@@ -433,7 +435,7 @@ export default function LimeLive({ onBack }) {
       </div>
 
       {/* HOME BUTTON */}
-      <button className="home-btn" onClick={onBack}>⌂ Home</button>
+      <button className="home-btn" onClick={onBack}>{t('scooter.home')}</button>
     </div>
   );
 }

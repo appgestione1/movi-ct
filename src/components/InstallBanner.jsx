@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useI18n } from '../i18n';
 
 // Banner "Installa Movì CT" (come in disco-app/Event).
 // - Android/Chrome: intercetta beforeinstallprompt e mostra il bottone "Installa".
 // - iOS Safari: nessun beforeinstallprompt → mostra le istruzioni manuali.
 // - Già installata (display standalone) o chiusa nella sessione → non appare.
 export default function InstallBanner() {
+  const { t } = useI18n();
   const [show, setShow] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
 
@@ -61,17 +63,17 @@ export default function InstallBanner() {
     <div className="install-banner">
       <img src="/movi-icon.svg" alt="Movì CT" className="install-banner-icon" />
       <div className="install-banner-text">
-        <p className="install-banner-title">Installa Movì CT</p>
+        <p className="install-banner-title">{t('common.install.title')}</p>
         <p className="install-banner-sub">
           {isIOS
-            ? 'In Safari: tocca ⬆️ Condividi in basso, poi "Aggiungi alla schermata Home"'
-            : 'Aggiungila alla schermata Home per usarla a tutto schermo'}
+            ? t('common.install.iosHint')
+            : t('common.install.hint')}
         </p>
       </div>
       {!isIOS && deferredPrompt && (
-        <button className="install-banner-btn" onClick={handleInstall}>Installa</button>
+        <button className="install-banner-btn" onClick={handleInstall}>{t('common.install.button')}</button>
       )}
-      <button className="install-banner-close" onClick={handleDismiss} aria-label="Chiudi">×</button>
+      <button className="install-banner-close" onClick={handleDismiss} aria-label={t('common.close')}>×</button>
     </div>
   );
 }

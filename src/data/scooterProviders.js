@@ -16,14 +16,9 @@ export const SCOOTER_PROVIDERS = [
     // PASS MOVÌ CT (da Fabrizio/Elérent) è il più sicuro.
     subscriptionUrl:
       'https://elerent.app.link/?$deeplink_path=subscriptions&$fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.elerent.elerent',
-    promoHeadline: ['PASS MOVÌ CT', 'VAI IN MONOPATTINO', '1,99 € ALL INCLUDED'],
-    promoNote:
-      'Una volta nell\'app\n' +
-      'vai in "Abbonamenti"\n' +
-      'e scegli il PASS MOVÌ CT a 1,99 €\n' +
-      '(1 sblocco + 15 minuti)\n' +
-      'l\'offerta dedicata a Movì CT\n' +
-      'senza costi nascosti, nessun sblocco o minuto extra a pagamento.',
+    // Testi promo tradotti in src/i18n/locales/scooter.js (chiavi i18n).
+    promoHeadline: 'scooter.promoHeadline',
+    promoNote: 'scooter.promoNote',
     scanUrl: 'https://elerent.com/',
     appStoreUrl: 'https://apps.apple.com/app/id1518090808',
     playStoreUrl: 'https://play.google.com/store/apps/details?id=com.elerent.elerent',

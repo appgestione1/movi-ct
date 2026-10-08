@@ -6,6 +6,7 @@ import {
   loadPopupVideoBlobUrl,
   VIDEO_SENTINEL,
 } from '../utils/popupStorage';
+import { useI18n } from '../i18n';
 
 function getYoutubeEmbed(url) {
   if (!url) return null;
@@ -14,6 +15,7 @@ function getYoutubeEmbed(url) {
 }
 
 export default function PopupAd({ section, onClose }) {
+  const { t } = useI18n();
   const [popup, setPopup] = useState(null);
   const [videoSrc, setVideoSrc] = useState(null); // blob URL per video da galleria
   // Proviamo a partire CON audio (come la disco-app: il popup si apre subito
@@ -92,7 +94,7 @@ export default function PopupAd({ section, onClose }) {
   return (
     <div className="popup-ad-overlay" onClick={onClose}>
       <div className="popup-ad-card" onClick={e => e.stopPropagation()}>
-        <button className="popup-ad-close" onClick={onClose} aria-label="Chiudi">×</button>
+        <button className="popup-ad-close" onClick={onClose} aria-label={t('common.close')}>×</button>
 
         {popup.type === 'image' && popup.imageUrl && (
           <img className="popup-ad-media" src={popup.imageUrl} alt={popup.title || 'Ad'} />
@@ -125,9 +127,9 @@ export default function PopupAd({ section, onClose }) {
                 type="button"
                 className="popup-ad-unmute"
                 onClick={(e) => { e.stopPropagation(); enableSound(); }}
-                aria-label="Attiva audio"
+                aria-label={t('common.enableSound')}
               >
-                🔊 Tocca per l'audio
+                {t('common.tapForSound')}
               </button>
             )}
           </div>
