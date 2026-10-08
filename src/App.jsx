@@ -11,7 +11,7 @@ import TreniApp from './components/TreniApp';
 import PopupAd from './components/PopupAd';
 import InstallBanner from './components/InstallBanner';
 import LanguagePicker from './components/LanguagePicker';
-import { isExplicit } from './i18n';
+import { isExplicit, useI18n, getLocale } from './i18n';
 import SecretLogin from './components/SecretLogin';
 import SecretAdminPanel from './components/SecretAdminPanel';
 import { shouldShowPopup, startSync, onPopupsChange } from './utils/popupStorage';
@@ -20,7 +20,7 @@ import { getNextTrains } from './utils/calculator';
 import './App.css';
 
 function formatTime(date) {
-  return date.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+  return date.toLocaleTimeString(getLocale(), { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 }
 
 function load(key) {
@@ -30,6 +30,7 @@ function save(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
 
 // ── Metro view ─────────────────────────────────────────────────
 function MetroApp({ onBack }) {
+  const { t } = useI18n();
   const [route, setRoute] = useState(load('metro-route'));
   const [showOnboarding, setShowOnboarding] = useState(true);
   const [now, setNow] = useState(new Date());
@@ -90,7 +91,7 @@ function MetroApp({ onBack }) {
         <div className="header-time">{formatTime(now)}</div>
       </header>
 
-      <button className="home-btn" onClick={onBack}>⌂ Home</button>
+      <button className="home-btn" onClick={onBack}>{t('metro.home')}</button>
 
       <div className="metro-body">
         <div className="metro-content">
@@ -111,10 +112,10 @@ function MetroApp({ onBack }) {
             <div className="next-row">
               {relevantTrains.length >= 2 && (
                 <button className={`next-btn ${showNext ? 'active' : ''}`} onClick={() => setShowNext(v => !v)}>
-                  {showNext ? '← Precedente' : 'Prossimo →'}
+                  {showNext ? t('metro.prev') : t('metro.next')}
                 </button>
               )}
-              {relevantTrains.length < 2 && <span className="next-empty">Nessun altro treno</span>}
+              {relevantTrains.length < 2 && <span className="next-empty">{t('metro.noOther')}</span>}
             </div>
           </section>
 
@@ -122,10 +123,10 @@ function MetroApp({ onBack }) {
             className="btn-nuova-ricerca btn-nr-metro"
             onClick={() => setShowOnboarding(true)}
           >
-            🔍 Nuova Ricerca
+            {t('metro.newSearch')}
           </button>
 
-          <footer className="footer"><p>Stime basate sull&apos;orario FCE — dati non ufficiali</p></footer>
+          <footer className="footer"><p>{t('metro.footer')}</p></footer>
         </div>
 
         <div className="metro-sidebar">
@@ -148,9 +149,13 @@ function BusApp({ onBack }) {
   function handleJourneyComplete(journey) {
     let route;
     if (journey.type === 'transfer') {
-      const transferInfo = journey.legs === 3
-        ? `poi cambia: Linea ${journey.leg2RouteShort} → ${journey.transfer2Stop.name}, poi Linea ${journey.leg3RouteShort} → ${journey.destStop.name}`
-        : `poi cambia: Linea ${journey.leg2RouteShort} → ${journey.destStop.name}`;
+      // Strutturato (non stringa) cosi BusView lo rende nella lingua corrente
+      const transferLegs = journey.legs === 3
+        ? [
+            { routeShort: journey.leg2RouteShort, stopName: journey.transfer2Stop.name },
+            { routeShort: journey.leg3RouteShort, stopName: journey.destStop.name },
+          ]
+        : [{ routeShort: journey.leg2RouteShort, stopName: journey.destStop.name }];
       route = {
         routeId:      journey.leg1RouteId,
         routeShort:   journey.leg1RouteShort,
@@ -160,7 +165,7 @@ function BusApp({ onBack }) {
         direction:    journey.leg1Direction,
         destStopName: journey.transferStop.name,
         walkMeters:   0,
-        transferInfo,
+        transferLegs,
       };
     } else {
       route = {

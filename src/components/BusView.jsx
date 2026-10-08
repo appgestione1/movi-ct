@@ -1,20 +1,23 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useI18n } from '../i18n';
 import { fetchRouteData, getDayType, getStopsForDirection, getNextDepartures } from '../utils/busCalculator';
 
 function BusDepartureCard({ dep, isFirst }) {
+  const { t } = useI18n();
   const isImminent = dep.minsFromNow <= 2;
   return (
     <div className={`bus-dep-card ${isFirst ? 'bus-dep-first' : ''} ${isImminent ? 'imminent-card' : ''}`}>
-      {isImminent && <span className="badge-imminent">IN ARRIVO</span>}
+      {isImminent && <span className="badge-imminent">{t('bus.arriving')}</span>}
       <div className="bus-dep-time">{dep.time}</div>
       <div className="bus-dep-wait">
-        {dep.minsFromNow === 0 ? 'Adesso' : `tra ${dep.minsFromNow} min`}
+        {dep.minsFromNow === 0 ? t('bus.now') : t('bus.inMin', { n: dep.minsFromNow })}
       </div>
     </div>
   );
 }
 
 export default function BusView({ route, onChangeRoute, onBack }) {
+  const { t, locale } = useI18n();
   // route = { routeId, routeName, routeShort, stopId, stopName, direction }
   const [now, setNow]           = useState(new Date());
   const [routeData, setRouteData] = useState(null);
@@ -39,10 +42,10 @@ export default function BusView({ route, onChangeRoute, onBack }) {
   }, [refresh]);
 
   function formatTime(d) {
-    return d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+    return d.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   }
 
-  const dayLabel = { feriale: 'Feriale', sabato: 'Sabato', domenica: 'Domenica/Festivo' }[getDayType()] ?? '';
+  const dayLabel = { feriale: t('bus.dayFeriale'), sabato: t('bus.daySabato'), domenica: t('bus.dayDomenica') }[getDayType()] ?? '';
 
   return (
     <div className="app">
@@ -56,7 +59,7 @@ export default function BusView({ route, onChangeRoute, onBack }) {
         <div className="header-time">{formatTime(now)}</div>
       </header>
 
-      {onBack && <button className="home-btn" onClick={onBack}>⌂ Home</button>}
+      {onBack && <button className="home-btn" onClick={onBack}>{t('bus.home')}</button>}
 
       {/* Route + stop info */}
       <section className="route-section">
@@ -68,7 +71,7 @@ export default function BusView({ route, onChangeRoute, onBack }) {
               <span className="route-to">{route.destStopName}</span>
             </>
           ) : (
-            <span className="route-from">🚌 {route.routeName}</span>
+            <span className="route-from">🚌 {t('bus.line', { n: route.routeShort })}</span>
           )}
         </div>
       </section>
@@ -80,10 +83,16 @@ export default function BusView({ route, onChangeRoute, onBack }) {
           <span className="bus-day-label">{dayLabel}</span>
         </div>
         {route.walkMeters > 0 && (
-          <div className="bus-walk-info">🚶 poi cammina {route.walkMeters}m fino alla destinazione</div>
+          <div className="bus-walk-info">{t('bus.walkThen', { m: route.walkMeters })}</div>
         )}
-        {route.transferInfo && (
-          <div className="bus-transfer-info">🔄 {route.transferInfo}</div>
+        {(route.transferLegs || route.transferInfo) && (
+          <div className="bus-transfer-info">
+            🔄 {route.transferLegs
+              ? route.transferLegs.map((l, i) =>
+                  t(i === 0 ? 'bus.transferFirst' : 'bus.transferThen', { line: l.routeShort, stop: l.stopName })
+                ).join(', ')
+              : route.transferInfo}
+          </div>
         )}
       </section>
 
@@ -96,18 +105,18 @@ export default function BusView({ route, onChangeRoute, onBack }) {
         ) : (
           <div className="train-card no-train" style={{ margin: '0 20px' }}>
             <p className="no-service">
-              {routeData ? 'Nessuna altra corsa oggi da questa fermata.' : 'Carico orari…'}
+              {routeData ? t('bus.noMoreRuns') : t('bus.loadingTimes')}
             </p>
           </div>
         )}
       </section>
 
       <button className="btn-nuova-ricerca btn-nr-bus" onClick={onChangeRoute}>
-        🔍 Nuova Ricerca
+        {t('bus.newSearch')}
       </button>
 
       <footer className="footer">
-        <p>Orari programmati AMTS · Aggiornamento ogni 30 secondi</p>
+        <p>{t('bus.footer')}</p>
       </footer>
     </div>
   );

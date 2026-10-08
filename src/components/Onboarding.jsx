@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { STATIONS } from '../data/schedule';
+import { useI18n } from '../i18n';
 
 export default function Onboarding({ onComplete, onBack }) {
+  const { t } = useI18n();
   const [step, setStep] = useState(1);
   const [boardingIdx, setBoardingIdx] = useState(null);
 
@@ -18,8 +20,8 @@ export default function Onboarding({ onComplete, onBack }) {
     <div className="onboarding">
       <div className="ob-header">
         <div className="logo-badge" style={{ marginBottom: 8 }}>M</div>
-        <h1 className="ob-title">Metro CT</h1>
-        <p className="ob-sub">Metropolitana FCE · Catania</p>
+        <h1 className="ob-title">{t('metro.title')}</h1>
+        <p className="ob-sub">{t('metro.sub')}</p>
       </div>
 
       <div className="ob-card">
@@ -27,7 +29,7 @@ export default function Onboarding({ onComplete, onBack }) {
           <>
             <p className="ob-question">
               <span className="ob-step">1/2</span>
-              Da dove sali?
+              {t('metro.whereFrom')}
             </p>
             <div className="ob-grid">
               {STATIONS.map((s, i) => (
@@ -41,7 +43,7 @@ export default function Onboarding({ onComplete, onBack }) {
           <>
             <p className="ob-question">
               <span className="ob-step">2/2</span>
-              Dove vuoi andare?
+              {t('metro.whereTo')}
             </p>
             <div className="ob-selected-route">
               <span className="ob-from">{STATIONS[boardingIdx].name}</span>
@@ -63,13 +65,13 @@ export default function Onboarding({ onComplete, onBack }) {
               })}
             </div>
             <button className="ob-back" onClick={() => setStep(1)}>
-              ← Cambia stazione di partenza
+              {t('metro.changeStart')}
             </button>
           </>
         )}
       </div>
 
-      {onBack && <button className="home-btn" onClick={onBack}>⌂ Home</button>}
+      {onBack && <button className="home-btn" onClick={onBack}>{t('metro.home')}</button>}
     </div>
   );
 }

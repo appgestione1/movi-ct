@@ -1,5 +1,6 @@
 import FlipNumber from './FlipNumber';
 import { STATIONS } from '../data/schedule';
+import { useI18n } from '../i18n';
 
 function ProgressBar({ direction, interpolatedPos }) {
   if (interpolatedPos === null || interpolatedPos === undefined) return null;
@@ -25,6 +26,7 @@ function ProgressBar({ direction, interpolatedPos }) {
 }
 
 export default function TrainCard({ train, direction, travelMins }) {
+  const { t } = useI18n();
   const isToStesicoro = direction === 'stesicoro';
   const label = isToStesicoro ? '→ Stesicoro' : '→ Monte Po';
   const color = isToStesicoro ? '#e63946' : '#4fc3f7';
@@ -40,12 +42,12 @@ export default function TrainCard({ train, direction, travelMins }) {
         <span className="direction-label" style={{ color, textShadow: `0 0 12px ${color}` }}>
           {label}
         </span>
-        {isImminent && <span className="badge-imminent">IN ARRIVO</span>}
+        {isImminent && <span className="badge-imminent">{t('metro.arriving')}</span>}
       </div>
 
       {train.currentStation && (
         <p className="current-pos">
-          Treno a <strong>{train.currentStation}</strong>
+          {t('metro.trainAt')} <strong>{train.currentStation}</strong>
         </p>
       )}
 
@@ -58,18 +60,18 @@ export default function TrainCard({ train, direction, travelMins }) {
         {isImminent ? (
           <div className="countdown-imminent">
             <span className="secs-big">{train.secsToArrive}</span>
-            <span className="secs-unit">sec</span>
+            <span className="secs-unit">{t('metro.sec')}</span>
           </div>
         ) : (
           <div className="countdown-display">
             <div className="countdown-block">
               <FlipNumber value={mins} />
-              <span className="countdown-label">min</span>
+              <span className="countdown-label">{t('metro.min')}</span>
             </div>
             <span className="countdown-colon">:</span>
             <div className="countdown-block">
               <FlipNumber value={secs} />
-              <span className="countdown-label">sec</span>
+              <span className="countdown-label">{t('metro.sec')}</span>
             </div>
           </div>
         )}
@@ -77,8 +79,8 @@ export default function TrainCard({ train, direction, travelMins }) {
       </div>
       {travelMins != null && (
         <div className="travel-time-row">
-          <span className="travel-time-label">🚆 Percorso</span>
-          <span className="travel-time-value">{travelMins} min</span>
+          <span className="travel-time-label">{t('metro.journey')}</span>
+          <span className="travel-time-value">{t('metro.minutes', { n: travelMins })}</span>
         </div>
       )}
     </div>
@@ -86,6 +88,7 @@ export default function TrainCard({ train, direction, travelMins }) {
 }
 
 export function NoTrainCard({ direction, travelMins }) {
+  const { t } = useI18n();
   const isToStesicoro = direction === 'stesicoro';
   const label = isToStesicoro ? '→ Stesicoro' : '→ Monte Po';
   const color = isToStesicoro ? '#e63946' : '#4fc3f7';
@@ -94,11 +97,11 @@ export function NoTrainCard({ direction, travelMins }) {
       <div className="train-card-header">
         <span className="direction-label" style={{ color }}>{label}</span>
       </div>
-      <p className="no-service">Nessun treno nei prossimi 90 minuti</p>
+      <p className="no-service">{t('metro.noTrain')}</p>
       {travelMins != null && (
         <div className="travel-time-row">
-          <span className="travel-time-label">🚆 Percorso</span>
-          <span className="travel-time-value">{travelMins} min</span>
+          <span className="travel-time-label">{t('metro.journey')}</span>
+          <span className="travel-time-value">{t('metro.minutes', { n: travelMins })}</span>
         </div>
       )}
     </div>

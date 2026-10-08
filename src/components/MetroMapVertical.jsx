@@ -1,4 +1,5 @@
 import { STATIONS } from '../data/schedule';
+import { useI18n } from '../i18n';
 
 const STATION_H = 50;
 const SVG_H = STATIONS.length * STATION_H;
@@ -11,9 +12,10 @@ const N = STATIONS.length;
 function fy(idx) { return (N - 1 - idx) * STATION_H + STATION_H / 2; }
 
 export default function MetroMapVertical({ selectedIdx, destinationIdx, trainPositions = [] }) {
+  const { t } = useI18n();
   return (
     <div className="metro-vertical-wrap">
-      <svg width={SVG_W} height={SVG_H} aria-label="Linea metro FCE">
+      <svg width={SVG_W} height={SVG_H} aria-label={t('metro.mapLabel')}>
         <defs>
           <filter id="vglow-red" x="-80%" y="-20%" width="260%" height="140%">
             <feGaussianBlur stdDeviation="3" result="blur" />

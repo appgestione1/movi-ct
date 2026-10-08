@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useI18n } from '../i18n';
 import { fetchRoutes, fetchRouteData, getDayType, getStopsForDirection } from '../utils/busCalculator';
 
 export default function BusOnboarding({ onComplete, onBack }) {
+  const { t } = useI18n();
   const [step, setStep]           = useState(1);
   const [routes, setRoutes]       = useState([]);
   const [selectedRoute, setRoute] = useState(null);
@@ -41,9 +43,9 @@ export default function BusOnboarding({ onComplete, onBack }) {
   return (
     <div className="onboarding">
       <div className="ob-header">
-        <button className="ob-back-top" onClick={onBack}>← Indietro</button>
+        <button className="ob-back-top" onClick={onBack}>{t('bus.back')}</button>
         <div className="logo-badge" style={{ margin: '8px auto' }}>🚌</div>
-        <h1 className="ob-title">Bus AMTS</h1>
+        <h1 className="ob-title">{t('bus.title')}</h1>
       </div>
 
       <div className="ob-card">
@@ -51,12 +53,12 @@ export default function BusOnboarding({ onComplete, onBack }) {
           <>
             <p className="ob-question">
               <span className="ob-step">1/2</span>
-              Che linea prendi?
+              {t('bus.whichLine')}
             </p>
             <input
               className="ob-search"
               type="text"
-              placeholder="Cerca linea (es. 421, BRT1…)"
+              placeholder={t('bus.searchLine')}
               value={search}
               onChange={e => setSearch(e.target.value)}
               autoFocus
@@ -76,22 +78,22 @@ export default function BusOnboarding({ onComplete, onBack }) {
           <>
             <p className="ob-question">
               <span className="ob-step">2/2</span>
-              Linea <strong style={{ color: '#4fc3f7' }}>{selectedRoute?.short}</strong> — scegli fermata
+              {t('bus.lineWord')} <strong style={{ color: '#4fc3f7' }}>{selectedRoute?.short}</strong> — {t('bus.pickStop')}
             </p>
 
             {hasDir1 && (
               <div className="ob-dir-toggle">
                 <button className={`ob-dir-btn ${direction === '0' ? 'active' : ''}`} onClick={() => setDirection('0')}>
-                  Direzione A
+                  {t('bus.dirA')}
                 </button>
                 <button className={`ob-dir-btn ${direction === '1' ? 'active' : ''}`} onClick={() => setDirection('1')}>
-                  Direzione B
+                  {t('bus.dirB')}
                 </button>
               </div>
             )}
 
             {loading ? (
-              <p className="ob-loading">Carico fermate…</p>
+              <p className="ob-loading">{t('bus.loadingStops')}</p>
             ) : (
               <div className="ob-stops-list">
                 {stops.map((s, i) => (
@@ -100,11 +102,11 @@ export default function BusOnboarding({ onComplete, onBack }) {
                     <span className="ob-stop-name">{s.name}</span>
                   </button>
                 ))}
-                {stops.length === 0 && <p className="ob-loading">Nessuna fermata disponibile oggi.</p>}
+                {stops.length === 0 && <p className="ob-loading">{t('bus.noStopsToday')}</p>}
               </div>
             )}
 
-            <button className="ob-back" onClick={() => setStep(1)}>← Cambia linea</button>
+            <button className="ob-back" onClick={() => setStep(1)}>{t('bus.changeLine')}</button>
           </>
         )}
       </div>
