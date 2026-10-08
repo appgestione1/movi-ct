@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import L from 'leaflet';
+import { useI18n } from '../i18n';
 import 'leaflet/dist/leaflet.css';
 
 const CATANIA = [37.5022, 15.0872];
@@ -34,6 +35,7 @@ function pinIcon() {
 }
 
 export default function StopMapPicker({ stopsIndex, field, onSelect, onClose }) {
+  const { t } = useI18n();
   const innerRef   = useRef(null);
   const mapRef     = useRef(null);
   const circlesRef = useRef(new Map());
@@ -46,7 +48,7 @@ export default function StopMapPicker({ stopsIndex, field, onSelect, onClose }) 
   const [geoMsg,       setGeoMsg]       = useState('');
   const [geoError,     setGeoError]     = useState('');
 
-  const label = field === 'origin' ? 'partenza' : 'destinazione';
+  const label = field === 'origin' ? t('bus.originWord') : t('bus.destWord');
 
   /* ── Inizializza mappa ── */
   useEffect(() => {
@@ -131,7 +133,7 @@ export default function StopMapPicker({ stopsIndex, field, onSelect, onClose }) 
   async function cerca() {
     const q = query.trim();
     if (!q) return;
-    if (!mapRef.current) { setGeoError('Mappa non pronta, riprova tra un secondo'); return; }
+    if (!mapRef.current) { setGeoError(t('bus.mapNotReady')); return; }
 
     setGeocoding(true);
     setGeoError('');
@@ -142,7 +144,7 @@ export default function StopMapPicker({ stopsIndex, field, onSelect, onClose }) 
       const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q + suffix)}&format=json&limit=1&countrycodes=it`;
       const data = await fetch(url).then(r => r.json());
 
-      if (!data.length) { setGeoError('Indirizzo non trovato'); return; }
+      if (!data.length) { setGeoError(t('bus.addressNotFound')); return; }
 
       const lat = parseFloat(data[0].lat);
       const lon = parseFloat(data[0].lon);
@@ -164,7 +166,7 @@ export default function StopMapPicker({ stopsIndex, field, onSelect, onClose }) 
       });
 
     } catch {
-      setGeoError('Errore di rete. Riprova.');
+      setGeoError(t('bus.networkError'));
     } finally {
       setGeocoding(false);
     }
@@ -179,14 +181,14 @@ export default function StopMapPicker({ stopsIndex, field, onSelect, onClose }) 
     <div className="smp-overlay">
       <div className="smp-topbar">
         <button className="smp-back" onClick={onClose}>←</button>
-        <span className="smp-title">Scegli fermata di {label}</span>
+        <span className="smp-title">{t('bus.pickStopFor', { label })}</span>
       </div>
 
       <div className="smp-search-row">
         <input
           className="smp-input"
           type="text"
-          placeholder="Cerca via o indirizzo…"
+          placeholder={t('bus.searchAddress')}
           value={query}
           onChange={e => { setQuery(e.target.value); setGeoError(''); setGeoMsg(''); }}
           onKeyDown={e => e.key === 'Enter' && cerca()}
@@ -210,11 +212,11 @@ export default function StopMapPicker({ stopsIndex, field, onSelect, onClose }) 
               {selectedStop.name}
             </div>
             <button className="smp-confirm" onClick={conferma}>
-              Usa come {label} →
+              {t('bus.useAs', { label })}
             </button>
           </div>
         ) : (
-          <div className="smp-hint">Tocca una fermata 🚏 sulla mappa</div>
+          <div className="smp-hint">{t('bus.tapStop')}</div>
         )}
       </div>
     </div>,

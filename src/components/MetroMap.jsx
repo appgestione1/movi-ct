@@ -1,4 +1,5 @@
 import { STATIONS } from '../data/schedule';
+import { useI18n } from '../i18n';
 
 const STATION_W = 76;
 const PADDING = 44;
@@ -8,13 +9,14 @@ const LINE_Y = 42;
 const DOT_R = 8;
 
 export default function MetroMap({ selectedIdx, destinationIdx, trainPositions = [], onSelectStation }) {
+  const { t } = useI18n();
   return (
     <div className="metro-map-wrap">
       <svg
         width={SVG_W}
         height={SVG_H}
         style={{ display: 'block', minWidth: SVG_W }}
-        aria-label="Linea metropolitana FCE"
+        aria-label={t('metro.mapLabelH')}
       >
         <defs>
           <filter id="glow-red" x="-40%" y="-40%" width="180%" height="180%">
