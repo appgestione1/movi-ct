@@ -461,3 +461,18 @@ Aggiorna questo file con le modifiche significative e committa.
 (da ATOM Mobility con API key a GBFS v3 senza chiave). Dati live GPS + batteria finalmente
 disponibili. Ogni scooter ha `rental_uris` con Branch link specifico per quel mezzo.
 Ultimo commit: vedi git log.
+
+## Sessione 08/10/2026 — home a griglia, multilingua, mappa monopattini
+
+- **Home** (`Landing.jsx`): griglia 2 colonne (array `TILES`), tessere Taxi e Parcheggi `soon` ("In arrivo",
+  disabilitate) in attesa delle sezioni vere. Pulsante lingua in alto a destra.
+- **Multilingua it/en/es/fr/de** come WHAT?: `src/i18n/index.js` (`useI18n()`, `t`, `getLocale`), testi in
+  `src/i18n/locales/<namespace>.js` uniti automaticamente per nome file (home, metro, bus, intercity,
+  scooter, treni, common). Lingua da `navigator.language`, scelta salvata in `movi.lang`. Al primo avvio
+  `LanguagePicker.jsx` prima della home; il popup home parte dopo la scelta. Pannello segreto resta in italiano.
+  Nomi propri (stazioni, fermate, vettori, città) e dati dei manifest non si traducono. Le note di
+  `intercityNetwork.js` sono tradotte nel locale `intercity` (i dati restano italiani: li leggono gli script .cjs).
+  Bus: `bus-journey` salva `transferLegs` (non più la stringa italiana `transferInfo`, letta ancora se presente).
+- **Mappa monopattini**: CARTO risponde "API KEY REQUIRED" su tutte le basemap → tile OpenStreetMap.
+- **Dott** tolto (non più in servizio a Catania). **Lime**: feed Catania ancora 404 → restano i dati mock
+  (scelta utente 08/10, finché non ci sono dati veri).
